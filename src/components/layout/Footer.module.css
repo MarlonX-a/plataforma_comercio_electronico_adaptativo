@@ -1,0 +1,160 @@
+.footer {
+  color: #cbd5e1;
+  background:
+    linear-gradient(135deg, rgba(15, 118, 110, 0.16), transparent 34%),
+    #0f172a;
+  border-top: 1px solid rgba(45, 212, 191, 0.18);
+}
+
+.footerInner {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 42px 0 34px;
+  display: grid;
+  grid-template-columns: minmax(260px, 1.4fr) repeat(3, minmax(150px, 1fr));
+  gap: 34px;
+}
+
+.projectInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.footerLogo {
+  width: 72px;
+  height: 72px;
+  display: block;
+  flex: 0 0 72px;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: center 36%;
+  box-shadow: 0 16px 34px rgba(34, 211, 238, 0.18);
+}
+
+.footerTitle,
+.sectionTitle {
+  margin: 0;
+  color: #f8fafc;
+  letter-spacing: 0;
+}
+
+.footerTitle {
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.sectionTitle {
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.description {
+  max-width: 380px;
+  margin-top: 8px;
+  color: #a7b4c7;
+  font-size: 0.95rem;
+}
+
+.footerSection {
+  text-align: left;
+}
+
+.developerList,
+.linkList {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  list-style: none;
+}
+
+.developerList {
+  color: #cbd5e1;
+  font-size: 0.94rem;
+}
+
+.linkList a {
+  color: #a7b4c7;
+  font-size: 0.94rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.linkList a:hover {
+  color: #67e8f9;
+}
+
+.socialList {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.socialList a {
+  width: 40px;
+  height: 40px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  color: #cbd5e1;
+  background: rgba(255, 255, 255, 0.04);
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+}
+
+.socialList a:hover {
+  color: #0f172a;
+  background: #5eead4;
+  border-color: #5eead4;
+}
+
+.legalBar {
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.legalBar p {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 16px 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+@media (max-width: 920px) {
+  .footerInner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .projectInfo {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .footerInner {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .projectInfo {
+    flex-direction: column;
+  }
+
+  .footerLogo {
+    width: 64px;
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .legalBar p {
+    text-align: left;
+  }
+}

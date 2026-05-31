@@ -1,0 +1,137 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.96);
+  border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(16px);
+}
+
+.nav {
+  width: min(1120px, calc(100% - 32px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.brand {
+  min-width: 240px;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  color: #f8fafc;
+  text-decoration: none;
+}
+
+.brandLogo {
+  width: 54px;
+  height: 54px;
+  display: block;
+  flex: 0 0 54px;
+  border-radius: 12px;
+  object-fit: cover;
+  object-position: center 36%;
+  box-shadow: 0 14px 30px rgba(34, 211, 238, 0.18);
+}
+
+.brandContent {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.brandName {
+  color: #f8fafc;
+  font-size: 1.03rem;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.brandSubtitle {
+  color: #94a3b8;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.navList {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  list-style: none;
+}
+
+.navLink {
+  min-height: 42px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 8px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 750;
+  line-height: 1.2;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.navLink:hover {
+  color: #ffffff;
+  background: rgba(45, 212, 191, 0.1);
+}
+
+.navLinkActive {
+  color: #ffffff;
+  background: rgba(14, 116, 144, 0.42);
+}
+
+.navLink:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 820px) {
+  .nav {
+    min-height: auto;
+    padding: 14px 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .navList {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .navLink {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 420px) {
+  .brandLogo {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+
+  .brandName {
+    white-space: normal;
+  }
+}

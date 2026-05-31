@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   return (
-    <>
-      <h1>Bienvenido a la tienda adaptativa</h1>
-      <p>
-        Plataforma de comercio electrónico enfocada en usabilidad y accesibilidad.
+    <section className="home-hero" aria-labelledby="home-title">
+      <p className="home-kicker">Compra inclusiva y simple</p>
+      <h1 id="home-title">Bienvenido a la tienda adaptativa</h1>
+      <p className="home-summary">
+        Plataforma de comercio electrónico enfocada en usabilidad, accesibilidad y navegación rápida.
       </p>
 
-      <Link to="/products">
+      <Link className="home-action" to="/products">
         Ver productos
       </Link>
-    </>
-  )
+    </section>
+  );
 }
