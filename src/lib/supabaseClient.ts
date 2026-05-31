@@ -2,10 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 import type { Database } from '../types/database.types';
 
 const supabaseUrl: string = import.meta.env.VITE_SUPABASE_URL;
-const supabasekey: string = import.meta.env.VITE_SUPABASE_KEY;
+const supabaseAnonKey: string = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabasekey) {
-    throw new Error('Faltan variables de entorno de Supabase.')
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Faltan variables de entorno de Supabase.');
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabasekey);
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);

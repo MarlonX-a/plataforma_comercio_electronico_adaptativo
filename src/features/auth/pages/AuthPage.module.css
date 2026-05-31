@@ -1,0 +1,241 @@
+.authPage {
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100svh - 220px);
+  margin: 0 auto;
+  padding: 64px 0;
+  display: grid;
+  place-items: center;
+}
+
+.authPanel {
+  width: min(100%, 520px);
+  padding: 34px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.kicker {
+  color: var(--accent-strong);
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.summary {
+  margin-top: 10px;
+  color: var(--text);
+}
+
+.form {
+  margin-top: 28px;
+  display: grid;
+  gap: 18px;
+}
+
+.fieldGroup {
+  display: grid;
+  gap: 7px;
+}
+
+.fieldGroup label {
+  color: var(--text-h);
+  font-size: 0.95rem;
+  font-weight: 750;
+}
+
+.fieldGroup input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--bg);
+  font: inherit;
+}
+
+.fieldGroup input::placeholder {
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+}
+
+.fieldGroup input:focus {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-bg);
+}
+
+.passwordInputWrapper {
+  position: relative;
+}
+
+.passwordInputWrapper input {
+  padding-right: 52px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+}
+
+.passwordToggle:hover {
+  color: var(--text-h);
+  background: var(--accent-bg);
+}
+
+.passwordToggle svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.passwordToggle:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 2px;
+}
+
+.helpText {
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.passwordStrength {
+  display: grid;
+  gap: 8px;
+}
+
+.passwordStrengthTrack {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-strong);
+}
+
+.passwordStrengthBar {
+  width: 0;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: #94a3b8;
+  transition:
+    width 180ms ease,
+    background-color 180ms ease;
+}
+
+.passwordStrength[data-strength='low'] .passwordStrengthBar {
+  width: 33%;
+  background: #dc2626;
+}
+
+.passwordStrength[data-strength='medium'] .passwordStrengthBar {
+  width: 66%;
+  background: #b7791f;
+}
+
+.passwordStrength[data-strength='high'] .passwordStrengthBar {
+  width: 100%;
+  background: #0f766e;
+}
+
+.passwordStrength[data-strength='low'] .helpText {
+  color: #991b1b;
+}
+
+.passwordStrength[data-strength='medium'] .helpText {
+  color: #92400e;
+}
+
+.passwordStrength[data-strength='high'] .helpText {
+  color: #065f46;
+}
+
+.matchMessage,
+.mismatchMessage {
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.matchMessage {
+  color: #065f46;
+}
+
+.mismatchMessage {
+  color: #991b1b;
+}
+
+.errorMessage,
+.successMessage {
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.errorMessage {
+  color: #7f1d1d;
+  background: #fee2e2;
+}
+
+.successMessage {
+  color: #064e3b;
+  background: #d1fae5;
+}
+
+.submitButton {
+  min-height: 50px;
+  border: 0;
+  border-radius: 8px;
+  color: #ffffff;
+  background: var(--accent);
+  box-shadow: var(--shadow);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.submitButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.switchText {
+  margin-top: 22px;
+  color: var(--text);
+  text-align: center;
+}
+
+.switchText a {
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.switchText a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 620px) {
+  .authPage {
+    min-height: auto;
+    padding: 42px 0;
+  }
+
+  .authPanel {
+    padding: 24px;
+  }
+}

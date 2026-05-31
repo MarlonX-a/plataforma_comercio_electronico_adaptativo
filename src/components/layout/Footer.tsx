@@ -57,6 +57,12 @@ export default function Footer() {
             <li>
               <Link to="/accessibility">Accesibilidad</Link>
             </li>
+            <li>
+              <Link to="/login">Iniciar sesión</Link>
+            </li>
+            <li>
+              <Link to="/register">Registro</Link>
+            </li>
           </ul>
         </nav>
 

@@ -23,7 +23,23 @@ export type LoginFormValues = {
 };
 
 export type RegisterFormValues = {
-  fullName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 };
+
+export type CompleteProfileFormValues = {
+  fullName: string;
+};
+
+export type PasswordStrengthLevel = 'empty' | 'low' | 'medium' | 'high';
+
+export type AuthOperationResult =
+  | {
+      isSuccess: true;
+      message: string;
+    }
+  | {
+      isSuccess: false;
+      message: string;
+    };
