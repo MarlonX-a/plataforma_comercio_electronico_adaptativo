@@ -93,6 +93,22 @@
     transform 160ms ease;
 }
 
+.cartCount {
+  min-width: 24px;
+  height: 24px;
+  margin-left: 8px;
+  padding: 0 6px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 8px;
+  color: #062321;
+  background: #5eead4;
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
 .navLink:hover {
   color: #ffffff;
   background: rgba(45, 212, 191, 0.1);
@@ -264,6 +280,44 @@
   background: rgba(45, 212, 191, 0.12);
 }
 
+:global(html[data-contrast='highContrast']) .header {
+  background: #000000;
+  border-bottom-color: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .navLink,
+:global(html[data-contrast='highContrast']) .authLink,
+:global(html[data-contrast='highContrast']) .profileButton {
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .navLink:hover,
+:global(html[data-contrast='highContrast']) .navLinkActive,
+:global(html[data-contrast='highContrast']) .authLink:hover,
+:global(html[data-contrast='highContrast']) .authLinkActive {
+  color: #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .authLinkPrimary {
+  color: #000000;
+  border-color: #ffff00;
+  background: #ffff00;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown {
+  border-color: #ffffff;
+  background: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .cartCount {
+  color: #000000;
+  border-color: #ffff00;
+  background: #ffff00;
+}
+
 @media (max-width: 820px) {
   .nav {
     min-height: auto;
@@ -278,14 +332,20 @@
   }
 
   .navContent {
+    width: 100%;
+    min-width: 0;
     align-items: flex-start;
     flex-direction: column;
     gap: 12px;
   }
 
   .navList {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     justify-content: flex-start;
     overflow-x: auto;
+    overscroll-behavior-inline: contain;
     padding-bottom: 4px;
   }
 

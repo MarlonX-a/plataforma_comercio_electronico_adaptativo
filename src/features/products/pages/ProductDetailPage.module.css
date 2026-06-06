@@ -1,0 +1,156 @@
+.page,
+.feedback {
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100svh - 220px);
+  margin: 0 auto;
+  padding: 44px 0 72px;
+}
+
+.backLink,
+.feedback a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.backLink:hover,
+.feedback a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.detail {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 46px;
+  align-items: start;
+}
+
+.media {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-strong);
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  font-size: 4rem;
+}
+
+.information {
+  padding-top: 10px;
+}
+
+.category {
+  color: var(--accent-strong);
+  font-size: 0.84rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.description {
+  margin-top: 18px;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.facts {
+  margin: 28px 0;
+  padding-block: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  border-block: 1px solid var(--border);
+}
+
+.facts div {
+  display: grid;
+  gap: 3px;
+}
+
+.facts dt {
+  color: var(--text);
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.facts dd {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 1.08rem;
+  font-weight: 850;
+}
+
+.addButton {
+  min-height: 50px;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--button-text);
+  background: var(--accent);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.addButton:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.addButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.statusMessage {
+  min-height: 1.5em;
+  margin-top: 14px;
+  color: var(--accent-strong);
+  font-weight: 750;
+}
+
+.feedback {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 12px;
+}
+
+@media (max-width: 760px) {
+  .detail {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 430px) {
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .addButton {
+    width: 100%;
+  }
+}

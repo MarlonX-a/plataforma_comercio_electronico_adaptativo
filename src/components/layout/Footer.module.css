@@ -128,6 +128,33 @@
   text-align: center;
 }
 
+:global(html[data-contrast='highContrast']) .footer {
+  color: #ffffff;
+  background: #000000;
+  border-top-color: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .footerTitle,
+:global(html[data-contrast='highContrast']) .sectionTitle,
+:global(html[data-contrast='highContrast']) .developerList,
+:global(html[data-contrast='highContrast']) .description,
+:global(html[data-contrast='highContrast']) .linkList a,
+:global(html[data-contrast='highContrast']) .legalBar p {
+  color: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .socialList a {
+  color: #ffffff;
+  border-color: #ffffff;
+  background: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .socialList a:hover {
+  color: #000000;
+  background: #ffff00;
+  border-color: #ffff00;
+}
+
 @media (max-width: 920px) {
   .footerInner {
     grid-template-columns: repeat(2, minmax(0, 1fr));

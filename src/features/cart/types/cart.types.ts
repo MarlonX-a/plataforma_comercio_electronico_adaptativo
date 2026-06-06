@@ -3,17 +3,15 @@ import type { Product } from '../../products/types/product.types';
 
 export type CartItemRow = Tables<'cart_items'>;
 
-export type CartItem = {
-  id: number;
-  userId: string | null;
-  productId: number | null;
+export type StoredCartItem = {
+  productId: number;
   quantity: number;
-  createdAt: string | null;
 };
 
 export type CartProductItem = {
-  cartItem: CartItem;
-  product: Product | null;
+  product: Product;
+  quantity: number;
+  lineTotal: number;
 };
 
 export type CartSummary = {
@@ -22,7 +20,12 @@ export type CartSummary = {
   subtotal: number;
 };
 
-export type CartQuantityUpdate = {
-  cartItemId: number;
-  quantity: number;
-};
+export type CartOperationResult =
+  | {
+      isSuccess: true;
+      message: string;
+    }
+  | {
+      isSuccess: false;
+      message: string;
+    };

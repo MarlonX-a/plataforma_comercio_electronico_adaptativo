@@ -229,6 +229,19 @@
   text-decoration: underline;
 }
 
+:global(html[data-contrast='highContrast']) .errorMessage,
+:global(html[data-contrast='highContrast']) .successMessage {
+  color: #000000;
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .submitButton {
+  color: #ffffff;
+  border: 2px solid #000000;
+  background: #005a4f;
+}
+
 @media (max-width: 620px) {
   .authPage {
     min-height: auto;

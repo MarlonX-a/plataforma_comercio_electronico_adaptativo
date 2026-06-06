@@ -17,3 +17,30 @@ export type ProductCardProps = {
   product: Product;
   onAddToCart: (productId: number) => void;
 };
+
+export type ProductFiltersState = {
+  searchTerm: string;
+  category: string;
+};
+
+export type ProductServiceResult =
+  | {
+      isSuccess: true;
+      products: Product[];
+    }
+  | {
+      isSuccess: false;
+      message: string;
+      products: [];
+    };
+
+export type ProductDetailServiceResult =
+  | {
+      isSuccess: true;
+      product: Product;
+    }
+  | {
+      isSuccess: false;
+      message: string;
+      product: null;
+    };

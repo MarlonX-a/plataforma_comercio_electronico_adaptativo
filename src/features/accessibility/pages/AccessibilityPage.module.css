@@ -1,0 +1,155 @@
+.page {
+  width: min(1040px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 56px 0 72px;
+}
+
+.pageHeader {
+  max-width: 680px;
+  margin-bottom: 38px;
+}
+
+.pageHeader h1 {
+  margin-bottom: 14px;
+}
+
+.pageHeader p {
+  font-size: 1.05rem;
+}
+
+.kicker {
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.settingsList {
+  border-block: 1px solid var(--border);
+}
+
+.settingRow {
+  padding: 26px 0;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(300px, auto);
+  align-items: center;
+  gap: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settingRow:last-child {
+  border-bottom: 0;
+}
+
+.settingRow h2 {
+  margin-bottom: 6px;
+  font-size: 1.1rem;
+}
+
+.settingRow p {
+  color: var(--text);
+  font-size: 0.94rem;
+}
+
+.segmentedControl {
+  min-width: 0;
+  display: flex;
+  align-items: stretch;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.segmentButton {
+  min-height: 46px;
+  padding: 10px 14px;
+  flex: 1 1 auto;
+  border: 0;
+  border-right: 1px solid var(--accent-border);
+  color: var(--text-h);
+  background: var(--surface);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.segmentButton:last-child {
+  border-right: 0;
+}
+
+.segmentButton:hover {
+  background: var(--accent-bg);
+}
+
+.segmentButtonActive {
+  color: var(--button-text);
+  background: var(--accent);
+}
+
+.segmentButtonActive:hover {
+  background: var(--accent-strong);
+}
+
+.actions {
+  min-height: 70px;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.resetButton {
+  min-height: 46px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--surface);
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.statusMessage {
+  min-height: 1.5em;
+  color: var(--text-h);
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 42px 0 56px;
+  }
+
+  .settingRow {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .segmentedControl {
+    width: 100%;
+  }
+}
+
+@media (max-width: 430px) {
+  .segmentedControl {
+    flex-direction: column;
+  }
+
+  .segmentButton {
+    border-right: 0;
+    border-bottom: 1px solid var(--accent-border);
+  }
+
+  .segmentButton:last-child {
+    border-bottom: 0;
+  }
+}

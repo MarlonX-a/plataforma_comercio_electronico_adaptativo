@@ -1,0 +1,183 @@
+.page {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 52px 0 72px;
+}
+
+.header {
+  display: grid;
+  gap: 30px;
+}
+
+.header > div:first-child {
+  max-width: 720px;
+}
+
+.kicker {
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.filters {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(190px, 0.4fr) auto;
+  align-items: end;
+  gap: 16px;
+  border-block: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.searchField,
+.categoryField {
+  display: grid;
+  gap: 7px;
+}
+
+.searchField label,
+.categoryField label {
+  color: var(--text-h);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.searchInput {
+  min-width: 0;
+  position: relative;
+}
+
+.searchInput svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  transform: translateY(-50%);
+  color: var(--text);
+}
+
+.searchInput input,
+.categoryField select {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--bg);
+}
+
+.searchInput input {
+  padding: 11px 14px 11px 42px;
+}
+
+.categoryField select {
+  padding: 11px 38px 11px 14px;
+}
+
+.searchInput input:focus,
+.categoryField select:focus {
+  border-color: var(--accent);
+  outline: 3px solid var(--accent-bg);
+}
+
+.clearButton,
+.feedback button {
+  min-height: 48px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--surface);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.clearButton:hover,
+.feedback button:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.resultsHeader {
+  min-height: 58px;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.resultsHeader > p:first-child {
+  color: var(--text-h);
+  font-weight: 800;
+}
+
+.statusMessage {
+  color: var(--accent-strong);
+  font-weight: 750;
+  text-align: right;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.feedback {
+  padding: 42px 20px;
+  border-block: 1px solid var(--border);
+  text-align: center;
+}
+
+.feedback h2 {
+  margin-bottom: 8px;
+}
+
+.feedback button {
+  margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .filters {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.45fr);
+  }
+
+  .clearButton {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .page {
+    padding: 40px 0 56px;
+  }
+
+  .filters,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .clearButton {
+    width: 100%;
+  }
+
+  .resultsHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .statusMessage {
+    text-align: left;
+  }
+}

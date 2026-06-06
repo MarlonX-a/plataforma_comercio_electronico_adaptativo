@@ -9,6 +9,10 @@ import {
   logout,
 } from '../../features/auth/services/authService';
 import type { AuthSession, UserProfile } from '../../features/auth/types/auth.types';
+import {
+  cartUpdatedEventName,
+  getCartItemCount,
+} from '../../features/cart/services/cartService';
 import styles from './Navbar.module.css';
 
 const navigationItems = [
@@ -24,6 +28,7 @@ export default function Navbar() {
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(() => getCartItemCount());
 
   const userLabel = useMemo(() => {
     if (userProfile?.fullName?.trim()) {
@@ -94,6 +99,18 @@ export default function Navbar() {
     };
   }, [authSession]);
 
+  useEffect(() => {
+    const refreshCartCount = () => {
+      setCartItemCount(getCartItemCount());
+    };
+
+    window.addEventListener(cartUpdatedEventName, refreshCartCount);
+
+    return () => {
+      window.removeEventListener(cartUpdatedEventName, refreshCartCount);
+    };
+  }, []);
+
   const handleLogout = async () => {
     const result = await logout();
 
@@ -126,6 +143,16 @@ export default function Navbar() {
                   }
                 >
                   {item.label}
+                  {item.path === '/cart' && cartItemCount > 0 ? (
+                    <span
+                      className={styles.cartCount}
+                      aria-label={`${cartItemCount} ${
+                        cartItemCount === 1 ? 'producto' : 'productos'
+                      } en el carrito`}
+                    >
+                      {cartItemCount > 99 ? '99+' : cartItemCount}
+                    </span>
+                  ) : null}
                 </NavLink>
               </li>
             ))}
