@@ -1,10 +1,15 @@
-import { FaCartPlus, FaImage } from 'react-icons/fa';
+import { FaBalanceScale, FaCartPlus, FaImage } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import type { ProductCardProps } from '../types/product.types';
 import { formatProductPrice } from '../utils/productFormatters';
 import styles from './ProductCard.module.css';
 
-export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  onAddToCart,
+  isSelectedForComparison = false,
+  onToggleCompare,
+}: ProductCardProps) {
   const availableStock = product.stock ?? 0;
   const isAvailable = product.isActive && availableStock > 0;
 
@@ -41,15 +46,36 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
             </span>
           </div>
 
-          <button
-            className={styles.addButton}
-            type="button"
-            disabled={!isAvailable}
-            onClick={() => onAddToCart(product.id)}
-          >
-            <FaCartPlus aria-hidden="true" />
-            Agregar
-          </button>
+          <div className={styles.actions}>
+            {onToggleCompare ? (
+              <button
+                className={`${styles.compareButton} ${
+                  isSelectedForComparison ? styles.compareButtonActive : ''
+                }`}
+                type="button"
+                aria-pressed={isSelectedForComparison}
+                aria-label={
+                  isSelectedForComparison
+                    ? `Quitar ${product.name} de la comparación`
+                    : `Comparar ${product.name}`
+                }
+                onClick={() => onToggleCompare(product.id)}
+              >
+                <FaBalanceScale aria-hidden="true" />
+                {isSelectedForComparison ? 'Quitar' : 'Comparar'}
+              </button>
+            ) : null}
+
+            <button
+              className={styles.addButton}
+              type="button"
+              disabled={!isAvailable}
+              onClick={() => onAddToCart(product.id)}
+            >
+              <FaCartPlus aria-hidden="true" />
+              Agregar
+            </button>
+          </div>
         </div>
       </div>
     </article>

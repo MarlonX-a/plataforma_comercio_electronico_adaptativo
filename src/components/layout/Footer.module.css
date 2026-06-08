@@ -76,6 +76,9 @@
 }
 
 .linkList a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   color: #a7b4c7;
   font-size: 0.94rem;
   font-weight: 650;
@@ -94,8 +97,8 @@
 }
 
 .socialList a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: inline-grid;
   place-items: center;
   border: 1px solid rgba(148, 163, 184, 0.28);

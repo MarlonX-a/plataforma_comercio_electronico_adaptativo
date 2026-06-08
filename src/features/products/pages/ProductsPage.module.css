@@ -123,6 +123,46 @@
   text-align: right;
 }
 
+.compareBar {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-bg);
+}
+
+.compareBar > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-h);
+  font-weight: 850;
+}
+
+.compareBar a,
+.compareBar span {
+  min-height: 44px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--button-text);
+  background: var(--accent);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.compareBar span {
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -179,5 +219,15 @@
 
   .statusMessage {
     text-align: left;
+  }
+
+  .compareBar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .compareBar a,
+  .compareBar span {
+    width: 100%;
   }
 }

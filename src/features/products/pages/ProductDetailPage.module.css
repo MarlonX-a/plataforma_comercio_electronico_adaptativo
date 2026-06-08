@@ -31,6 +31,85 @@
   align-items: start;
 }
 
+.recommendations {
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.recommendations h2 {
+  margin-top: 8px;
+}
+
+.recommendationGrid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.recommendationCard {
+  padding: 18px;
+  display: grid;
+  gap: 18px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.recommendationCard p {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.recommendationCard h3 {
+  margin: 8px 0;
+  color: var(--text-h);
+  font-size: 1.04rem;
+  line-height: 1.25;
+}
+
+.recommendationCard a {
+  text-decoration: none;
+}
+
+.recommendationCard a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.recommendationCard strong {
+  color: var(--text-h);
+}
+
+.recommendationCard button {
+  min-height: 44px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-radius: 8px;
+  color: var(--button-text);
+  background: var(--accent);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.recommendationCard button:hover:not(:disabled) {
+  background: var(--accent-strong);
+}
+
+.recommendationCard button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
 .media {
   aspect-ratio: 4 / 3;
   overflow: hidden;
@@ -142,6 +221,10 @@
   .detail {
     grid-template-columns: 1fr;
     gap: 28px;
+  }
+
+  .recommendationGrid {
+    grid-template-columns: 1fr;
   }
 }
 

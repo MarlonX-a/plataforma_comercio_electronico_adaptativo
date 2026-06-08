@@ -55,6 +55,9 @@ export default function Footer() {
               <Link to="/cart">Carrito</Link>
             </li>
             <li>
+              <Link to="/orders">Pedidos</Link>
+            </li>
+            <li>
               <Link to="/accessibility">Accesibilidad</Link>
             </li>
             <li>
@@ -62,6 +65,9 @@ export default function Footer() {
             </li>
             <li>
               <Link to="/register">Registro</Link>
+            </li>
+            <li>
+              <a href="mailto:soporte@comercioadaptativo.local">Soporte</a>
             </li>
           </ul>
         </nav>

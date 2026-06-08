@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { FaSearch, FaTimes } from 'react-icons/fa';
+import { FaBalanceScale, FaSearch, FaTimes } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { addProductToCart } from '../../cart/services/cartService';
 import ProductCard from '../components/ProductCard';
+import {
+  loadComparedProductIds,
+  toggleComparedProduct,
+} from '../services/productComparisonService';
 import { getActiveProducts } from '../services/productService';
 import type { Product, ProductFiltersState } from '../types/product.types';
 import styles from './ProductsPage.module.css';
@@ -17,6 +22,9 @@ export default function ProductsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [comparedProductIds, setComparedProductIds] = useState<number[]>(() =>
+    loadComparedProductIds(),
+  );
 
   useEffect(() => {
     let isMounted = true;
@@ -74,6 +82,12 @@ export default function ProductsPage() {
     }
 
     const result = addProductToCart(product);
+    setStatusMessage(result.message);
+  };
+
+  const handleToggleCompare = (productId: number) => {
+    const result = toggleComparedProduct(productId);
+    setComparedProductIds(result.selectedProductIds);
     setStatusMessage(result.message);
   };
 
@@ -151,6 +165,23 @@ export default function ProductsPage() {
         </p>
       </div>
 
+      {comparedProductIds.length > 0 ? (
+        <aside className={styles.compareBar} aria-labelledby="compare-selection-title">
+          <div>
+            <FaBalanceScale aria-hidden="true" />
+            <p id="compare-selection-title">
+              {comparedProductIds.length}{' '}
+              {comparedProductIds.length === 1 ? 'producto seleccionado' : 'productos seleccionados'}
+            </p>
+          </div>
+          {comparedProductIds.length >= 2 ? (
+            <Link to="/compare">Comparar productos</Link>
+          ) : (
+            <span>Selecciona otro producto para comparar</span>
+          )}
+        </aside>
+      ) : null}
+
       {errorMessage ? (
         <div className={styles.feedback} role="alert">
           <h2>No pudimos mostrar el catálogo</h2>
@@ -171,7 +202,13 @@ export default function ProductsPage() {
       {filteredProducts.length > 0 ? (
         <div className={styles.grid}>
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAddToCart={handleAddToCart}
+              isSelectedForComparison={comparedProductIds.includes(product.id)}
+              onToggleCompare={handleToggleCompare}
+            />
           ))}
         </div>
       ) : null}

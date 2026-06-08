@@ -16,6 +16,8 @@ export type Product = {
 export type ProductCardProps = {
   product: Product;
   onAddToCart: (productId: number) => void;
+  isSelectedForComparison?: boolean;
+  onToggleCompare?: (productId: number) => void;
 };
 
 export type ProductFiltersState = {
@@ -44,3 +46,9 @@ export type ProductDetailServiceResult =
       message: string;
       product: null;
     };
+
+export type ProductComparisonResult = {
+  isSuccess: boolean;
+  message: string;
+  selectedProductIds: number[];
+};

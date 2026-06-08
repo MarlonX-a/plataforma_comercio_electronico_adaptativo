@@ -19,6 +19,7 @@ const navigationItems = [
   { label: 'Inicio', path: '/' },
   { label: 'Productos', path: '/products' },
   { label: 'Carrito', path: '/cart' },
+  { label: 'Pedidos', path: '/orders' },
   { label: 'Accesibilidad', path: '/accessibility' },
 ] as const;
 

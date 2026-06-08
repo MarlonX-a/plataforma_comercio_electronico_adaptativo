@@ -186,9 +186,9 @@ export default function CartPage() {
               </div>
             </dl>
             <p>Los costos de envío se calcularán en el siguiente paso.</p>
-            <button type="button" disabled>
+            <Link to="/checkout">
               Continuar al pago
-            </button>
+            </Link>
           </aside>
         </div>
       ) : null}

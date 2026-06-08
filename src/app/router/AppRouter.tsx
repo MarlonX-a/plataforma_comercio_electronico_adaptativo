@@ -5,6 +5,9 @@ import CompleteProfilePage from '../../features/auth/pages/CompleteProfilePage';
 import LoginPage from '../../features/auth/pages/LoginPage';
 import RegisterPage from '../../features/auth/pages/RegisterPage';
 import CartPage from '../../features/cart/pages/CartPage';
+import CheckoutPage from '../../features/checkout/pages/CheckoutPage';
+import OrdersPage from '../../features/checkout/pages/OrdersPage';
+import ProductComparePage from '../../features/products/pages/ProductComparePage';
 import ProductDetailPage from '../../features/products/pages/ProductDetailPage';
 import ProductsPage from '../../features/products/pages/ProductsPage';
 import HomePage from '../../pages/HomePage';
@@ -20,7 +23,10 @@ export default function AppRouter() {
           <Route path="/complete-profile" element={<CompleteProfilePage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="/compare" element={<ProductComparePage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
         </Routes>
       </AppLayout>

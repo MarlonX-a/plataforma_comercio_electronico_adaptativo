@@ -19,8 +19,13 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
   return (
     <div className={styles.appLayout}>
+      <a className={styles.skipLink} href="#main-content">
+        Saltar al contenido principal
+      </a>
       <Navbar />
-      <main className={styles.mainContent}>{children}</main>
+      <main id="main-content" className={styles.mainContent} tabIndex={-1}>
+        {children}
+      </main>
       <Footer />
     </div>
   );

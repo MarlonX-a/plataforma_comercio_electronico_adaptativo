@@ -1,0 +1,165 @@
+.page,
+.feedback {
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100svh - 220px);
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+.backLink {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent-strong);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.header {
+  max-width: 760px;
+  margin-top: 20px;
+}
+
+.kicker {
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  margin: 10px 0 12px;
+}
+
+.statusMessage {
+  min-height: 50px;
+  padding: 14px 0;
+  color: var(--accent-strong);
+  font-weight: 750;
+}
+
+.actions {
+  margin-bottom: 18px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions button,
+.emptyState a,
+.productActions a,
+.productActions button {
+  min-height: 44px;
+  padding: 10px 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.actions button,
+.productActions button {
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.emptyState a,
+.productActions a {
+  color: var(--button-text);
+  background: var(--accent);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.tableWrapper:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.compareTable {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.compareTable caption {
+  padding: 16px;
+  color: var(--text-h);
+  font-weight: 850;
+  text-align: left;
+}
+
+.compareTable th,
+.compareTable td {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.compareTable th {
+  color: var(--text-h);
+  background: var(--surface-strong);
+}
+
+.compareTable td {
+  color: var(--text);
+}
+
+.productActions {
+  display: grid;
+  gap: 8px;
+}
+
+.feedback,
+.emptyState {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.emptyState {
+  min-height: 380px;
+  border-block: 1px solid var(--border);
+}
+
+.emptyState > svg {
+  color: var(--accent);
+  font-size: 3rem;
+}
+
+:global(html[data-contrast='highContrast']) .tableWrapper,
+:global(html[data-contrast='highContrast']) .actions button,
+:global(html[data-contrast='highContrast']) .productActions button {
+  border: 2px solid #000000;
+  box-shadow: none;
+}
+
+@media (max-width: 620px) {
+  .actions {
+    justify-content: stretch;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

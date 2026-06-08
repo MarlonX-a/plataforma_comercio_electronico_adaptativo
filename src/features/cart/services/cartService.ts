@@ -44,6 +44,11 @@ export const loadStoredCartItems = (): StoredCartItem[] => {
   }
 };
 
+export const clearCart = (): void => {
+  window.localStorage.removeItem(cartStorageKey);
+  window.dispatchEvent(new Event(cartUpdatedEventName));
+};
+
 export const getCartItemCount = (): number =>
   loadStoredCartItems().reduce((total, cartItem) => total + cartItem.quantity, 0);
 

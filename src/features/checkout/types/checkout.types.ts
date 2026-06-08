@@ -27,9 +27,48 @@ export type CheckoutFormValues = {
   address: string;
   city: string;
   phone: string;
+  paymentMethod: 'card' | 'transfer' | 'cash';
 };
 
-export type CheckoutSummary = {
-  order: Order;
-  items: OrderItem[];
+export type CheckoutStepKey = 'cart' | 'details' | 'review' | 'confirmation';
+
+export type StoredOrderItem = {
+  productId: number;
+  productName: string;
+  quantity: number;
+  unitPrice: number;
+  lineTotal: number;
+};
+
+export type StoredOrder = {
+  id: string;
+  customer: CheckoutFormValues;
+  items: StoredOrderItem[];
+  totalItems: number;
+  subtotal: number;
+  status: OrderStatus;
+  createdAt: string;
+  estimatedDelivery: string;
+};
+
+export type CheckoutConfirmation = {
+  order: StoredOrder;
+};
+
+export type CheckoutOperationResult =
+  | {
+      isSuccess: true;
+      message: string;
+      confirmation: CheckoutConfirmation;
+    }
+  | {
+      isSuccess: false;
+      message: string;
+      confirmation: null;
+    };
+
+export type OrderHistoryResult = {
+  isSuccess: boolean;
+  message: string;
+  orders: StoredOrder[];
 };

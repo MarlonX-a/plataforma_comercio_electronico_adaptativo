@@ -1,0 +1,343 @@
+.page,
+.feedback {
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100svh - 220px);
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+.header {
+  max-width: 760px;
+}
+
+.kicker {
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.header h1,
+.confirmation h1 {
+  margin: 10px 0 12px;
+}
+
+.stepGuide {
+  margin: 32px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  list-style: none;
+}
+
+.stepGuide li {
+  min-height: 72px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.stepGuide span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 8px;
+  color: var(--button-text);
+  background: var(--accent);
+  font-weight: 900;
+}
+
+.stepGuide strong,
+.stepGuide small {
+  display: block;
+}
+
+.stepGuide small {
+  color: var(--text);
+}
+
+.stepGuide li[data-state='Completado'] span,
+.stepGuide li[data-state='Actual'] span {
+  background: var(--accent-strong);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(310px, 380px);
+  gap: 30px;
+  align-items: start;
+}
+
+.form,
+.summary,
+.confirmation {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.form {
+  padding: 26px;
+  display: grid;
+  gap: 18px;
+}
+
+.formIntro h2,
+.summary h2,
+.helpBox h3 {
+  margin: 0 0 6px;
+}
+
+.form label {
+  display: grid;
+  gap: 8px;
+  color: var(--text-h);
+  font-weight: 800;
+}
+
+.form input {
+  min-height: 50px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--surface);
+}
+
+.inlineFields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.paymentOptions {
+  margin: 4px 0 0;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.paymentOptions legend {
+  padding: 0 6px;
+  color: var(--text-h);
+  font-weight: 850;
+}
+
+.paymentOptions label {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paymentOptions input {
+  width: 20px;
+  height: 20px;
+  min-height: auto;
+}
+
+.formHelp {
+  min-height: 48px;
+  padding: 14px;
+  border-radius: 8px;
+  color: var(--text-h);
+  background: var(--surface-strong);
+}
+
+.formHelp ul {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.form button,
+.feedback a,
+.confirmationActions a {
+  min-height: 50px;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  color: var(--button-text);
+  background: var(--accent);
+  font: inherit;
+  font-weight: 850;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.statusMessage {
+  min-height: 28px;
+  color: var(--accent-strong);
+  font-weight: 750;
+}
+
+.summary {
+  position: sticky;
+  top: 104px;
+  padding: 24px;
+}
+
+.summary ul {
+  margin: 18px 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  list-style: none;
+}
+
+.summary li,
+.summary dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.summary small {
+  display: block;
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.summary strong,
+.summary dd {
+  color: var(--text-h);
+  font-weight: 850;
+}
+
+.summary dl {
+  margin: 18px 0;
+  padding-top: 16px;
+  display: grid;
+  gap: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.summary dd {
+  margin: 0;
+}
+
+.trustBox,
+.helpBox,
+.deliveryBox {
+  margin-top: 14px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 12px;
+  border-radius: 8px;
+  background: var(--accent-bg);
+}
+
+.trustBox > svg,
+.helpBox > svg,
+.deliveryBox > svg {
+  margin-top: 3px;
+  color: var(--accent);
+}
+
+.helpBox a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+  font-weight: 850;
+}
+
+.deliveryBox {
+  grid-template-columns: 28px minmax(0, 1fr);
+}
+
+.feedback,
+.confirmation {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.feedback {
+  min-height: 420px;
+}
+
+.confirmation {
+  max-width: 760px;
+  min-height: 420px;
+  margin: 0 auto;
+  padding: 38px;
+}
+
+.confirmation > svg {
+  color: var(--accent);
+  font-size: 3.4rem;
+}
+
+.confirmationActions {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+:global(html[data-contrast='highContrast']) .form,
+:global(html[data-contrast='highContrast']) .summary,
+:global(html[data-contrast='highContrast']) .confirmation,
+:global(html[data-contrast='highContrast']) .stepGuide li {
+  border: 2px solid #000000;
+  box-shadow: none;
+}
+
+@media (max-width: 920px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    position: static;
+  }
+}
+
+@media (max-width: 720px) {
+  .stepGuide {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .inlineFields {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .stepGuide {
+    grid-template-columns: 1fr;
+  }
+
+  .form,
+  .summary,
+  .confirmation {
+    padding: 20px;
+  }
+
+  .confirmationActions,
+  .confirmationActions a {
+    width: 100%;
+  }
+}
