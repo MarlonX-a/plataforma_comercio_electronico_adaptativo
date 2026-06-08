@@ -1,20 +1,34 @@
 :root {
-  --text: #526070;
-  --text-h: #17202a;
-  --bg: #f7f9fb;
-  --surface: #ffffff;
-  --surface-strong: #eef4f6;
-  --border: #d9e2e7;
-  --code-bg: #f1f5f9;
-  --accent: #0f766e;
-  --accent-strong: #0e7490;
-  --accent-warm: #b7791f;
-  --button-text: #ffffff;
-  --accent-bg: rgba(15, 118, 110, 0.1);
-  --accent-border: rgba(15, 118, 110, 0.42);
+  --color-bg: #050505;
+  --color-surface: #111827;
+  --color-surface-soft: #1f2937;
+  --color-primary: #00d9ff;
+  --color-secondary: #8b5cf6;
+  --color-accent: #a855f7;
+  --color-text: #ffffff;
+  --color-text-muted: #d1d5db;
+  --color-border: rgba(255, 255, 255, 0.14);
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.35);
+
+  --text: var(--color-text-muted);
+  --text-h: var(--color-text);
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --surface-strong: var(--color-surface-soft);
+  --border: var(--color-border);
+  --code-bg: rgba(0, 217, 255, 0.1);
+  --accent: var(--color-primary);
+  --accent-strong: #7ddcff;
+  --accent-warm: var(--color-secondary);
+  --button-text: #050505;
+  --accent-bg: rgba(0, 217, 255, 0.12);
+  --accent-border: rgba(0, 217, 255, 0.44);
   --shadow:
-    rgba(15, 23, 42, 0.1) 0 18px 40px -18px,
-    rgba(15, 23, 42, 0.08) 0 8px 18px -12px;
+    rgba(168, 85, 247, 0.18) 0 18px 40px -18px,
+    rgba(0, 217, 255, 0.16) 0 8px 18px -12px;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
@@ -62,27 +76,6 @@
   line-height: 1.7;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-contrast='highContrast']) {
-    --text: #cbd5e1;
-    --text-h: #f8fafc;
-    --bg: #0f172a;
-    --surface: #111c2f;
-    --surface-strong: #142033;
-    --border: #26364d;
-    --code-bg: #1e293b;
-    --accent: #2dd4bf;
-    --accent-strong: #67e8f9;
-    --accent-warm: #fbbf24;
-    --button-text: #062321;
-    --accent-bg: rgba(45, 212, 191, 0.13);
-    --accent-border: rgba(45, 212, 191, 0.45);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
-      rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-}
-
 * {
   box-sizing: border-box;
 }
@@ -100,8 +93,9 @@ body {
   min-width: 0;
   color: var(--text);
   background:
-    radial-gradient(circle at top left, rgba(15, 118, 110, 0.12), transparent 28rem),
-    linear-gradient(180deg, var(--bg), var(--surface-strong));
+    radial-gradient(circle at 12% 0%, rgba(0, 217, 255, 0.18), transparent 30rem),
+    radial-gradient(circle at 88% 8%, rgba(168, 85, 247, 0.2), transparent 28rem),
+    linear-gradient(180deg, #050505, #0a0f1d 48%, #050505);
 }
 
 img,

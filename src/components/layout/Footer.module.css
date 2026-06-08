@@ -1,9 +1,10 @@
 .footer {
   color: #cbd5e1;
   background:
-    linear-gradient(135deg, rgba(15, 118, 110, 0.16), transparent 34%),
-    #0f172a;
-  border-top: 1px solid rgba(45, 212, 191, 0.18);
+    linear-gradient(135deg, rgba(0, 217, 255, 0.14), transparent 34%),
+    linear-gradient(225deg, rgba(168, 85, 247, 0.15), transparent 38%),
+    #050505;
+  border-top: 1px solid rgba(0, 217, 255, 0.22);
 }
 
 .footerInner {
@@ -26,10 +27,13 @@
   height: 72px;
   display: block;
   flex: 0 0 72px;
-  border-radius: 14px;
+  border: 1px solid rgba(0, 217, 255, 0.4);
+  border-radius: var(--radius-md);
   object-fit: cover;
   object-position: center 36%;
-  box-shadow: 0 16px 34px rgba(34, 211, 238, 0.18);
+  box-shadow:
+    0 0 0 3px rgba(168, 85, 247, 0.12),
+    0 0 32px rgba(0, 217, 255, 0.28);
 }
 
 .footerTitle,
@@ -86,7 +90,7 @@
 }
 
 .linkList a:hover {
-  color: #67e8f9;
+  color: var(--color-primary);
 }
 
 .socialList {
@@ -101,8 +105,8 @@
   height: 44px;
   display: inline-grid;
   place-items: center;
-  border: 1px solid rgba(148, 163, 184, 0.28);
-  border-radius: 8px;
+  border: 1px solid rgba(0, 217, 255, 0.28);
+  border-radius: var(--radius-sm);
   color: #cbd5e1;
   background: rgba(255, 255, 255, 0.04);
   text-decoration: none;
@@ -113,9 +117,9 @@
 }
 
 .socialList a:hover {
-  color: #0f172a;
-  background: #5eead4;
-  border-color: #5eead4;
+  color: #050505;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .legalBar {

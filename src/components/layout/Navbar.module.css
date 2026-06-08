@@ -2,9 +2,11 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(15, 23, 42, 0.96);
-  border-bottom: 1px solid rgba(45, 212, 191, 0.2);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.18);
+  background:
+    linear-gradient(90deg, rgba(0, 217, 255, 0.1), rgba(168, 85, 247, 0.1)),
+    rgba(5, 5, 5, 0.92);
+  border-bottom: 1px solid rgba(0, 217, 255, 0.24);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
   backdrop-filter: blur(16px);
 }
 
@@ -32,10 +34,13 @@
   height: 54px;
   display: block;
   flex: 0 0 54px;
-  border-radius: 12px;
+  border: 1px solid rgba(0, 217, 255, 0.42);
+  border-radius: var(--radius-sm);
   object-fit: cover;
   object-position: center 36%;
-  box-shadow: 0 14px 30px rgba(34, 211, 238, 0.18);
+  box-shadow:
+    0 0 0 3px rgba(168, 85, 247, 0.12),
+    0 0 28px rgba(0, 217, 255, 0.32);
 }
 
 .brandContent {
@@ -45,7 +50,7 @@
 }
 
 .brandName {
-  color: #f8fafc;
+  color: #ffffff;
   font-size: 1.03rem;
   font-weight: 800;
   line-height: 1.1;
@@ -53,7 +58,7 @@
 }
 
 .brandSubtitle {
-  color: #94a3b8;
+  color: #7ddcff;
   font-size: 0.78rem;
   font-weight: 650;
   line-height: 1.2;
@@ -81,7 +86,8 @@
   padding: 10px 16px;
   display: inline-flex;
   align-items: center;
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
   color: #cbd5e1;
   font-size: 0.95rem;
   font-weight: 750;
@@ -101,9 +107,9 @@
   display: inline-grid;
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.38);
-  border-radius: 8px;
-  color: #062321;
-  background: #5eead4;
+  border-radius: var(--radius-sm);
+  color: #050505;
+  background: linear-gradient(135deg, var(--color-primary), #ffffff);
   font-size: 0.76rem;
   font-weight: 900;
   line-height: 1;
@@ -111,12 +117,14 @@
 
 .navLink:hover {
   color: #ffffff;
-  background: rgba(45, 212, 191, 0.1);
+  border-color: rgba(0, 217, 255, 0.36);
+  background: rgba(0, 217, 255, 0.1);
 }
 
 .navLinkActive {
   color: #ffffff;
-  background: rgba(14, 116, 144, 0.42);
+  border-color: rgba(0, 217, 255, 0.5);
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.18), rgba(168, 85, 247, 0.24));
 }
 
 .navLink:active {
@@ -134,8 +142,8 @@
   padding: 10px 15px;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(148, 163, 184, 0.3);
-  border-radius: 8px;
+  border: 1px solid rgba(0, 217, 255, 0.28);
+  border-radius: var(--radius-sm);
   color: #f8fafc;
   font-size: 0.94rem;
   font-weight: 800;
@@ -145,20 +153,20 @@
 
 .authLink:hover,
 .authLinkActive {
-  border-color: rgba(94, 234, 212, 0.7);
-  background: rgba(45, 212, 191, 0.12);
+  border-color: rgba(0, 217, 255, 0.72);
+  background: rgba(0, 217, 255, 0.12);
 }
 
 .authLinkPrimary {
-  border-color: #5eead4;
-  color: #062321;
-  background: #5eead4;
+  border-color: var(--color-primary);
+  color: #050505;
+  background: linear-gradient(135deg, var(--color-primary), #ffffff);
 }
 
 .authLinkPrimary:hover,
 .authLinkPrimary.authLinkActive {
-  color: #062321;
-  background: #67e8f9;
+  color: #050505;
+  background: linear-gradient(135deg, #ffffff, var(--color-primary));
 }
 
 .profileMenu {
@@ -171,8 +179,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgba(94, 234, 212, 0.38);
-  border-radius: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.42);
+  border-radius: var(--radius-md);
   color: #f8fafc;
   background: rgba(255, 255, 255, 0.06);
   font: inherit;
@@ -180,7 +188,7 @@
 }
 
 .profileButton:hover {
-  background: rgba(45, 212, 191, 0.12);
+  background: rgba(0, 217, 255, 0.12);
 }
 
 .profileAvatar {
@@ -188,9 +196,9 @@
   height: 36px;
   display: inline-grid;
   place-items: center;
-  border-radius: 8px;
-  color: #062321;
-  background: linear-gradient(135deg, #5eead4, #67e8f9);
+  border-radius: var(--radius-sm);
+  color: #050505;
+  background: linear-gradient(135deg, var(--color-primary), #ffffff);
   font-size: 0.95rem;
   font-weight: 900;
 }
@@ -226,10 +234,10 @@
   padding: 10px;
   display: grid;
   gap: 4px;
-  border: 1px solid rgba(148, 163, 184, 0.24);
-  border-radius: 10px;
-  background: #0f172a;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 217, 255, 0.24);
+  border-radius: var(--radius-md);
+  background: #080d18;
+  box-shadow: 0 24px 54px rgba(0, 0, 0, 0.5);
 }
 
 .profileHeader {
@@ -263,7 +271,7 @@
   align-items: center;
   gap: 10px;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   color: #cbd5e1;
   background: transparent;
   font: inherit;
@@ -277,7 +285,7 @@
 .profileDropdown a:hover,
 .profileDropdown button:hover {
   color: #ffffff;
-  background: rgba(45, 212, 191, 0.12);
+  background: rgba(0, 217, 255, 0.12);
 }
 
 :global(html[data-contrast='highContrast']) .header {
