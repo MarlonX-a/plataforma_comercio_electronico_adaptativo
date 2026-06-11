@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import {
   defaultAccessibilitySettings,
   loadAccessibilitySettings,
@@ -91,7 +92,10 @@ export default function AccessibilityPage() {
       </header>
 
       <div className={styles.settingsList}>
-        <section className={styles.settingRow} aria-labelledby="font-size-title">
+        <section
+          className={`${styles.settingRow} ${uiStyles.sectionCard}`}
+          aria-labelledby="font-size-title"
+        >
           <div>
             <h2 id="font-size-title">Tamaño del texto</h2>
             <p>Aumenta el texto sin perder contenido ni funcionalidad.</p>
@@ -104,7 +108,10 @@ export default function AccessibilityPage() {
           )}
         </section>
 
-        <section className={styles.settingRow} aria-labelledby="contrast-title">
+        <section
+          className={`${styles.settingRow} ${uiStyles.sectionCard}`}
+          aria-labelledby="contrast-title"
+        >
           <div>
             <h2 id="contrast-title">Contraste</h2>
             <p>Refuerza la diferencia entre texto, controles y fondo.</p>
@@ -117,7 +124,10 @@ export default function AccessibilityPage() {
           )}
         </section>
 
-        <section className={styles.settingRow} aria-labelledby="spacing-title">
+        <section
+          className={`${styles.settingRow} ${uiStyles.sectionCard}`}
+          aria-labelledby="spacing-title"
+        >
           <div>
             <h2 id="spacing-title">Espaciado del texto</h2>
             <p>Amplía el espacio entre letras, palabras y líneas.</p>
@@ -130,7 +140,10 @@ export default function AccessibilityPage() {
           )}
         </section>
 
-        <section className={styles.settingRow} aria-labelledby="motion-title">
+        <section
+          className={`${styles.settingRow} ${uiStyles.sectionCard}`}
+          aria-labelledby="motion-title"
+        >
           <div>
             <h2 id="motion-title">Movimiento</h2>
             <p>Reduce transiciones y animaciones no esenciales.</p>
@@ -145,7 +158,11 @@ export default function AccessibilityPage() {
       </div>
 
       <div className={styles.actions}>
-        <button className={styles.resetButton} type="button" onClick={resetSettings}>
+        <button
+          className={`${styles.resetButton} ${uiStyles.secondaryButton}`}
+          type="button"
+          onClick={resetSettings}
+        >
           Restablecer preferencias
         </button>
         <p className={styles.statusMessage} role="status" aria-live="polite">

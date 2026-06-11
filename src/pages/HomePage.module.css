@@ -26,7 +26,7 @@
   height: 112px;
   margin-bottom: 20px;
   border: 2px solid rgba(0, 217, 255, 0.6);
-  border-radius: var(--radius-md);
+  border-radius: 24px;
   object-fit: cover;
   box-shadow:
     0 0 0 8px rgba(168, 85, 247, 0.08),
@@ -77,7 +77,7 @@
   justify-content: center;
   gap: 10px;
   border: 2px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: var(--ui-radius-control);
   font-weight: 850;
   line-height: 1.2;
   text-decoration: none;
@@ -136,11 +136,11 @@
 
 .actionCard {
   min-width: 0;
-  padding: 24px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgba(0, 217, 255, 0.16);
-  border-radius: var(--radius-md);
+  border-radius: var(--ui-radius-card);
   background:
     linear-gradient(145deg, rgba(0, 217, 255, 0.08), rgba(168, 85, 247, 0.08)),
     var(--surface);
@@ -164,7 +164,7 @@
   height: 48px;
   display: grid;
   place-items: center;
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   color: #050505;
   background: linear-gradient(135deg, var(--color-primary), #ffffff);
   font-size: 1.25rem;
@@ -227,8 +227,12 @@
 }
 
 .benefitList {
+  padding: 8px 22px;
   display: grid;
-  border-block: 1px solid var(--border);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-card);
+  background: var(--surface);
+  box-shadow: var(--ui-shadow-card);
 }
 
 .benefit {
@@ -263,7 +267,7 @@
   gap: 24px;
   border: 1px solid rgba(0, 217, 255, 0.24);
   border-left: 5px solid var(--color-primary);
-  border-radius: var(--radius-md);
+  border-radius: var(--ui-radius-card);
   color: #e2e8f0;
   background:
     linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(168, 85, 247, 0.14)),

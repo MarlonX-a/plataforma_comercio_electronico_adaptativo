@@ -1,5 +1,6 @@
 import { FaFacebookF, FaGithub, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import uiStyles from '../ui/UiPrimitives.module.css';
 import logoImage from '../../assets/images/LogoPro.png';
 import styles from './Footer.module.css';
 
@@ -61,6 +62,9 @@ export default function Footer() {
               <Link to="/accessibility">Accesibilidad</Link>
             </li>
             <li>
+              <Link to="/site-map">Mapa del sitio</Link>
+            </li>
+            <li>
               <Link to="/login">Iniciar sesión</Link>
             </li>
             <li>
@@ -78,7 +82,14 @@ export default function Footer() {
           </h2>
           <div className={styles.socialList}>
             {socialLinks.map(({ label, href, icon: SocialIcon }) => (
-              <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
+              <a
+                key={label}
+                className={uiStyles.socialButton}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+              >
                 <SocialIcon aria-hidden="true" />
               </a>
             ))}

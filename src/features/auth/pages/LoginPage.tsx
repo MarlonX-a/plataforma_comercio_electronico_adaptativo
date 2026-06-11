@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { getCurrentAuthSession, isUserProfileComplete, loginWithEmail } from '../services/authService';
 import type { LoginFormValues } from '../types/auth.types';
 import styles from './AuthPage.module.css';
@@ -39,7 +40,7 @@ export default function LoginPage() {
 
   return (
     <section className={styles.authPage} aria-labelledby="login-title">
-      <div className={styles.authPanel}>
+      <div className={`${styles.authPanel} ${uiStyles.formCard}`}>
         <p className={styles.kicker}>Acceso seguro</p>
         <h1 id="login-title">Iniciar sesión</h1>
         <p className={styles.summary}>
@@ -47,35 +48,45 @@ export default function LoginPage() {
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="login-email">Correo electrónico</label>
-            <input
-              id="login-email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="ejemplo@correo.com"
-              value={formValues.email}
-              onChange={(event) =>
-                setFormValues((currentValues) => ({
-                  ...currentValues,
-                  email: event.target.value,
-                }))
-              }
-              required
-            />
+            <div className={uiStyles.inputWrapper}>
+              <FaEnvelope className={uiStyles.inputIcon} aria-hidden="true" />
+              <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
+                id="login-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="ejemplo@correo.com"
+                value={formValues.email}
+                aria-invalid={isError}
+                aria-describedby={statusMessage ? 'login-status' : undefined}
+                onChange={(event) =>
+                  setFormValues((currentValues) => ({
+                    ...currentValues,
+                    email: event.target.value,
+                  }))
+                }
+                required
+              />
+            </div>
           </div>
 
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="login-password">Contraseña</label>
-            <div className={styles.passwordInputWrapper}>
+            <div className={`${styles.passwordInputWrapper} ${uiStyles.inputWrapper}`}>
+              <FaLock className={uiStyles.inputIcon} aria-hidden="true" />
               <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
                 id="login-password"
                 name="password"
                 type={isPasswordVisible ? 'text' : 'password'}
                 autoComplete="current-password"
                 placeholder="Tu contraseña"
                 value={formValues.password}
+                aria-invalid={isError}
+                aria-describedby={statusMessage ? 'login-status' : undefined}
                 onChange={(event) =>
                   setFormValues((currentValues) => ({
                     ...currentValues,
@@ -96,12 +107,20 @@ export default function LoginPage() {
           </div>
 
           {statusMessage ? (
-            <p className={isError ? styles.errorMessage : styles.successMessage} aria-live="polite">
+            <p
+              id="login-status"
+              className={isError ? styles.errorMessage : styles.successMessage}
+              role={isError ? 'alert' : 'status'}
+            >
               {statusMessage}
             </p>
           ) : null}
 
-          <button className={styles.submitButton} type="submit" disabled={isSubmitting}>
+          <button
+            className={`${styles.submitButton} ${uiStyles.primaryButton}`}
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Ingresando...' : 'Iniciar sesión'}
           </button>
         </form>

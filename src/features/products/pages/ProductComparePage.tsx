@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaArrowLeft, FaBalanceScale, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import {
@@ -16,6 +16,8 @@ export default function ProductComparePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [statusMessage, setStatusMessage] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const statusMessageRef = useRef<HTMLParagraphElement>(null);
+  const shouldFocusStatusRef = useRef(false);
 
   const loadComparison = useCallback(async () => {
     const comparedProductIds = loadComparedProductIds();
@@ -47,13 +49,24 @@ export default function ProductComparePage() {
     };
   }, [loadComparison]);
 
+  useEffect(() => {
+    if (!statusMessage || !shouldFocusStatusRef.current) {
+      return;
+    }
+
+    shouldFocusStatusRef.current = false;
+    statusMessageRef.current?.focus();
+  }, [statusMessage]);
+
   const handleRemoveProduct = (productId: number) => {
     const result = removeComparedProduct(productId);
+    shouldFocusStatusRef.current = true;
     setStatusMessage(result.message);
   };
 
   const handleClearComparison = () => {
     const result = clearComparedProducts();
+    shouldFocusStatusRef.current = true;
     setStatusMessage(result.message);
   };
 
@@ -78,7 +91,13 @@ export default function ProductComparePage() {
         <p>Revisa precio, disponibilidad, categoría y descripción en una sola vista.</p>
       </header>
 
-      <p className={styles.statusMessage} role="status" aria-live="polite">
+      <p
+        ref={statusMessageRef}
+        className={styles.statusMessage}
+        role="status"
+        aria-live="polite"
+        tabIndex={-1}
+      >
         {statusMessage}
       </p>
 

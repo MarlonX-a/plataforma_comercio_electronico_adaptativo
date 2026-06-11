@@ -2,18 +2,14 @@
   width: min(1120px, calc(100% - 32px));
   min-height: calc(100svh - 220px);
   margin: 0 auto;
-  padding: 64px 0;
+  padding: 72px 0;
   display: grid;
   place-items: center;
 }
 
 .authPanel {
   width: min(100%, 520px);
-  padding: 34px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  border-radius: var(--ui-radius-card);
   text-align: left;
 }
 
@@ -25,14 +21,15 @@
 }
 
 .summary {
-  margin-top: 10px;
+  margin-top: 12px;
   color: var(--text);
+  line-height: 1.65;
 }
 
 .form {
-  margin-top: 28px;
+  margin-top: 30px;
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 .fieldGroup {
@@ -47,14 +44,7 @@
 }
 
 .fieldGroup input {
-  width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-h);
-  background: var(--bg);
-  font: inherit;
+  min-height: var(--ui-control-height);
 }
 
 .fieldGroup input::placeholder {
@@ -63,7 +53,10 @@
 
 .fieldGroup input:focus {
   border-color: var(--accent);
-  outline: 3px solid var(--accent-bg);
+}
+
+.fieldGroup input[aria-invalid='true'] {
+  border-color: #ffb4b4;
 }
 
 .passwordInputWrapper {
@@ -71,20 +64,20 @@
 }
 
 .passwordInputWrapper input {
-  padding-right: 52px;
+  padding-right: 62px;
 }
 
 .passwordToggle {
   position: absolute;
   top: 50%;
-  right: 8px;
+  right: 6px;
   transform: translateY(-50%);
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   display: inline-grid;
   place-items: center;
   border: 0;
-  border-radius: 8px;
+  border-radius: 12px;
   color: var(--text);
   background: transparent;
   cursor: pointer;
@@ -149,15 +142,15 @@
 }
 
 .passwordStrength[data-strength='low'] .helpText {
-  color: #991b1b;
+  color: #ffb4b4;
 }
 
 .passwordStrength[data-strength='medium'] .helpText {
-  color: #92400e;
+  color: #ffd089;
 }
 
 .passwordStrength[data-strength='high'] .helpText {
-  color: #065f46;
+  color: #75f0b0;
 }
 
 .matchMessage,
@@ -167,17 +160,17 @@
 }
 
 .matchMessage {
-  color: #065f46;
+  color: #75f0b0;
 }
 
 .mismatchMessage {
-  color: #991b1b;
+  color: #ffb4b4;
 }
 
 .errorMessage,
 .successMessage {
-  padding: 12px 14px;
-  border-radius: 8px;
+  padding: 14px 16px;
+  border-radius: 14px;
   font-size: 0.95rem;
   font-weight: 650;
 }
@@ -193,19 +186,20 @@
 }
 
 .submitButton {
-  min-height: 50px;
-  border: 0;
-  border-radius: 8px;
-  color: #ffffff;
-  background: var(--accent);
-  box-shadow: var(--shadow);
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
+  width: 100%;
+}
+
+.successAction {
+  width: 100%;
+}
+
+.successAction:hover {
+  border-color: var(--accent);
+  background: var(--surface-strong);
 }
 
 .submitButton:hover:not(:disabled) {
-  background: var(--accent-strong);
+  background: linear-gradient(135deg, #8cecff, var(--accent));
 }
 
 .submitButton:disabled {
@@ -249,6 +243,6 @@
   }
 
   .authPanel {
-    padding: 24px;
+    width: 100%;
   }
 }

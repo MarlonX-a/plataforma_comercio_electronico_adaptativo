@@ -35,7 +35,7 @@
   display: block;
   flex: 0 0 54px;
   border: 1px solid rgba(0, 217, 255, 0.42);
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   object-fit: cover;
   object-position: center 36%;
   box-shadow:
@@ -87,7 +87,7 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   color: #cbd5e1;
   font-size: 0.95rem;
   font-weight: 750;
@@ -143,7 +143,7 @@
   display: inline-flex;
   align-items: center;
   border: 1px solid rgba(0, 217, 255, 0.28);
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   color: #f8fafc;
   font-size: 0.94rem;
   font-weight: 800;
@@ -180,7 +180,7 @@
   align-items: center;
   gap: 10px;
   border: 1px solid rgba(0, 217, 255, 0.42);
-  border-radius: var(--radius-md);
+  border-radius: 16px;
   color: #f8fafc;
   background: rgba(255, 255, 255, 0.06);
   font: inherit;
@@ -196,7 +196,7 @@
   height: 36px;
   display: inline-grid;
   place-items: center;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   color: #050505;
   background: linear-gradient(135deg, var(--color-primary), #ffffff);
   font-size: 0.95rem;
@@ -235,7 +235,7 @@
   display: grid;
   gap: 4px;
   border: 1px solid rgba(0, 217, 255, 0.24);
-  border-radius: var(--radius-md);
+  border-radius: 18px;
   background: #080d18;
   box-shadow: 0 24px 54px rgba(0, 0, 0, 0.5);
 }
@@ -271,7 +271,7 @@
   align-items: center;
   gap: 10px;
   border: 0;
-  border-radius: var(--radius-sm);
+  border-radius: 12px;
   color: #cbd5e1;
   background: transparent;
   font: inherit;

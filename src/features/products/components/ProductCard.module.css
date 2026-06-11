@@ -1,9 +1,10 @@
 .card {
+  padding: 0;
   min-width: 0;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--ui-radius-card);
   overflow: hidden;
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -33,7 +34,7 @@
 }
 
 .content {
-  padding: 18px;
+  padding: 22px;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -98,11 +99,11 @@
 }
 
 .stockAvailable {
-  color: #067647;
+  color: #75f0b0;
 }
 
 .stockUnavailable {
-  color: #b42318;
+  color: #ffb4b4;
 }
 
 .actions {
@@ -112,20 +113,8 @@
 
 .addButton,
 .compareButton {
-  min-height: 44px;
-  padding: 10px 14px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 0;
-  border-radius: 8px;
-  color: var(--button-text);
-  background: var(--accent);
-  font: inherit;
+  min-height: 48px;
   font-size: 0.9rem;
-  font-weight: 800;
-  cursor: pointer;
 }
 
 .addButton:hover:not(:disabled) {
@@ -133,9 +122,7 @@
 }
 
 .compareButton {
-  border: 1px solid var(--border);
-  color: var(--text-h);
-  background: var(--surface);
+  padding: 10px 14px;
 }
 
 .compareButton:hover {
@@ -146,7 +133,7 @@
 .compareButtonActive {
   color: var(--button-text);
   border-color: var(--accent);
-  background: var(--accent);
+  background: linear-gradient(135deg, var(--accent), #8cecff);
 }
 
 .addButton:disabled {

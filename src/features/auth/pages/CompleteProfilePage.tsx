@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FaUser } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { getCurrentAuthSession, getUserProfile, saveUserProfile } from '../services/authService';
 import type { CompleteProfileFormValues } from '../types/auth.types';
 import styles from './AuthPage.module.css';
@@ -55,13 +57,12 @@ export default function CompleteProfilePage() {
 
     if (result.isSuccess) {
       window.dispatchEvent(new Event('auth-profile-updated'));
-      window.setTimeout(() => navigate('/'), 700);
     }
   };
 
   return (
     <section className={styles.authPage} aria-labelledby="complete-profile-title">
-      <div className={styles.authPanel}>
+      <div className={`${styles.authPanel} ${uiStyles.formCard}`}>
         <p className={styles.kicker}>Último paso</p>
         <h1 id="complete-profile-title">Completa tu perfil</h1>
         <p className={styles.summary}>
@@ -69,31 +70,51 @@ export default function CompleteProfilePage() {
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="profile-full-name">Nombre completo</label>
-            <input
-              id="profile-full-name"
-              name="fullName"
-              type="text"
-              autoComplete="name"
-              placeholder="Marlon Alvia"
-              value={formValues.fullName}
-              onChange={(event) =>
-                setFormValues({
-                  fullName: event.target.value,
-                })
-              }
-              required
-            />
+            <div className={uiStyles.inputWrapper}>
+              <FaUser className={uiStyles.inputIcon} aria-hidden="true" />
+              <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
+                id="profile-full-name"
+                name="fullName"
+                type="text"
+                autoComplete="name"
+                placeholder="Marlon Alvia"
+                value={formValues.fullName}
+                aria-invalid={isError}
+                aria-describedby={statusMessage ? 'profile-status' : undefined}
+                onChange={(event) =>
+                  setFormValues({
+                    fullName: event.target.value,
+                  })
+                }
+                required
+              />
+            </div>
           </div>
 
           {statusMessage ? (
-            <p className={isError ? styles.errorMessage : styles.successMessage} aria-live="polite">
+            <p
+              id="profile-status"
+              className={isError ? styles.errorMessage : styles.successMessage}
+              role={isError ? 'alert' : 'status'}
+            >
               {statusMessage}
             </p>
           ) : null}
 
-          <button className={styles.submitButton} type="submit" disabled={isSubmitting}>
+          {statusMessage && !isError ? (
+            <Link className={`${styles.successAction} ${uiStyles.secondaryButton}`} to="/">
+              Ir a la pÃ¡gina de inicio
+            </Link>
+          ) : null}
+
+          <button
+            className={`${styles.submitButton} ${uiStyles.primaryButton}`}
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Guardando perfil...' : 'Guardar y continuar'}
           </button>
         </form>

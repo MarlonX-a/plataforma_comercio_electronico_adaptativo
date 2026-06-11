@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaMinus, FaPlus, FaShoppingCart, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import {
   cartUpdatedEventName,
   createCartSummary,
@@ -24,6 +25,8 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const statusMessageRef = useRef<HTMLParagraphElement>(null);
+  const shouldFocusStatusRef = useRef(false);
 
   const loadCart = useCallback(async () => {
     const storedItems = loadStoredCartItems();
@@ -51,6 +54,15 @@ export default function CartPage() {
     };
   }, [loadCart]);
 
+  useEffect(() => {
+    if (!statusMessage || !shouldFocusStatusRef.current) {
+      return;
+    }
+
+    shouldFocusStatusRef.current = false;
+    statusMessageRef.current?.focus();
+  }, [statusMessage]);
+
   const changeQuantity = (productId: number, quantity: number) => {
     const cartItem = cartSummary.items.find((item) => item.product.id === productId);
 
@@ -70,6 +82,7 @@ export default function CartPage() {
     }
 
     const result = removeProductFromCart(cartItem.product);
+    shouldFocusStatusRef.current = true;
     setStatusMessage(result.message);
   };
 
@@ -93,7 +106,13 @@ export default function CartPage() {
         </p>
       </header>
 
-      <p className={styles.statusMessage} role="status" aria-live="polite">
+      <p
+        ref={statusMessageRef}
+        className={styles.statusMessage}
+        role="status"
+        aria-live="polite"
+        tabIndex={-1}
+      >
         {statusMessage}
       </p>
 
@@ -120,7 +139,10 @@ export default function CartPage() {
               const availableStock = item.product.stock ?? 0;
 
               return (
-                <li key={item.product.id} className={styles.item}>
+                <li
+                  key={item.product.id}
+                  className={`${styles.item} ${uiStyles.sectionCard}`}
+                >
                   {item.product.imageUrl ? (
                     <img src={item.product.imageUrl} alt="" />
                   ) : (
@@ -173,7 +195,10 @@ export default function CartPage() {
             })}
           </ul>
 
-          <aside className={styles.summary} aria-labelledby="cart-summary-title">
+          <aside
+            className={`${styles.summary} ${uiStyles.sectionCard}`}
+            aria-labelledby="cart-summary-title"
+          >
             <h2 id="cart-summary-title">Resumen</h2>
             <dl>
               <div>
@@ -186,7 +211,7 @@ export default function CartPage() {
               </div>
             </dl>
             <p>Los costos de envío se calcularán en el siguiente paso.</p>
-            <Link to="/checkout">
+            <Link className={uiStyles.primaryButton} to="/checkout">
               Continuar al pago
             </Link>
           </aside>

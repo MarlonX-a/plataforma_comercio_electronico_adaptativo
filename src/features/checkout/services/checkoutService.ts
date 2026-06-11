@@ -1,6 +1,7 @@
 import { clearCart } from '../../cart/services/cartService';
 import type { CartSummary } from '../../cart/types/cart.types';
 import type {
+  CheckoutFieldErrors,
   CheckoutFormValues,
   CheckoutOperationResult,
   OrderHistoryResult,
@@ -55,31 +56,34 @@ const createEstimatedDelivery = (): string => {
   return deliveryDate.toISOString();
 };
 
-export const validateCheckoutForm = (values: CheckoutFormValues): string[] => {
-  const errors: string[] = [];
+export const validateCheckoutFields = (values: CheckoutFormValues): CheckoutFieldErrors => {
+  const errors: CheckoutFieldErrors = {};
 
   if (values.fullName.trim().length < 3) {
-    errors.push('Ingresa tu nombre completo.');
+    errors.fullName = 'Ingresa nombre y apellido, con al menos 3 caracteres.';
   }
 
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
-    errors.push('Ingresa un correo electrónico válido.');
+    errors.email = 'Ingresa un correo válido, por ejemplo usuario@correo.com.';
   }
 
   if (values.address.trim().length < 8) {
-    errors.push('Ingresa una dirección más específica.');
+    errors.address = 'Incluye calle, número o referencia; usa al menos 8 caracteres.';
   }
 
   if (values.city.trim().length < 2) {
-    errors.push('Ingresa la ciudad de entrega.');
+    errors.city = 'Ingresa el nombre de la ciudad de entrega.';
   }
 
   if (!/^[0-9+\-\s()]{7,}$/.test(values.phone.trim())) {
-    errors.push('Ingresa un teléfono válido para confirmar la entrega.');
+    errors.phone = 'Usa al menos 7 dígitos; puedes incluir espacios, +, guiones o paréntesis.';
   }
 
   return errors;
 };
+
+export const validateCheckoutForm = (values: CheckoutFormValues): string[] =>
+  Object.values(validateCheckoutFields(values));
 
 export const createCheckoutOrder = (
   values: CheckoutFormValues,

@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import type { FormEvent } from 'react';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { registerWithEmail } from '../services/authService';
 import type { PasswordStrengthLevel, RegisterFormValues } from '../types/auth.types';
 import styles from './AuthPage.module.css';
@@ -46,7 +47,6 @@ const getPasswordStrengthLevel = (password: string): PasswordStrengthLevel => {
 };
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
   const [formValues, setFormValues] = useState<RegisterFormValues>(initialRegisterFormValues);
   const [statusMessage, setStatusMessage] = useState('');
   const [isError, setIsError] = useState(false);
@@ -58,6 +58,8 @@ export default function RegisterPage() {
     () => getPasswordStrengthLevel(formValues.password),
     [formValues.password],
   );
+  const passwordsDoNotMatch =
+    Boolean(formValues.confirmPassword) && formValues.password !== formValues.confirmPassword;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,13 +81,12 @@ export default function RegisterPage() {
 
     if (result.isSuccess) {
       setFormValues(initialRegisterFormValues);
-      window.setTimeout(() => navigate('/login'), 1300);
     }
   };
 
   return (
     <section className={styles.authPage} aria-labelledby="register-title">
-      <div className={styles.authPanel}>
+      <div className={`${styles.authPanel} ${uiStyles.formCard}`}>
         <p className={styles.kicker}>Nueva cuenta</p>
         <h1 id="register-title">Crear cuenta</h1>
         <p className={styles.summary}>
@@ -94,29 +95,37 @@ export default function RegisterPage() {
         </p>
 
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="register-email">Correo electrónico</label>
-            <input
-              id="register-email"
-              name="email"
-              type="email"
-              autoComplete="email"
-              placeholder="marlon@correo.com"
-              value={formValues.email}
-              onChange={(event) =>
-                setFormValues((currentValues) => ({
-                  ...currentValues,
-                  email: event.target.value,
-                }))
-              }
-              required
-            />
+            <div className={uiStyles.inputWrapper}>
+              <FaEnvelope className={uiStyles.inputIcon} aria-hidden="true" />
+              <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
+                id="register-email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                placeholder="marlon@correo.com"
+                value={formValues.email}
+                aria-invalid={isError}
+                aria-describedby={isError ? 'register-status' : undefined}
+                onChange={(event) =>
+                  setFormValues((currentValues) => ({
+                    ...currentValues,
+                    email: event.target.value,
+                  }))
+                }
+                required
+              />
+            </div>
           </div>
 
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="register-password">Contraseña</label>
-            <div className={styles.passwordInputWrapper}>
+            <div className={`${styles.passwordInputWrapper} ${uiStyles.inputWrapper}`}>
+              <FaLock className={uiStyles.inputIcon} aria-hidden="true" />
               <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
                 id="register-password"
                 name="password"
                 type={isPasswordVisible ? 'text' : 'password'}
@@ -130,7 +139,10 @@ export default function RegisterPage() {
                     password: event.target.value,
                   }))
                 }
-                aria-describedby="password-strength-message"
+                aria-invalid={isError}
+                aria-describedby={
+                  isError ? 'password-strength-message register-status' : 'password-strength-message'
+                }
                 required
               />
               <button
@@ -152,10 +164,12 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <div className={styles.fieldGroup}>
+          <div className={`${styles.fieldGroup} ${uiStyles.formGroup}`}>
             <label htmlFor="register-confirm-password">Confirmar contraseña</label>
-            <div className={styles.passwordInputWrapper}>
+            <div className={`${styles.passwordInputWrapper} ${uiStyles.inputWrapper}`}>
+              <FaLock className={uiStyles.inputIcon} aria-hidden="true" />
               <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
                 id="register-confirm-password"
                 name="confirmPassword"
                 type={isConfirmPasswordVisible ? 'text' : 'password'}
@@ -169,7 +183,12 @@ export default function RegisterPage() {
                     confirmPassword: event.target.value,
                   }))
                 }
-                aria-describedby="confirm-password-message"
+                aria-describedby={
+                  isError
+                    ? 'confirm-password-message register-status'
+                    : 'confirm-password-message'
+                }
+                aria-invalid={passwordsDoNotMatch}
                 required
               />
               <button
@@ -211,12 +230,26 @@ export default function RegisterPage() {
           </div>
 
           {statusMessage ? (
-            <p className={isError ? styles.errorMessage : styles.successMessage} aria-live="polite">
+            <p
+              id="register-status"
+              className={isError ? styles.errorMessage : styles.successMessage}
+              role={isError ? 'alert' : 'status'}
+            >
               {statusMessage}
             </p>
           ) : null}
 
-          <button className={styles.submitButton} type="submit" disabled={isSubmitting}>
+          {statusMessage && !isError ? (
+            <Link className={`${styles.successAction} ${uiStyles.secondaryButton}`} to="/login">
+              Continuar al inicio de sesiÃ³n
+            </Link>
+          ) : null}
+
+          <button
+            className={`${styles.submitButton} ${uiStyles.primaryButton}`}
+            type="submit"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? 'Creando cuenta...' : 'Crear acceso'}
           </button>
         </form>

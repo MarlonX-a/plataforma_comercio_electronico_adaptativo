@@ -45,16 +45,17 @@
   margin: 0;
   padding: 0;
   display: grid;
+  gap: 14px;
   list-style: none;
 }
 
 .item {
-  padding: 18px 0;
+  padding: 16px;
   display: grid;
   grid-template-columns: 88px minmax(150px, 1fr) auto auto 44px;
   align-items: center;
   gap: 16px;
-  border-bottom: 1px solid var(--border);
+  border-radius: 18px;
 }
 
 .item img,
@@ -99,7 +100,7 @@
   grid-template-columns: 44px 44px 44px;
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
@@ -141,25 +142,22 @@
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  color: #b42318;
+  border-radius: 14px;
+  color: #ffb4b4;
   background: var(--surface);
   cursor: pointer;
 }
 
 .removeButton:hover {
-  border-color: #b42318;
-  background: #fee4e2;
+  border-color: #ffb4b4;
+  background: rgba(255, 180, 180, 0.14);
 }
 
 .summary {
   position: sticky;
   top: 104px;
-  padding: 24px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--surface);
-  box-shadow: var(--shadow);
+  padding: 26px;
+  border-radius: var(--ui-radius-card);
 }
 
 .summary dl {
@@ -194,7 +192,7 @@
   align-items: center;
   justify-content: center;
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--ui-radius-control);
   color: var(--button-text);
   background: var(--accent);
   font: inherit;
@@ -213,7 +211,10 @@
 
 .emptyState {
   min-height: 360px;
-  border-block: 1px solid var(--border);
+  padding: 28px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-card);
+  background: var(--surface);
 }
 
 .emptyState > svg {

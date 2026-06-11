@@ -7,11 +7,18 @@
   --color-accent: #a855f7;
   --color-text: #ffffff;
   --color-text-muted: #d1d5db;
-  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border: rgba(255, 255, 255, 0.36);
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
   --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.35);
+  --ui-radius-card: 24px;
+  --ui-radius-control: 14px;
+  --ui-control-height: 52px;
+  --ui-border: rgba(148, 196, 222, 0.32);
+  --ui-shadow-card:
+    0 28px 70px rgba(0, 0, 0, 0.34),
+    0 0 0 1px rgba(0, 217, 255, 0.035);
 
   --text: var(--color-text-muted);
   --text-h: var(--color-text);
@@ -76,12 +83,22 @@
   line-height: 1.7;
 }
 
+:root[data-text-spacing='increased'] button,
+:root[data-text-spacing='increased'] input,
+:root[data-text-spacing='increased'] select,
+:root[data-text-spacing='increased'] textarea {
+  min-height: 48px;
+  height: auto;
+  white-space: normal;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   overflow-wrap: break-word;
+  scroll-padding-top: 104px;
 }
 
 #root {
@@ -96,6 +113,7 @@ body {
     radial-gradient(circle at 12% 0%, rgba(0, 217, 255, 0.18), transparent 30rem),
     radial-gradient(circle at 88% 8%, rgba(168, 85, 247, 0.2), transparent 28rem),
     linear-gradient(180deg, #050505, #0a0f1d 48%, #050505);
+  background-attachment: fixed;
 }
 
 img,
@@ -108,7 +126,20 @@ input,
 button,
 select,
 textarea {
+  max-width: 100%;
   font: inherit;
+}
+
+main,
+section,
+article,
+form,
+fieldset {
+  min-width: 0;
+}
+
+main [id] {
+  scroll-margin-top: 104px;
 }
 
 a {
@@ -116,7 +147,12 @@ a {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
   outline: 3px solid var(--accent-warm);
   outline-offset: 3px;
 }
@@ -193,5 +229,15 @@ code {
 @media (max-width: 320px) {
   body {
     overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  a,
+  button,
+  label {
+    overflow-wrap: anywhere;
   }
 }

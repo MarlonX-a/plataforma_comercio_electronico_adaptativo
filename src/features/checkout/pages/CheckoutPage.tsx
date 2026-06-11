@@ -1,20 +1,16 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import { FaCircleCheck, FaHeadset, FaLock, FaTruckFast } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
-import {
-  createCartSummary,
-  loadStoredCartItems,
-} from '../../cart/services/cartService';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
+import { createCartSummary, loadStoredCartItems } from '../../cart/services/cartService';
 import type { CartSummary } from '../../cart/types/cart.types';
 import { getProductsByIds } from '../../products/services/productService';
 import { formatProductPrice } from '../../products/utils/productFormatters';
-import {
-  createCheckoutOrder,
-  validateCheckoutForm,
-} from '../services/checkoutService';
+import { createCheckoutOrder, validateCheckoutFields } from '../services/checkoutService';
 import type {
   CheckoutConfirmation,
+  CheckoutFieldName,
   CheckoutFormValues,
   CheckoutStepKey,
 } from '../types/checkout.types';
@@ -38,9 +34,17 @@ const initialCheckoutValues: CheckoutFormValues = {
 const checkoutSteps: Array<{ key: CheckoutStepKey; label: string }> = [
   { key: 'cart', label: 'Carrito' },
   { key: 'details', label: 'Datos' },
-  { key: 'review', label: 'Resumen' },
+  { key: 'review', label: 'Revisión' },
   { key: 'confirmation', label: 'Confirmación' },
 ];
+
+const paymentMethodLabels: Record<CheckoutFormValues['paymentMethod'], string> = {
+  card: 'Tarjeta segura',
+  transfer: 'Transferencia',
+  cash: 'Pago contra entrega',
+};
+
+const fieldOrder: CheckoutFieldName[] = ['fullName', 'email', 'address', 'city', 'phone'];
 
 const getStepState = (step: CheckoutStepKey, activeStep: CheckoutStepKey): string => {
   const currentIndex = checkoutSteps.findIndex((checkoutStep) => checkoutStep.key === activeStep);
@@ -59,6 +63,11 @@ export default function CheckoutPage() {
   const [checkoutValues, setCheckoutValues] = useState<CheckoutFormValues>(initialCheckoutValues);
   const [statusMessage, setStatusMessage] = useState('');
   const [confirmation, setConfirmation] = useState<CheckoutConfirmation | null>(null);
+  const [activeStep, setActiveStep] = useState<CheckoutStepKey>('details');
+  const [hasAttemptedReview, setHasAttemptedReview] = useState(false);
+  const errorSummaryRef = useRef<HTMLDivElement>(null);
+  const reviewTitleRef = useRef<HTMLHeadingElement>(null);
+  const confirmationTitleRef = useRef<HTMLHeadingElement>(null);
 
   const loadCheckoutCart = useCallback(async () => {
     const storedItems = loadStoredCartItems();
@@ -79,12 +88,23 @@ export default function CheckoutPage() {
     };
   }, [loadCheckoutCart]);
 
-  const formErrors = useMemo(
-    () => validateCheckoutForm(checkoutValues),
+  useEffect(() => {
+    if (activeStep === 'review') {
+      reviewTitleRef.current?.focus();
+    }
+
+    if (activeStep === 'confirmation') {
+      confirmationTitleRef.current?.focus();
+    }
+  }, [activeStep]);
+
+  const fieldErrors = useMemo(
+    () => validateCheckoutFields(checkoutValues),
     [checkoutValues],
   );
-  const canConfirmOrder = formErrors.length === 0 && cartSummary.items.length > 0;
-  const activeStep: CheckoutStepKey = confirmation ? 'confirmation' : 'details';
+  const errorMessages = fieldOrder.flatMap((field) =>
+    fieldErrors[field] ? [fieldErrors[field]] : [],
+  );
 
   const updateField = (field: keyof CheckoutFormValues, value: string) => {
     setCheckoutValues((currentValues) => ({
@@ -93,12 +113,32 @@ export default function CheckoutPage() {
     }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const getFieldDescription = (field: CheckoutFieldName): string =>
+    hasAttemptedReview && fieldErrors[field]
+      ? `checkout-${field}-error`
+      : 'checkout-form-instructions';
 
+  const handleReview = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setHasAttemptedReview(true);
+    setStatusMessage('');
+
+    if (errorMessages.length > 0) {
+      window.requestAnimationFrame(() => errorSummaryRef.current?.focus());
+      return;
+    }
+
+    setActiveStep('review');
+  };
+
+  const handleConfirmOrder = () => {
     const result = createCheckoutOrder(checkoutValues, cartSummary);
     setStatusMessage(result.message);
     setConfirmation(result.confirmation);
+
+    if (result.isSuccess) {
+      setActiveStep('confirmation');
+    }
   };
 
   if (isLoading) {
@@ -112,11 +152,13 @@ export default function CheckoutPage() {
   if (confirmation) {
     return (
       <section className={styles.page} aria-labelledby="confirmation-title">
-        <div className={styles.confirmation}>
+        <div className={`${styles.confirmation} ${uiStyles.formCard}`}>
           <FaCircleCheck aria-hidden="true" />
           <p className={styles.kicker}>Compra confirmada</p>
-          <h1 id="confirmation-title">Tu pedido está en camino</h1>
-          <p>
+          <h1 ref={confirmationTitleRef} id="confirmation-title" tabIndex={-1}>
+            Tu pedido está en camino
+          </h1>
+          <p role="status">
             Pedido <strong>{confirmation.order.id}</strong> registrado correctamente. Puedes
             consultar el seguimiento desde tus pedidos.
           </p>
@@ -155,126 +197,236 @@ export default function CheckoutPage() {
           <p>Agrega productos antes de iniciar el pago.</p>
           <Link to="/products">Ver productos</Link>
         </div>
+      ) : activeStep === 'review' ? (
+        <div className={`${styles.reviewPanel} ${uiStyles.formCard}`}>
+          <div>
+            <p className={styles.kicker}>Comprueba antes de confirmar</p>
+            <h2 ref={reviewTitleRef} id="checkout-review-title" tabIndex={-1}>
+              Revisa los datos del pedido
+            </h2>
+            <p>Puedes volver y corregir cualquier dato antes de registrar la compra.</p>
+          </div>
+
+          <dl className={styles.reviewDetails}>
+            <div>
+              <dt>Nombre</dt>
+              <dd>{checkoutValues.fullName}</dd>
+            </div>
+            <div>
+              <dt>Correo</dt>
+              <dd>{checkoutValues.email}</dd>
+            </div>
+            <div>
+              <dt>Entrega</dt>
+              <dd>
+                {checkoutValues.address}, {checkoutValues.city}
+              </dd>
+            </div>
+            <div>
+              <dt>Teléfono</dt>
+              <dd>{checkoutValues.phone}</dd>
+            </div>
+            <div>
+              <dt>Método de pago</dt>
+              <dd>{paymentMethodLabels[checkoutValues.paymentMethod]}</dd>
+            </div>
+            <div>
+              <dt>Total</dt>
+              <dd>{formatProductPrice(cartSummary.subtotal)}</dd>
+            </div>
+          </dl>
+
+          <div className={styles.reviewActions}>
+            <button
+              type="button"
+              className={`${styles.secondaryButton} ${uiStyles.secondaryButton}`}
+              onClick={() => setActiveStep('details')}
+            >
+              Editar datos
+            </button>
+            <button
+              type="button"
+              className={`${styles.primaryButton} ${uiStyles.primaryButton}`}
+              onClick={handleConfirmOrder}
+            >
+              Confirmar y registrar pedido
+            </button>
+          </div>
+
+          <p className={styles.statusMessage} role="status" aria-live="polite">
+            {statusMessage}
+          </p>
+        </div>
       ) : (
         <div className={styles.layout}>
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <div className={styles.formIntro}>
+          <form
+            className={`${styles.form} ${uiStyles.formCard}`}
+            onSubmit={handleReview}
+            noValidate
+          >
+            <div id="checkout-form-instructions" className={styles.formIntro}>
               <h2>Datos de entrega</h2>
-              <p>Los campos obligatorios ayudan a evitar errores en la compra.</p>
+              <p>Todos los campos son obligatorios. Después podrás revisar y corregir los datos.</p>
             </div>
 
-            <label>
+            {hasAttemptedReview && errorMessages.length > 0 ? (
+              <div
+                ref={errorSummaryRef}
+                className={styles.errorSummary}
+                role="alert"
+                tabIndex={-1}
+              >
+                <strong>Revisa los siguientes campos:</strong>
+                <ul>
+                  {fieldOrder.map((field) =>
+                    fieldErrors[field] ? (
+                      <li key={field}>
+                        <a href={`#checkout-${field}`}>{fieldErrors[field]}</a>
+                      </li>
+                    ) : null,
+                  )}
+                </ul>
+              </div>
+            ) : null}
+
+            <label className={uiStyles.formGroup} htmlFor="checkout-fullName">
               Nombre completo
               <input
+                className={uiStyles.formInput}
+                id="checkout-fullName"
+                name="name"
                 type="text"
                 autoComplete="name"
+                aria-invalid={hasAttemptedReview && Boolean(fieldErrors.fullName)}
+                aria-describedby={getFieldDescription('fullName')}
                 placeholder="Ejemplo: Marlon Alvia"
                 value={checkoutValues.fullName}
                 onChange={(event) => updateField('fullName', event.target.value)}
+                required
               />
+              {hasAttemptedReview && fieldErrors.fullName ? (
+                <span id="checkout-fullName-error" className={styles.fieldError}>
+                  {fieldErrors.fullName}
+                </span>
+              ) : null}
             </label>
 
-            <label>
+            <label className={uiStyles.formGroup} htmlFor="checkout-email">
               Correo electrónico
               <input
+                className={uiStyles.formInput}
+                id="checkout-email"
+                name="email"
                 type="email"
                 autoComplete="email"
+                aria-invalid={hasAttemptedReview && Boolean(fieldErrors.email)}
+                aria-describedby={getFieldDescription('email')}
                 placeholder="Ejemplo: usuario@correo.com"
                 value={checkoutValues.email}
                 onChange={(event) => updateField('email', event.target.value)}
+                required
               />
+              {hasAttemptedReview && fieldErrors.email ? (
+                <span id="checkout-email-error" className={styles.fieldError}>
+                  {fieldErrors.email}
+                </span>
+              ) : null}
             </label>
 
-            <label>
+            <label className={uiStyles.formGroup} htmlFor="checkout-address">
               Dirección
               <input
+                className={uiStyles.formInput}
+                id="checkout-address"
+                name="street-address"
                 type="text"
                 autoComplete="street-address"
+                aria-invalid={hasAttemptedReview && Boolean(fieldErrors.address)}
+                aria-describedby={getFieldDescription('address')}
                 placeholder="Ejemplo: Av. Principal y Calle 10"
                 value={checkoutValues.address}
                 onChange={(event) => updateField('address', event.target.value)}
+                required
               />
+              {hasAttemptedReview && fieldErrors.address ? (
+                <span id="checkout-address-error" className={styles.fieldError}>
+                  {fieldErrors.address}
+                </span>
+              ) : null}
             </label>
 
             <div className={styles.inlineFields}>
-              <label>
+              <label className={uiStyles.formGroup} htmlFor="checkout-city">
                 Ciudad
                 <input
+                  className={uiStyles.formInput}
+                  id="checkout-city"
+                  name="address-level2"
                   type="text"
                   autoComplete="address-level2"
+                  aria-invalid={hasAttemptedReview && Boolean(fieldErrors.city)}
+                  aria-describedby={getFieldDescription('city')}
                   placeholder="Ejemplo: Portoviejo"
                   value={checkoutValues.city}
                   onChange={(event) => updateField('city', event.target.value)}
+                  required
                 />
+                {hasAttemptedReview && fieldErrors.city ? (
+                  <span id="checkout-city-error" className={styles.fieldError}>
+                    {fieldErrors.city}
+                  </span>
+                ) : null}
               </label>
-              <label>
+
+              <label className={uiStyles.formGroup} htmlFor="checkout-phone">
                 Teléfono
                 <input
+                  className={uiStyles.formInput}
+                  id="checkout-phone"
+                  name="tel"
                   type="tel"
                   autoComplete="tel"
+                  inputMode="tel"
+                  aria-invalid={hasAttemptedReview && Boolean(fieldErrors.phone)}
+                  aria-describedby={getFieldDescription('phone')}
                   placeholder="Ejemplo: 0999999999"
                   value={checkoutValues.phone}
                   onChange={(event) => updateField('phone', event.target.value)}
+                  required
                 />
+                {hasAttemptedReview && fieldErrors.phone ? (
+                  <span id="checkout-phone-error" className={styles.fieldError}>
+                    {fieldErrors.phone}
+                  </span>
+                ) : null}
               </label>
             </div>
 
             <fieldset className={styles.paymentOptions}>
               <legend>Método de pago</legend>
-              <label>
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="card"
-                  checked={checkoutValues.paymentMethod === 'card'}
-                  onChange={(event) => updateField('paymentMethod', event.target.value)}
-                />
-                Tarjeta segura
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="transfer"
-                  checked={checkoutValues.paymentMethod === 'transfer'}
-                  onChange={(event) => updateField('paymentMethod', event.target.value)}
-                />
-                Transferencia
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="paymentMethod"
-                  value="cash"
-                  checked={checkoutValues.paymentMethod === 'cash'}
-                  onChange={(event) => updateField('paymentMethod', event.target.value)}
-                />
-                Pago contra entrega
-              </label>
+              {Object.entries(paymentMethodLabels).map(([value, label]) => (
+                <label key={value}>
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value={value}
+                    checked={checkoutValues.paymentMethod === value}
+                    onChange={(event) => updateField('paymentMethod', event.target.value)}
+                  />
+                  {label}
+                </label>
+              ))}
             </fieldset>
 
-            <div className={styles.formHelp} role="status" aria-live="polite">
-              {formErrors.length > 0 ? (
-                <ul>
-                  {formErrors.map((error) => (
-                    <li key={error}>{error}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p>Datos listos para revisar y confirmar.</p>
-              )}
-            </div>
-
-            <button type="submit" disabled={!canConfirmOrder}>
-              Confirmar pedido
+            <button className={uiStyles.primaryButton} type="submit">
+              Revisar pedido
             </button>
-
-            <p className={styles.statusMessage} role="status" aria-live="polite">
-              {statusMessage}
-            </p>
           </form>
 
-          <aside className={styles.summary} aria-labelledby="review-title">
+          <aside
+            className={`${styles.summary} ${uiStyles.sectionCard}`}
+            aria-labelledby="review-title"
+          >
             <h2 id="review-title">Resumen de compra</h2>
             <ul>
               {cartSummary.items.map((item) => (

@@ -11,6 +11,7 @@ import ProductComparePage from '../../features/products/pages/ProductComparePage
 import ProductDetailPage from '../../features/products/pages/ProductDetailPage';
 import ProductsPage from '../../features/products/pages/ProductsPage';
 import HomePage from '../../pages/HomePage';
+import SiteMapPage from '../../pages/SiteMapPage';
 
 export default function AppRouter() {
   return (
@@ -21,6 +22,7 @@ export default function AppRouter() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/complete-profile" element={<CompleteProfilePage />} />
+          <Route path="/profile" element={<CompleteProfilePage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/compare" element={<ProductComparePage />} />
@@ -28,6 +30,7 @@ export default function AppRouter() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
+          <Route path="/site-map" element={<SiteMapPage />} />
         </Routes>
       </AppLayout>
     </BrowserRouter>

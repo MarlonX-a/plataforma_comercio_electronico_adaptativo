@@ -25,20 +25,17 @@
 }
 
 .settingsList {
-  border-block: 1px solid var(--border);
+  display: grid;
+  gap: 16px;
 }
 
 .settingRow {
-  padding: 26px 0;
+  padding: 22px;
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(300px, auto);
   align-items: center;
   gap: 32px;
-  border-bottom: 1px solid var(--border);
-}
-
-.settingRow:last-child {
-  border-bottom: 0;
+  border-radius: var(--ui-radius-card);
 }
 
 .settingRow h2 {
@@ -56,7 +53,7 @@
   display: flex;
   align-items: stretch;
   border: 1px solid var(--accent-border);
-  border-radius: 8px;
+  border-radius: 14px;
   overflow: hidden;
 }
 
@@ -101,15 +98,7 @@
 }
 
 .resetButton {
-  min-height: 46px;
-  padding: 10px 16px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-h);
-  background: var(--surface);
-  font: inherit;
-  font-weight: 750;
-  cursor: pointer;
+  min-height: var(--ui-control-height);
 }
 
 .resetButton:hover {

@@ -60,7 +60,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 8px;
+  border-radius: var(--ui-radius-control);
   font: inherit;
   font-weight: 850;
   text-decoration: none;
@@ -83,7 +83,7 @@
 .tableWrapper {
   overflow-x: auto;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--ui-radius-card);
   background: var(--surface);
   box-shadow: var(--shadow);
 }
@@ -139,7 +139,10 @@
 
 .emptyState {
   min-height: 380px;
-  border-block: 1px solid var(--border);
+  padding: 28px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-card);
+  background: var(--surface);
 }
 
 .emptyState > svg {

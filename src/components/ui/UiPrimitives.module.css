@@ -1,0 +1,151 @@
+.formCard,
+.sectionCard {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-card);
+  background:
+    linear-gradient(145deg, rgba(0, 217, 255, 0.045), rgba(139, 92, 246, 0.045)),
+    var(--surface);
+  box-shadow: var(--ui-shadow-card);
+}
+
+.formCard {
+  padding: clamp(22px, 4vw, 34px);
+}
+
+.sectionCard {
+  padding: 22px;
+}
+
+.formGroup {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.inputWrapper {
+  min-width: 0;
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  top: 50%;
+  left: 17px;
+  z-index: 1;
+  transform: translateY(-50%);
+  color: var(--accent-strong);
+  pointer-events: none;
+}
+
+.inputWrapper .formInputWithIcon {
+  padding-left: 48px;
+}
+
+.formInput {
+  width: 100%;
+  min-height: var(--ui-control-height);
+  padding: 13px 16px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-control);
+  color: var(--text-h);
+  background: rgba(3, 8, 18, 0.76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.formInput:hover {
+  border-color: var(--accent-border);
+}
+
+.formInput:focus {
+  border-color: var(--accent);
+  background: rgba(5, 13, 27, 0.96);
+  box-shadow:
+    0 0 0 4px var(--accent-bg),
+    0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.primaryButton,
+.secondaryButton,
+.socialButton {
+  min-height: var(--ui-control-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: var(--ui-radius-control);
+  font: inherit;
+  font-weight: 850;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.primaryButton {
+  padding: 13px 20px;
+  border: 1px solid rgba(125, 220, 255, 0.85);
+  color: var(--button-text);
+  background: linear-gradient(135deg, var(--accent), #8cecff);
+  box-shadow: 0 12px 26px rgba(0, 217, 255, 0.18);
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #8cecff, var(--accent));
+  box-shadow: 0 16px 32px rgba(0, 217, 255, 0.24);
+  transform: translateY(-1px);
+}
+
+.secondaryButton {
+  padding: 13px 18px;
+  border: 1px solid var(--ui-border);
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.secondaryButton:hover:not(:disabled) {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.socialButton {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--ui-border);
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.socialButton:hover {
+  color: var(--button-text);
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+:global(html[data-contrast='highContrast']) .formCard,
+:global(html[data-contrast='highContrast']) .sectionCard,
+:global(html[data-contrast='highContrast']) .formInput,
+:global(html[data-contrast='highContrast']) .secondaryButton,
+:global(html[data-contrast='highContrast']) .socialButton {
+  border: 2px solid #000000;
+  box-shadow: none;
+}
+
+@media (max-width: 620px) {
+  .formCard,
+  .sectionCard {
+    border-radius: 18px;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+}

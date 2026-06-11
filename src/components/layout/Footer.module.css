@@ -28,7 +28,7 @@
   display: block;
   flex: 0 0 72px;
   border: 1px solid rgba(0, 217, 255, 0.4);
-  border-radius: var(--radius-md);
+  border-radius: 18px;
   object-fit: cover;
   object-position: center 36%;
   box-shadow:
@@ -101,12 +101,12 @@
 }
 
 .socialList a {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   display: inline-grid;
   place-items: center;
   border: 1px solid rgba(0, 217, 255, 0.28);
-  border-radius: var(--radius-sm);
+  border-radius: 14px;
   color: #cbd5e1;
   background: rgba(255, 255, 255, 0.04);
   text-decoration: none;

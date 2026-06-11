@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FaBoxOpen, FaChevronDown, FaSignOutAlt, FaSlidersH, FaUserCircle } from 'react-icons/fa';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logoImage from '../../assets/images/LogoPro.png';
@@ -30,6 +30,8 @@ export default function Navbar() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(() => getCartItemCount());
+  const profileButtonRef = useRef<HTMLButtonElement>(null);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
 
   const userLabel = useMemo(() => {
     if (userProfile?.fullName?.trim()) {
@@ -112,6 +114,35 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isProfileMenuOpen) {
+      return;
+    }
+
+    const handleDocumentClick = (event: MouseEvent) => {
+      if (event.target instanceof Node && !profileMenuRef.current?.contains(event.target)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') {
+        return;
+      }
+
+      setIsProfileMenuOpen(false);
+      profileButtonRef.current?.focus();
+    };
+
+    document.addEventListener('click', handleDocumentClick);
+    document.addEventListener('keydown', handleEscapeKey);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+      document.removeEventListener('keydown', handleEscapeKey);
+    };
+  }, [isProfileMenuOpen]);
+
   const handleLogout = async () => {
     const result = await logout();
 
@@ -125,7 +156,12 @@ export default function Navbar() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav} aria-label="Navegación principal">
-        <NavLink to="/" className={styles.brand} aria-label="Ir al inicio">
+        <NavLink
+          to="/"
+          className={styles.brand}
+          aria-label="Ir al inicio"
+          onClick={() => setIsProfileMenuOpen(false)}
+        >
           <img src={logoImage} alt="" className={styles.brandLogo} aria-hidden="true" />
           <span className={styles.brandContent}>
             <span className={styles.brandName}>Comercio Adaptativo</span>
@@ -139,6 +175,7 @@ export default function Navbar() {
               <li key={item.path}>
                 <NavLink
                   to={item.path}
+                  onClick={() => setIsProfileMenuOpen(false)}
                   className={({ isActive }) =>
                     isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
                   }
@@ -160,8 +197,9 @@ export default function Navbar() {
           </ul>
 
           {authSession ? (
-            <div className={styles.profileMenu}>
+            <div ref={profileMenuRef} className={styles.profileMenu}>
               <button
+                ref={profileButtonRef}
                 className={styles.profileButton}
                 type="button"
                 aria-expanded={isProfileMenuOpen}

@@ -1,5 +1,6 @@
 import { FaBalanceScale, FaCartPlus, FaImage } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import type { ProductCardProps } from '../types/product.types';
 import { formatProductPrice } from '../utils/productFormatters';
 import styles from './ProductCard.module.css';
@@ -14,7 +15,7 @@ export default function ProductCard({
   const isAvailable = product.isActive && availableStock > 0;
 
   return (
-    <article className={styles.card}>
+    <article className={`${styles.card} ${uiStyles.sectionCard}`}>
       <Link
         to={`/products/${product.id}`}
         className={styles.imageLink}
@@ -49,7 +50,7 @@ export default function ProductCard({
           <div className={styles.actions}>
             {onToggleCompare ? (
               <button
-                className={`${styles.compareButton} ${
+                className={`${styles.compareButton} ${uiStyles.secondaryButton} ${
                   isSelectedForComparison ? styles.compareButtonActive : ''
                 }`}
                 type="button"
@@ -67,7 +68,7 @@ export default function ProductCard({
             ) : null}
 
             <button
-              className={styles.addButton}
+              className={`${styles.addButton} ${uiStyles.primaryButton}`}
               type="button"
               disabled={!isAvailable}
               onClick={() => onAddToCart(product.id)}

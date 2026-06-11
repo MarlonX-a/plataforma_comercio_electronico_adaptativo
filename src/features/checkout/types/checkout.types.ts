@@ -30,6 +30,10 @@ export type CheckoutFormValues = {
   paymentMethod: 'card' | 'transfer' | 'cash';
 };
 
+export type CheckoutFieldName = Exclude<keyof CheckoutFormValues, 'paymentMethod'>;
+
+export type CheckoutFieldErrors = Partial<Record<CheckoutFieldName, string>>;
+
 export type CheckoutStepKey = 'cart' | 'details' | 'review' | 'confirmation';
 
 export type StoredOrderItem = {

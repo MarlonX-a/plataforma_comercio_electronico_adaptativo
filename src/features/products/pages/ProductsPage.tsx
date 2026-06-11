@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FaBalanceScale, FaSearch, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { addProductToCart } from '../../cart/services/cartService';
 import ProductCard from '../components/ProductCard';
 import {
@@ -105,12 +106,17 @@ export default function ProductsPage() {
           <p>Busca por nombre o descripción y filtra el catálogo por categoría.</p>
         </div>
 
-        <form className={styles.filters} role="search" onSubmit={(event) => event.preventDefault()}>
-          <div className={styles.searchField}>
+        <form
+          className={`${styles.filters} ${uiStyles.formCard}`}
+          role="search"
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <div className={`${styles.searchField} ${uiStyles.formGroup}`}>
             <label htmlFor="product-search">Buscar productos</label>
-            <div className={styles.searchInput}>
+            <div className={`${styles.searchInput} ${uiStyles.inputWrapper}`}>
               <FaSearch aria-hidden="true" />
               <input
+                className={`${uiStyles.formInput} ${uiStyles.formInputWithIcon}`}
                 id="product-search"
                 type="search"
                 placeholder="Ejemplo: audífonos"
@@ -125,9 +131,10 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          <div className={styles.categoryField}>
+          <div className={`${styles.categoryField} ${uiStyles.formGroup}`}>
             <label htmlFor="product-category">Categoría</label>
             <select
+              className={uiStyles.formInput}
               id="product-category"
               value={filters.category}
               onChange={(event) =>
@@ -145,7 +152,11 @@ export default function ProductsPage() {
             </select>
           </div>
 
-          <button className={styles.clearButton} type="button" onClick={clearFilters}>
+          <button
+            className={`${styles.clearButton} ${uiStyles.secondaryButton}`}
+            type="button"
+            onClick={clearFilters}
+          >
             <FaTimes aria-hidden="true" />
             Limpiar
           </button>

@@ -31,6 +31,7 @@
   width: 100%;
 }
 
-.mainContent:focus {
-  outline: none;
+.mainContent:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: -3px;
 }

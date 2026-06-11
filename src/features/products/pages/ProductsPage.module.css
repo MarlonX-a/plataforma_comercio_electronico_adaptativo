@@ -6,7 +6,7 @@
 
 .header {
   display: grid;
-  gap: 30px;
+  gap: 32px;
 }
 
 .header > div:first-child {
@@ -21,13 +21,11 @@
 }
 
 .filters {
-  padding: 20px;
   display: grid;
   grid-template-columns: minmax(240px, 1fr) minmax(190px, 0.4fr) auto;
   align-items: end;
   gap: 16px;
-  border-block: 1px solid var(--border);
-  background: var(--surface);
+  border-radius: var(--ui-radius-card);
 }
 
 .searchField,
@@ -58,16 +56,11 @@
 
 .searchInput input,
 .categoryField select {
-  width: 100%;
-  min-height: 48px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-h);
-  background: var(--bg);
+  min-height: var(--ui-control-height);
 }
 
 .searchInput input {
-  padding: 11px 14px 11px 42px;
+  padding-right: 14px;
 }
 
 .categoryField select {
@@ -82,19 +75,7 @@
 
 .clearButton,
 .feedback button {
-  min-height: 48px;
-  padding: 10px 16px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-h);
-  background: var(--surface);
-  font: inherit;
-  font-weight: 800;
-  cursor: pointer;
+  min-height: var(--ui-control-height);
 }
 
 .clearButton:hover,
@@ -131,7 +112,7 @@
   justify-content: space-between;
   gap: 16px;
   border: 1px solid var(--accent-border);
-  border-radius: 8px;
+  border-radius: 16px;
   background: var(--accent-bg);
 }
 
@@ -166,12 +147,14 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 22px;
+  gap: 24px;
 }
 
 .feedback {
-  padding: 42px 20px;
-  border-block: 1px solid var(--border);
+  padding: 42px 24px;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-card);
+  background: var(--surface);
   text-align: center;
 }
 
