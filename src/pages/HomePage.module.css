@@ -36,7 +36,6 @@
 
 .kicker,
 .sectionHeading > p,
-.experienceIntro > p:first-child,
 .closing p {
   color: #5eead4;
   font-size: 0.82rem;
@@ -115,13 +114,11 @@
   margin-bottom: 24px;
 }
 
-.sectionHeading > p,
-.experienceIntro > p:first-child {
+.sectionHeading > p {
   color: var(--accent-strong);
 }
 
 .sectionHeading h2,
-.experienceIntro h2,
 .closing h2 {
   margin-top: 8px;
   font-size: 2rem;
@@ -170,22 +167,18 @@
   font-size: 1.25rem;
 }
 
-.actionCard h3,
-.benefit h3 {
+.actionCard h3 {
   margin: 18px 0 8px;
   color: var(--text-h);
   font-size: 1.05rem;
   line-height: 1.25;
 }
 
-.actionCard p,
-.benefit p,
-.experienceIntro > p {
+.actionCard p {
   color: var(--text);
 }
 
-.actionCard > a,
-.experienceIntro > a {
+.actionCard > a {
   min-height: 44px;
   margin-top: auto;
   padding-top: 18px;
@@ -197,64 +190,13 @@
   text-decoration: none;
 }
 
-.actionCard > a:hover,
-.experienceIntro > a:hover {
+.actionCard > a:hover {
   text-decoration: underline;
 }
 
 .experience {
   width: min(1120px, calc(100% - 32px));
   margin: 88px auto;
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 72px;
-  align-items: center;
-}
-
-.experienceIntro h2 {
-  max-width: 520px;
-}
-
-.experienceIntro > p:not(:first-child) {
-  max-width: 540px;
-  margin-top: 18px;
-  font-size: 1.04rem;
-  line-height: 1.65;
-}
-
-.experienceIntro > a {
-  width: fit-content;
-}
-
-.benefitList {
-  padding: 8px 22px;
-  display: grid;
-  border: 1px solid var(--ui-border);
-  border-radius: var(--ui-radius-card);
-  background: var(--surface);
-  box-shadow: var(--ui-shadow-card);
-}
-
-.benefit {
-  padding: 24px 0;
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr);
-  gap: 18px;
-  border-bottom: 1px solid var(--border);
-}
-
-.benefit:last-child {
-  border-bottom: 0;
-}
-
-.benefit > svg {
-  margin-top: 3px;
-  color: var(--color-secondary);
-  font-size: 1.45rem;
-}
-
-.benefit h3 {
-  margin: 0 0 6px;
 }
 
 .closing {
@@ -310,10 +252,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .experience {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
 }
 
 @media (max-width: 620px) {
@@ -350,7 +288,6 @@
   }
 
   .sectionHeading h2,
-  .experienceIntro h2,
   .closing h2 {
     font-size: 1.65rem;
   }

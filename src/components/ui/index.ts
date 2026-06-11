@@ -10,6 +10,11 @@ export { default as Checkbox } from './Checkbox';
 export type { CheckboxProps } from './Checkbox';
 export { default as EmptyState } from './EmptyState';
 export type { EmptyStateProps } from './EmptyState';
+export { default as FeatureStackAnimation } from './FeatureStackAnimation/FeatureStackAnimation';
+export type {
+  FeatureStackAnimationProps,
+  FeatureStackFeature,
+} from './FeatureStackAnimation/FeatureStackAnimation';
 export { default as Input } from './Input';
 export type { InputProps } from './Input';
 export { default as LoadingSpinner } from './LoadingSpinner';

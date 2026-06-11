@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/images/LogoPro.png';
+import FeatureStackAnimation from '../components/ui/FeatureStackAnimation/FeatureStackAnimation';
 import styles from './HomePage.module.css';
 
 const quickActions = [
@@ -44,19 +45,25 @@ const quickActions = [
 
 const experienceBenefits = [
   {
+    id: 'search',
     title: 'Encuentra rápido',
     description: 'Búsqueda visible, filtros sencillos y resultados fáciles de revisar.',
-    icon: FaLayerGroup,
+    icon: <FaLayerGroup />,
+    accent: 'cyan',
   },
   {
+    id: 'clarity',
     title: 'Compra con claridad',
     description: 'Precios, disponibilidad y cantidades presentados sin sorpresas.',
-    icon: FaShieldHalved,
+    icon: <FaShieldHalved />,
+    accent: 'purple',
   },
   {
+    id: 'accessibility',
     title: 'Navega a tu manera',
     description: 'Controles accesibles por teclado y preferencias que permanecen contigo.',
-    icon: FaUniversalAccess,
+    icon: <FaUniversalAccess />,
+    accent: 'cyan',
   },
 ] as const;
 
@@ -113,30 +120,19 @@ export default function HomePage() {
       </section>
 
       <section className={styles.experience} aria-labelledby="experience-title">
-        <div className={styles.experienceIntro}>
-          <p>Una mejor experiencia</p>
-          <h2 id="experience-title">Todo lo importante, fácil de encontrar</h2>
-          <p>
-            La interfaz reduce pasos innecesarios y mantiene las decisiones principales siempre a
-            la vista.
-          </p>
-          <Link to="/accessibility">
-            Configurar mi experiencia
-            <FaArrowRight aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div className={styles.benefitList}>
-          {experienceBenefits.map(({ title, description, icon: BenefitIcon }) => (
-            <article className={styles.benefit} key={title}>
-              <BenefitIcon aria-hidden="true" />
-              <div>
-                <h3>{title}</h3>
-                <p>{description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+        <FeatureStackAnimation
+          eyebrow="Una mejor experiencia"
+          title="Todo lo importante, fácil de encontrar"
+          titleId="experience-title"
+          description="La interfaz reduce pasos innecesarios y mantiene las decisiones principales siempre a la vista."
+          features={experienceBenefits}
+          action={
+            <Link to="/accessibility">
+              Configurar mi experiencia
+              <FaArrowRight aria-hidden="true" />
+            </Link>
+          }
+        />
       </section>
 
       <section className={styles.closing} aria-labelledby="closing-title">
