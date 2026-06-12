@@ -645,6 +645,180 @@
   background: #ffffff;
 }
 
+:global(html[data-contrast='highContrast']) .buttonPrimary {
+  color: #ffffff;
+  background: #003d33;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .buttonPrimary:hover:not(:disabled) {
+  background: #001f4d;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .buttonSecondary,
+:global(html[data-contrast='highContrast']) .buttonGhost {
+  color: #000000;
+  background: #ffffff;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .buttonSecondary:hover:not(:disabled),
+:global(html[data-contrast='highContrast']) .buttonGhost:hover:not(:disabled) {
+  border-color: #003d33;
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .buttonDanger {
+  color: #ffffff;
+  background: #cc0000;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .buttonDanger:hover:not(:disabled) {
+  background: #990000;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .control {
+  background: #ffffff;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .control:hover:not(:disabled) {
+  border-color: #003d33;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .control:focus {
+  border-color: #003d33;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 61, 51, 0.2);
+}
+
+:global(html[data-contrast='highContrast']) .control::placeholder {
+  color: #666666;
+}
+
+:global(html[data-contrast='highContrast']) .control[aria-invalid='true'] {
+  border-color: #cc0000;
+  box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.2);
+}
+
+:global(html[data-contrast='highContrast']) .checkboxControl {
+  background: #ffffff;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .nativeChoice:checked + .checkboxControl {
+  color: #ffffff;
+  border-color: #000000;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .switchTrack {
+  border-color: #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .switchThumb {
+  background: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .nativeChoice:checked + .switchTrack {
+  border-color: #000000;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .nativeChoice:checked + .switchTrack .switchThumb {
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .card {
+  background: #ffffff;
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .cardInteractive:hover {
+  border-color: #003d33;
+  box-shadow: none;
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .alertInfo {
+  color: #000000;
+  background: #e6f7ff;
+  border-color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .alertSuccess {
+  color: #000000;
+  background: #e6f5f0;
+  border-color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .alertWarning {
+  color: #000000;
+  background: #fff9e6;
+  border-color: #663300;
+}
+
+:global(html[data-contrast='highContrast']) .alertError {
+  color: #000000;
+  background: #ffe6e6;
+  border-color: #cc0000;
+}
+
+:global(html[data-contrast='highContrast']) .badgeNeutral {
+  color: #000000;
+  background: #f0f0f0;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .badgePrimary {
+  color: #000000;
+  background: #e6f7ff;
+  border-color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .badgeSuccess {
+  color: #000000;
+  background: #e6f5f0;
+  border-color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .badgeWarning {
+  color: #000000;
+  background: #fff9e6;
+  border-color: #663300;
+}
+
+:global(html[data-contrast='highContrast']) .badgeDanger {
+  color: #ffffff;
+  background: #cc0000;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .modal {
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .modalHeader {
+  border-bottom: 2px solid #000000;
+}
+
+:global(html[data-contrast='highContrast']) .modalFooter {
+  border-top: 2px solid #000000;
+}
+
+:global(html[data-contrast='highContrast']) .tooltip {
+  color: #ffffff;
+  background: #003d33;
+  border-color: #000000;
+}
+
 :global(html[data-motion='reduced']) .button,
 :global(html[data-motion='reduced']) .control,
 :global(html[data-motion='reduced']) .cardInteractive,

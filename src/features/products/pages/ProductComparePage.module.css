@@ -157,6 +157,22 @@
   box-shadow: none;
 }
 
+:global(html[data-contrast='highContrast']) .tableWrapper {
+  background: #ffffff;
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .actions button,
+:global(html[data-contrast='highContrast']) .productActions button {
+  background: #003d33;
+  color: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .actions button:hover,
+:global(html[data-contrast='highContrast']) .productActions button:hover {
+  background: #001f4d;
+}
+
 @media (max-width: 620px) {
   .actions {
     justify-content: stretch;

@@ -289,41 +289,170 @@
 }
 
 :global(html[data-contrast='highContrast']) .header {
-  background: #000000;
-  border-bottom-color: #ffffff;
+  background: #e8e8e8;
+  border-bottom-color: #000000;
   box-shadow: none;
 }
 
 :global(html[data-contrast='highContrast']) .navLink,
 :global(html[data-contrast='highContrast']) .authLink,
 :global(html[data-contrast='highContrast']) .profileButton {
-  color: #ffffff;
-  border-color: #ffffff;
+  color: #000000;
+  border-color: #000000;
 }
 
 :global(html[data-contrast='highContrast']) .navLink:hover,
 :global(html[data-contrast='highContrast']) .navLinkActive,
 :global(html[data-contrast='highContrast']) .authLink:hover,
 :global(html[data-contrast='highContrast']) .authLinkActive {
-  color: #000000;
-  background: #ffffff;
+  color: #ffffff;
+  background: #003d33;
+  border-color: #003d33;
 }
 
 :global(html[data-contrast='highContrast']) .authLinkPrimary {
-  color: #000000;
-  border-color: #ffff00;
-  background: #ffff00;
+  color: #ffffff;
+  border-color: #003d33;
+  background: #003d33;
 }
 
-:global(html[data-contrast='highContrast']) .profileDropdown {
-  border-color: #ffffff;
-  background: #000000;
+:global(html[data-contrast='highContrast']) .authLinkPrimary:hover {
+  color: #ffffff;
+  border-color: #001f4d;
+  background: #001f4d;
+}
+
+:global(html[data-contrast='highContrast']) .brand {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .brandName {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .brandSubtitle {
+  color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .brandLogo {
+  border-color: #000000;
+  box-shadow: none;
 }
 
 :global(html[data-contrast='highContrast']) .cartCount {
+  color: #ffffff;
+  border-color: #003d33;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .profileGreeting {
+  color: #666666;
+}
+
+:global(html[data-contrast='highContrast']) .profileName {
   color: #000000;
-  border-color: #ffff00;
-  background: #ffff00;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader strong {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown {
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown a,
+:global(html[data-contrast='highContrast']) .profileDropdown button {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown a:hover,
+:global(html[data-contrast='highContrast']) .profileDropdown button:hover {
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader span {
+  color: #666666;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader {
+  border-bottom-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileAvatar {
+  color: #ffffff;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .profileButton {
+  color: #000000;
+  background: #ffffff;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileButton:hover {
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader {
+  border-bottom-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader strong {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileGreeting {
+  color: #666666;
+}
+
+:global(html[data-contrast='highContrast']) .profileName {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader strong {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown {
+  background: #ffffff;
+  border-color: #000000;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown a,
+:global(html[data-contrast='highContrast']) .profileDropdown button {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileDropdown a:hover,
+:global(html[data-contrast='highContrast']) .profileDropdown button:hover {
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader span {
+  color: #666666;
+}
+
+:global(html[data-contrast='highContrast']) .profileHeader {
+  border-bottom-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileAvatar {
+  color: #ffffff;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .profileButton {
+  color: #000000;
+  background: #ffffff;
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .profileButton:hover {
+  background: #f0f0f0;
 }
 
 @media (max-width: 820px) {

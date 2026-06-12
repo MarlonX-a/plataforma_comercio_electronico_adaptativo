@@ -24,7 +24,8 @@
 .heroLogo {
   width: 112px;
   height: 112px;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
+  display: block;
   border: 2px solid rgba(0, 217, 255, 0.6);
   border-radius: 24px;
   object-fit: cover;
@@ -230,21 +231,81 @@
 
 :global(html[data-contrast='highContrast']) .hero,
 :global(html[data-contrast='highContrast']) .closing {
-  color: #ffffff;
-  border-color: #ffffff;
-  background: #000000;
+  color: #000000;
+  border-color: #000000;
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .hero h1 {
+  color: #000000;
+  text-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .hero .kicker,
+:global(html[data-contrast='highContrast']) .hero p {
+  color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .summary {
+  color: #000000;
 }
 
 :global(html[data-contrast='highContrast']) .primaryAction,
 :global(html[data-contrast='highContrast']) .closing a {
+  color: #ffffff;
+  border-color: #003d33;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .primaryAction:hover,
+:global(html[data-contrast='highContrast']) .closing a:hover {
+  background: #001f4d;
+  border-color: #001f4d;
+}
+
+:global(html[data-contrast='highContrast']) .secondaryAction {
   color: #000000;
-  border-color: #ffff00;
-  background: #ffff00;
+  border-color: #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .secondaryAction:hover {
+  border-color: #003d33;
+  background: #f0f0f0;
 }
 
 :global(html[data-contrast='highContrast']) .actionCard {
   border: 2px solid #000000;
   box-shadow: none;
+  background: #ffffff;
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .actionCard:hover {
+  border-color: #003d33;
+  box-shadow: none;
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .actionIcon {
+  color: #ffffff;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .actionCard > a {
+  color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .closing {
+  border-left: 5px solid #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .closing h2 {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .closing p {
+  color: #000000;
 }
 
 @media (max-width: 940px) {

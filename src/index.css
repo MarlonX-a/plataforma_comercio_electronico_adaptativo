@@ -64,16 +64,19 @@
 :root[data-contrast='highContrast'] {
   --text: #000000;
   --text-h: #000000;
-  --bg: #ffffff;
+  --bg: #e8e8e8;
   --surface: #ffffff;
-  --surface-strong: #f2f2f2;
+  --surface-strong: #f8f8f8;
   --border: #000000;
-  --accent: #005a4f;
-  --accent-strong: #004b78;
-  --accent-warm: #8a4b00;
+  --accent: #003d33;
+  --accent-strong: #001f4d;
+  --accent-warm: #663300;
   --button-text: #ffffff;
-  --accent-bg: rgba(0, 90, 79, 0.14);
+  --accent-bg: rgba(0, 61, 51, 0.15);
   --accent-border: #000000;
+  --code-bg: #f5f5f5;
+  --ui-border: #000000;
+  --ui-shadow-card: none;
   color-scheme: light;
 }
 
@@ -116,6 +119,11 @@ body {
   background-attachment: fixed;
 }
 
+:root[data-contrast='highContrast'] body {
+  background: #f0f0f0;
+  background-attachment: initial;
+}
+
 img,
 svg,
 video {
@@ -155,6 +163,17 @@ summary:focus-visible,
 [tabindex]:focus-visible {
   outline: 3px solid var(--accent-warm);
   outline-offset: 3px;
+}
+
+:root[data-contrast='highContrast'] a:focus-visible,
+:root[data-contrast='highContrast'] button:focus-visible,
+:root[data-contrast='highContrast'] input:focus-visible,
+:root[data-contrast='highContrast'] select:focus-visible,
+:root[data-contrast='highContrast'] textarea:focus-visible,
+:root[data-contrast='highContrast'] summary:focus-visible,
+:root[data-contrast='highContrast'] [tabindex]:focus-visible {
+  outline: 4px solid #001f4d;
+  outline-offset: 2px;
 }
 
 h1,
@@ -204,6 +223,11 @@ code {
   background: var(--code-bg);
   font-size: 15px;
   line-height: 135%;
+}
+
+:root[data-contrast='highContrast'] code {
+  background: #e8e8e8;
+  border: 1px solid #000000;
 }
 
 @media (prefers-reduced-motion: reduce) {

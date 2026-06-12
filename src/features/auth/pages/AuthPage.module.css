@@ -230,10 +230,24 @@
   background: #ffffff;
 }
 
+:global(html[data-contrast='highContrast']) .errorMessage {
+  border-color: #cc0000;
+  background: #ffe6e6;
+}
+
+:global(html[data-contrast='highContrast']) .successMessage {
+  border-color: #003d33;
+  background: #e6f5f0;
+}
+
 :global(html[data-contrast='highContrast']) .submitButton {
   color: #ffffff;
   border: 2px solid #000000;
-  background: #005a4f;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .submitButton:hover {
+  background: #001f4d;
 }
 
 @media (max-width: 620px) {

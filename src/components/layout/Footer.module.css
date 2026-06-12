@@ -136,9 +136,9 @@
 }
 
 :global(html[data-contrast='highContrast']) .footer {
-  color: #ffffff;
-  background: #000000;
-  border-top-color: #ffffff;
+  color: #000000;
+  background: #ffffff;
+  border-top-color: #000000;
 }
 
 :global(html[data-contrast='highContrast']) .footerTitle,
@@ -147,19 +147,19 @@
 :global(html[data-contrast='highContrast']) .description,
 :global(html[data-contrast='highContrast']) .linkList a,
 :global(html[data-contrast='highContrast']) .legalBar p {
-  color: #ffffff;
+  color: #000000;
 }
 
 :global(html[data-contrast='highContrast']) .socialList a {
   color: #ffffff;
-  border-color: #ffffff;
-  background: #000000;
+  border-color: #000000;
+  background: #003d33;
 }
 
 :global(html[data-contrast='highContrast']) .socialList a:hover {
-  color: #000000;
-  background: #ffff00;
-  border-color: #ffff00;
+  color: #ffffff;
+  background: #001f4d;
+  border-color: #000000;
 }
 
 @media (max-width: 920px) {

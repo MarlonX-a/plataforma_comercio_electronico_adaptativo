@@ -168,6 +168,12 @@
   box-shadow: none;
 }
 
+:global(html[data-contrast='highContrast']) .orderCard,
+:global(html[data-contrast='highContrast']) .timeline li {
+  background: #ffffff;
+  color: #000000;
+}
+
 @media (max-width: 780px) {
   .timeline {
     grid-template-columns: 1fr;

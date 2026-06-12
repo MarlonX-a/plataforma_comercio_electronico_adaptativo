@@ -8,6 +8,11 @@
   box-shadow: var(--ui-shadow-card);
 }
 
+:global(html[data-contrast='highContrast']) .formCard,
+:global(html[data-contrast='highContrast']) .sectionCard {
+  background: var(--surface);
+}
+
 .formCard {
   padding: clamp(22px, 4vw, 34px);
 }
@@ -130,12 +135,67 @@
 }
 
 :global(html[data-contrast='highContrast']) .formCard,
-:global(html[data-contrast='highContrast']) .sectionCard,
-:global(html[data-contrast='highContrast']) .formInput,
-:global(html[data-contrast='highContrast']) .secondaryButton,
-:global(html[data-contrast='highContrast']) .socialButton {
+:global(html[data-contrast='highContrast']) .sectionCard {
+  border: 3px solid #000000;
+  box-shadow: none;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .formInput {
   border: 2px solid #000000;
   box-shadow: none;
+  background: #ffffff;
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .formInput:hover {
+  border-color: #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .formInput:focus {
+  border-color: #003d33;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 61, 51, 0.2);
+}
+
+:global(html[data-contrast='highContrast']) .primaryButton {
+  border: 2px solid #000000;
+  background: #003d33;
+  color: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .primaryButton:hover:not(:disabled) {
+  background: #001f4d;
+  box-shadow: none;
+  transform: translateY(-2px);
+  border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .secondaryButton {
+  border: 2px solid #000000;
+  background: #f0f0f0;
+  color: #000000;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .secondaryButton:hover:not(:disabled) {
+  border-color: #003d33;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .socialButton {
+  border: 2px solid #000000;
+  background: #f0f0f0;
+  color: #000000;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .socialButton:hover {
+  color: #ffffff;
+  border-color: #000000;
+  background: #003d33;
 }
 
 @media (max-width: 620px) {

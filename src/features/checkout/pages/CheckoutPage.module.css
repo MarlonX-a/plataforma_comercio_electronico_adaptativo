@@ -402,6 +402,19 @@
   box-shadow: none;
 }
 
+:global(html[data-contrast='highContrast']) .form,
+:global(html[data-contrast='highContrast']) .summary,
+:global(html[data-contrast='highContrast']) .confirmation,
+:global(html[data-contrast='highContrast']) .reviewPanel {
+  background: #ffffff;
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .stepGuide li {
+  background: #ffffff;
+  color: #000000;
+}
+
 @media (max-width: 920px) {
   .layout {
     grid-template-columns: 1fr;
