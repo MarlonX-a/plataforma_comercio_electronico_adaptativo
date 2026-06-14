@@ -62,6 +62,9 @@ export default function Footer() {
               <Link to="/accessibility">Accesibilidad</Link>
             </li>
             <li>
+              <Link to="/help">Ayuda y Soporte</Link>
+            </li>
+            <li>
               <Link to="/site-map">Mapa del sitio</Link>
             </li>
             <li>

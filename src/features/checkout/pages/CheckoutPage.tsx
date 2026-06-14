@@ -217,6 +217,9 @@ export default function CheckoutPage() {
         <p className={styles.kicker}>Pago simple y seguro</p>
         <h1 id="checkout-title">Finalizar compra</h1>
         <p>Completa tus datos, revisa el resumen y confirma el pedido en pocos pasos.</p>
+        <p>
+          <Link to="/help">Ir al Centro de Ayuda</Link>
+        </p>
       </header>
 
       <ol className={styles.stepGuide} aria-label="Guía del proceso de compra">

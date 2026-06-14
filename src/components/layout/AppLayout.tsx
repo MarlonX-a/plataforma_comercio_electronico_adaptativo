@@ -30,6 +30,7 @@ const getPageTitle = (pathname: string): string => {
     '/complete-profile': 'Completar perfil',
     '/profile': 'Mi perfil',
     '/accessibility': 'Accesibilidad',
+    '/help': 'Centro de Ayuda',
     '/site-map': 'Mapa del sitio',
   };
 

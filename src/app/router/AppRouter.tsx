@@ -7,6 +7,7 @@ import RegisterPage from '../../features/auth/pages/RegisterPage';
 import CartPage from '../../features/cart/pages/CartPage';
 import CheckoutPage from '../../features/checkout/pages/CheckoutPage';
 import OrdersPage from '../../features/checkout/pages/OrdersPage';
+import HelpPage from '../../features/help/pages/HelpPage';
 import ProductComparePage from '../../features/products/pages/ProductComparePage';
 import ProductDetailPage from '../../features/products/pages/ProductDetailPage';
 import ProductsPage from '../../features/products/pages/ProductsPage';
@@ -30,6 +31,7 @@ export default function AppRouter() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/accessibility" element={<AccessibilityPage />} />
+          <Route path="/help" element={<HelpPage />} />
           <Route path="/site-map" element={<SiteMapPage />} />
         </Routes>
       </AppLayout>

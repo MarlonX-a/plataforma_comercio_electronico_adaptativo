@@ -1,12 +1,12 @@
 import {
-  FaArrowRight,
-  FaCartShopping,
-  FaLayerGroup,
-  FaMagnifyingGlass,
-  FaShieldHalved,
-  FaUniversalAccess,
-  FaUserPlus,
-} from 'react-icons/fa6';
+  MdArrowForward,
+  MdShoppingCart,
+  MdLayers,
+  MdSearch,
+  MdSecurity,
+  MdAccessibility,
+  MdPersonAdd,
+} from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/images/LogoPro.png';
 import FeatureStackAnimation from '../components/ui/FeatureStackAnimation/FeatureStackAnimation';
@@ -18,28 +18,28 @@ const quickActions = [
     description: 'Busca, compara y encuentra productos por categoría.',
     path: '/products',
     linkLabel: 'Ir al catálogo',
-    icon: FaMagnifyingGlass,
+    icon: MdSearch,
   },
   {
     title: 'Revisar mi carrito',
     description: 'Consulta tus productos y modifica las cantidades fácilmente.',
     path: '/cart',
     linkLabel: 'Abrir carrito',
-    icon: FaCartShopping,
+    icon: MdShoppingCart,
   },
   {
     title: 'Crear una cuenta',
     description: 'Guarda tu perfil y prepara una experiencia más personal.',
     path: '/register',
     linkLabel: 'Registrarme',
-    icon: FaUserPlus,
+    icon: MdPersonAdd,
   },
   {
     title: 'Personalizar accesibilidad',
     description: 'Ajusta contraste, tamaño del texto, espaciado y movimiento.',
     path: '/accessibility',
     linkLabel: 'Ver preferencias',
-    icon: FaUniversalAccess,
+    icon: MdAccessibility,
   },
 ] as const;
 
@@ -48,21 +48,21 @@ const experienceBenefits = [
     id: 'search',
     title: 'Encuentra rápido',
     description: 'Búsqueda visible, filtros sencillos y resultados fáciles de revisar.',
-    icon: <FaLayerGroup />,
+    icon: <MdLayers />,
     accent: 'cyan',
   },
   {
     id: 'clarity',
     title: 'Compra con claridad',
     description: 'Precios, disponibilidad y cantidades presentados sin sorpresas.',
-    icon: <FaShieldHalved />,
+    icon: <MdSecurity />,
     accent: 'purple',
   },
   {
     id: 'accessibility',
     title: 'Navega a tu manera',
     description: 'Controles accesibles por teclado y preferencias que permanecen contigo.',
-    icon: <FaUniversalAccess />,
+    icon: <MdAccessibility />,
     accent: 'cyan',
   },
 ] as const;
@@ -87,7 +87,7 @@ export default function HomePage() {
           <div className={styles.heroActions}>
             <Link className={styles.primaryAction} to="/products">
               Ver productos
-              <FaArrowRight aria-hidden="true" />
+              <MdArrowForward aria-hidden="true" />
             </Link>
             <Link className={styles.secondaryAction} to="/login">
               Iniciar sesión
@@ -112,7 +112,7 @@ export default function HomePage() {
               <p>{description}</p>
               <Link to={path}>
                 {linkLabel}
-                <FaArrowRight aria-hidden="true" />
+                <MdArrowForward aria-hidden="true" />
               </Link>
             </article>
           ))}
@@ -129,7 +129,7 @@ export default function HomePage() {
           action={
             <Link to="/accessibility">
               Configurar mi experiencia
-              <FaArrowRight aria-hidden="true" />
+              <MdArrowForward aria-hidden="true" />
             </Link>
           }
         />
@@ -142,7 +142,7 @@ export default function HomePage() {
         </div>
         <Link to="/products">
           Comenzar ahora
-          <FaArrowRight aria-hidden="true" />
+          <MdArrowForward aria-hidden="true" />
         </Link>
       </section>
     </div>
