@@ -5,8 +5,14 @@ import { Link } from 'react-router-dom';
 import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { createCartSummary, loadStoredCartItems } from '../../cart/services/cartService';
 import type { CartSummary } from '../../cart/types/cart.types';
+import { getCurrentAuthSession, getUserProfile } from '../../auth/services/authService';
 import { getProductsByIds } from '../../products/services/productService';
 import { formatProductPrice } from '../../products/utils/productFormatters';
+import {
+  getPrefilledCheckoutValues,
+  getSavedCheckoutAddress,
+  saveCheckoutAddress,
+} from '../services/checkoutAddressService';
 import { createCheckoutOrder, validateCheckoutFields } from '../services/checkoutService';
 import type {
   CheckoutConfirmation,
@@ -78,6 +84,32 @@ export default function CheckoutPage() {
     setIsLoading(false);
   }, []);
 
+  const loadUserDataForCheckout = useCallback(async () => {
+    try {
+      const savedAddress = getSavedCheckoutAddress();
+      const session = await getCurrentAuthSession();
+      let userFullName: string | undefined;
+
+      if (session?.userId) {
+        const profileResult = await getUserProfile(session.userId);
+        userFullName = profileResult?.fullName ?? undefined;
+      }
+
+      const prefilledValues = getPrefilledCheckoutValues(
+        savedAddress,
+        session?.email ?? undefined,
+        userFullName,
+      );
+
+      setCheckoutValues((current) => ({
+        ...current,
+        ...prefilledValues,
+      }));
+    } catch {
+      // Silenciosamente ignorar errores en la carga de datos
+    }
+  }, []);
+
   useEffect(() => {
     const initialLoad = window.setTimeout(() => {
       void loadCheckoutCart();
@@ -87,6 +119,12 @@ export default function CheckoutPage() {
       window.clearTimeout(initialLoad);
     };
   }, [loadCheckoutCart]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      void loadUserDataForCheckout();
+    }
+  }, [isLoading, loadUserDataForCheckout]);
 
   useEffect(() => {
     if (activeStep === 'review') {
@@ -137,6 +175,8 @@ export default function CheckoutPage() {
     setConfirmation(result.confirmation);
 
     if (result.isSuccess) {
+      // Guardar la dirección para reutilizarla en futuros checkouts (WCAG 3.3.7)
+      saveCheckoutAddress(checkoutValues);
       setActiveStep('confirmation');
     }
   };
