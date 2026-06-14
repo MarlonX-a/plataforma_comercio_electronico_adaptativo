@@ -9,6 +9,7 @@ import {
 } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/images/LogoPro.png';
+import AccessiblePromoVideo from '../components/media/AccessiblePromoVideo';
 import FeatureStackAnimation from '../components/ui/FeatureStackAnimation/FeatureStackAnimation';
 import styles from './HomePage.module.css';
 
@@ -118,6 +119,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <AccessiblePromoVideo />
 
       <section className={styles.experience} aria-labelledby="experience-title">
         <FeatureStackAnimation
