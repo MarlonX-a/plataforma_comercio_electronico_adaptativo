@@ -3,6 +3,11 @@ import { FaBoxOpen, FaChevronDown, FaSignOutAlt, FaSlidersH, FaUserCircle } from
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logoImage from '../../assets/images/LogoPro.png';
 import {
+  languageLabels,
+  supportedLanguages,
+  useI18n,
+} from '../../features/i18n/I18nProvider';
+import {
   getCurrentAuthSession,
   getUserProfile,
   listenToAuthSession,
@@ -16,16 +21,16 @@ import {
 import styles from './Navbar.module.css';
 
 const navigationItems = [
-  { label: 'Inicio', path: '/' },
-  { label: 'Productos', path: '/products' },
-  { label: 'Carrito', path: '/cart' },
-  { label: 'Pedidos', path: '/orders' },
-  { label: 'Accesibilidad', path: '/accessibility' },
+  { labelKey: 'navbar.nav.home', path: '/' },
+  { labelKey: 'navbar.nav.products', path: '/products' },
+  { labelKey: 'navbar.nav.cart', path: '/cart' },
+  { labelKey: 'navbar.nav.orders', path: '/orders' },
 ] as const;
 
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { language, setLanguage, t } = useI18n();
   const [authSession, setAuthSession] = useState<AuthSession | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -42,8 +47,8 @@ export default function Navbar() {
       return authSession.email.split('@')[0];
     }
 
-    return 'Mi cuenta';
-  }, [authSession, userProfile]);
+    return t('navbar.myAccount');
+  }, [authSession, userProfile, t]);
 
   useEffect(() => {
     let isMounted = true;
@@ -153,23 +158,44 @@ export default function Navbar() {
     }
   };
 
+  const openAccessibilityMenu = () => {
+    window.dispatchEvent(new CustomEvent('open-accessibility-menu'));
+    setIsProfileMenuOpen(false);
+  };
+
   return (
     <header className={styles.header}>
-      <nav className={styles.nav} aria-label="Navegación principal">
+      <nav className={styles.nav} aria-label={t('navbar.mainNav')}>
         <NavLink
           to="/"
           className={styles.brand}
-          aria-label="Ir al inicio"
+          aria-label={t('navbar.goHome')}
           onClick={() => setIsProfileMenuOpen(false)}
         >
           <img src={logoImage} alt="" className={styles.brandLogo} aria-hidden="true" />
           <span className={styles.brandContent}>
-            <span className={styles.brandName}>Comercio Adaptativo</span>
-            <span className={styles.brandSubtitle}>Tienda accesible</span>
+            <span className={styles.brandName}>{t('app.name')}</span>
+            <span className={styles.brandSubtitle}>{t('navbar.brandSubtitle')}</span>
           </span>
         </NavLink>
 
         <div className={styles.navContent}>
+          <label className={styles.languageControl}>
+            <span>{t('navbar.language')}</span>
+            <select
+              className={styles.languageSelector}
+              value={language}
+              onChange={(event) => setLanguage(event.target.value as (typeof supportedLanguages)[number])}
+              aria-label={t('navbar.language')}
+            >
+              {supportedLanguages.map((supportedLanguage) => (
+                <option key={supportedLanguage} value={supportedLanguage}>
+                  {languageLabels[supportedLanguage]}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <ul className={styles.navList}>
             {navigationItems.map((item) => (
               <li key={item.path}>
@@ -180,13 +206,15 @@ export default function Navbar() {
                     isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
                   }
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                   {item.path === '/cart' && cartItemCount > 0 ? (
                     <span
                       className={styles.cartCount}
-                      aria-label={`${cartItemCount} ${
-                        cartItemCount === 1 ? 'producto' : 'productos'
-                      } en el carrito`}
+                      aria-label={
+                        cartItemCount === 1
+                          ? t('navbar.cartCount.one', { count: cartItemCount })
+                          : t('navbar.cartCount.other', { count: cartItemCount })
+                      }
                     >
                       {cartItemCount > 99 ? '99+' : cartItemCount}
                     </span>
@@ -210,7 +238,7 @@ export default function Navbar() {
                   {userLabel.charAt(0).toUpperCase()}
                 </span>
                 <span className={styles.profileText}>
-                  <span className={styles.profileGreeting}>Hola</span>
+                  <span className={styles.profileGreeting}>{t('navbar.hello')}</span>
                   <span className={styles.profileName}>{userLabel}</span>
                 </span>
                 <FaChevronDown aria-hidden="true" />
@@ -225,32 +253,32 @@ export default function Navbar() {
 
                   <NavLink to="/profile" onClick={() => setIsProfileMenuOpen(false)}>
                     <FaUserCircle aria-hidden="true" />
-                    Mi perfil
+                    {t('navbar.myProfile')}
                   </NavLink>
                   <NavLink to="/orders" onClick={() => setIsProfileMenuOpen(false)}>
                     <FaBoxOpen aria-hidden="true" />
-                    Mis pedidos
+                    {t('navbar.myOrders')}
                   </NavLink>
-                  <NavLink to="/accessibility" onClick={() => setIsProfileMenuOpen(false)}>
+                  <button type="button" onClick={openAccessibilityMenu}>
                     <FaSlidersH aria-hidden="true" />
-                    Preferencias
-                  </NavLink>
+                    {t('navbar.preferences')}
+                  </button>
                   <button type="button" onClick={handleLogout}>
                     <FaSignOutAlt aria-hidden="true" />
-                    Cerrar sesión
+                    {t('navbar.logout')}
                   </button>
                 </div>
               ) : null}
             </div>
           ) : (
-            <div className={styles.authActions} aria-label="Acciones de autenticación">
+            <div className={styles.authActions} aria-label={t('navbar.authActions')}>
               <NavLink
                 to="/login"
                 className={({ isActive }) =>
                   isActive ? `${styles.authLink} ${styles.authLinkActive}` : styles.authLink
                 }
               >
-                Iniciar sesión
+                {t('navbar.login')}
               </NavLink>
               <NavLink
                 to="/register"
@@ -260,7 +288,7 @@ export default function Navbar() {
                     : `${styles.authLink} ${styles.authLinkPrimary}`
                 }
               >
-                Registrarse
+                {t('navbar.register')}
               </NavLink>
             </div>
           )}
