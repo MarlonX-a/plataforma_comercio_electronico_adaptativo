@@ -5,6 +5,8 @@ import {
   applyAccessibilitySettings,
   loadAccessibilitySettings,
 } from '../../features/accessibility/services/accessibilitySettingsService';
+import FloatingAccessibilityMenu from '../../features/accessibility/components/FloatingAccessibilityMenu';
+import { useI18n } from '../../features/i18n/I18nProvider';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import styles from './AppLayout.module.css';
@@ -13,32 +15,32 @@ type AppLayoutProps = {
   children: ReactNode;
 };
 
-const getPageTitle = (pathname: string): string => {
+const getPageTitle = (pathname: string, t: ReturnType<typeof useI18n>['t']): string => {
   if (pathname.startsWith('/products/')) {
-    return 'Detalle del producto';
+    return t('layout.page.productDetail');
   }
 
   const pageTitles: Record<string, string> = {
-    '/': 'Inicio',
-    '/products': 'Productos',
-    '/compare': 'Comparar productos',
-    '/cart': 'Carrito',
-    '/checkout': 'Finalizar compra',
-    '/orders': 'Mis pedidos',
-    '/login': 'Iniciar sesión',
-    '/register': 'Crear cuenta',
-    '/complete-profile': 'Completar perfil',
-    '/profile': 'Mi perfil',
-    '/accessibility': 'Accesibilidad',
-    '/help': 'Centro de Ayuda',
-    '/site-map': 'Mapa del sitio',
+    '/': t('layout.page.home'),
+    '/products': t('layout.page.products'),
+    '/compare': t('layout.page.compare'),
+    '/cart': t('layout.page.cart'),
+    '/checkout': t('layout.page.checkout'),
+    '/orders': t('layout.page.orders'),
+    '/login': t('layout.page.login'),
+    '/register': t('layout.page.register'),
+    '/complete-profile': t('layout.page.completeProfile'),
+    '/profile': t('layout.page.profile'),
+    '/help': t('layout.page.help'),
+    '/site-map': t('layout.page.siteMap'),
   };
 
-  return pageTitles[pathname] ?? 'Página no encontrada';
+  return pageTitles[pathname] ?? t('layout.page.notFound');
 };
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const location = useLocation();
+  const { t } = useI18n();
   const mainContentRef = useRef<HTMLElement>(null);
   const previousPathnameRef = useRef(location.pathname);
 
@@ -47,7 +49,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   }, []);
 
   useEffect(() => {
-    document.title = `${getPageTitle(location.pathname)} | Comercio Adaptativo`;
+    document.title = `${getPageTitle(location.pathname, t)} | ${t('app.name')}`;
 
     if (previousPathnameRef.current === location.pathname) {
       return;
@@ -63,12 +65,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
     return () => {
       window.cancelAnimationFrame(focusFrame);
     };
-  }, [location.pathname]);
+  }, [location.pathname, t]);
 
   return (
     <div className={styles.appLayout}>
       <a className={styles.skipLink} href="#main-content">
-        Saltar al contenido principal
+        {t('layout.skipToMain')}
       </a>
       <Navbar />
       <main
@@ -80,6 +82,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {children}
       </main>
       <Footer />
+      <FloatingAccessibilityMenu />
     </div>
   );
 }

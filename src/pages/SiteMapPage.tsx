@@ -25,7 +25,6 @@ const siteSections = [
     title: 'Ayuda y preferencias',
     links: [
       { label: 'Centro de ayuda', path: '/help' },
-      { label: 'Preferencias de accesibilidad', path: '/accessibility' },
       { label: 'Contactar soporte', path: 'mailto:soporte@comercioadaptativo.local' },
     ],
   },

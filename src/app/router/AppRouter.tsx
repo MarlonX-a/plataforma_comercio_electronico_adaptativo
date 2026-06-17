@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppLayout from '../../components/layout/AppLayout';
-import AccessibilityPage from '../../features/accessibility/pages/AccessibilityPage';
 import CompleteProfilePage from '../../features/auth/pages/CompleteProfilePage';
 import LoginPage from '../../features/auth/pages/LoginPage';
 import RegisterPage from '../../features/auth/pages/RegisterPage';
@@ -30,7 +29,6 @@ export default function AppRouter() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />
-          <Route path="/accessibility" element={<AccessibilityPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/site-map" element={<SiteMapPage />} />
         </Routes>

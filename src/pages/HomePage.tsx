@@ -4,7 +4,6 @@ import {
   MdLayers,
   MdSearch,
   MdSecurity,
-  MdAccessibility,
   MdPersonAdd,
 } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -35,13 +34,6 @@ const quickActions = [
     linkLabel: 'Registrarme',
     icon: MdPersonAdd,
   },
-  {
-    title: 'Personalizar accesibilidad',
-    description: 'Ajusta contraste, tamaño del texto, espaciado y movimiento.',
-    path: '/accessibility',
-    linkLabel: 'Ver preferencias',
-    icon: MdAccessibility,
-  },
 ] as const;
 
 const experienceBenefits = [
@@ -63,7 +55,7 @@ const experienceBenefits = [
     id: 'accessibility',
     title: 'Navega a tu manera',
     description: 'Controles accesibles por teclado y preferencias que permanecen contigo.',
-    icon: <MdAccessibility />,
+    icon: <MdLayers />,
     accent: 'cyan',
   },
 ] as const;
@@ -130,8 +122,8 @@ export default function HomePage() {
           description="La interfaz reduce pasos innecesarios y mantiene las decisiones principales siempre a la vista."
           features={experienceBenefits}
           action={
-            <Link to="/accessibility">
-              Configurar mi experiencia
+            <Link to="/products">
+              Ver catálogo completo
               <MdArrowForward aria-hidden="true" />
             </Link>
           }
