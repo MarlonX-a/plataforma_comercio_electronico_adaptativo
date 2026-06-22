@@ -1,6 +1,8 @@
-import type { Tables } from '../../../types/database.types';
+import type { Tables, TablesInsert, TablesUpdate } from '../../../types/database.types';
 
 export type ProductRow = Tables<'products'>;
+export type ProductInsert = TablesInsert<'products'>;
+export type ProductUpdate = TablesUpdate<'products'>;
 
 export type Product = {
   id: number;
@@ -52,3 +54,27 @@ export type ProductComparisonResult = {
   message: string;
   selectedProductIds: number[];
 };
+
+export type ProductManagementFormValues = {
+  name: string;
+  description: string;
+  price: string;
+  imageUrl: string;
+  category: string;
+  stock: string;
+  isActive: boolean;
+};
+
+export type ProductManagementFieldErrors = Partial<Record<keyof ProductManagementFormValues, string>>;
+
+export type ProductMutationResult =
+  | {
+      isSuccess: true;
+      message: string;
+      product: Product;
+    }
+  | {
+      isSuccess: false;
+      message: string;
+      product: null;
+    };

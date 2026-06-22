@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { FaBoxOpen, FaChevronDown, FaSignOutAlt, FaSlidersH, FaUserCircle } from 'react-icons/fa';
+import {
+  FaBoxOpen,
+  FaChevronDown,
+  FaSignOutAlt,
+  FaSlidersH,
+  FaStore,
+  FaUserCircle,
+} from 'react-icons/fa';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import logoImage from '../../assets/images/LogoPro.png';
 import {
@@ -49,6 +56,8 @@ export default function Navbar() {
 
     return t('navbar.myAccount');
   }, [authSession, userProfile, t]);
+
+  const canAccessWorkerPanel = userProfile?.role === 'worker' || userProfile?.role === 'admin';
 
   useEffect(() => {
     let isMounted = true;
@@ -259,6 +268,12 @@ export default function Navbar() {
                     <FaBoxOpen aria-hidden="true" />
                     {t('navbar.myOrders')}
                   </NavLink>
+                  {canAccessWorkerPanel ? (
+                    <NavLink to="/worker/products" onClick={() => setIsProfileMenuOpen(false)}>
+                      <FaStore aria-hidden="true" />
+                      {t('navbar.workerPanel')}
+                    </NavLink>
+                  ) : null}
                   <button type="button" onClick={openAccessibilityMenu}>
                     <FaSlidersH aria-hidden="true" />
                     {t('navbar.preferences')}

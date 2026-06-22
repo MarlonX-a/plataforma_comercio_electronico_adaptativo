@@ -36,7 +36,7 @@ const mapUserProfile = (profileRow: UserProfileRow | null): UserProfile | null =
   return {
     id: profileRow.id,
     fullName: profileRow.full_name,
-    role: profileRow.role === 'admin' ? 'admin' : 'customer',
+    role: profileRow.role === 'admin' || profileRow.role === 'worker' ? profileRow.role : 'customer',
     createdAt: profileRow.create_at,
   };
 };

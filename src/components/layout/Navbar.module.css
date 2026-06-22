@@ -71,6 +71,66 @@
   gap: 18px;
 }
 
+.languageControl {
+  min-height: 48px;
+  padding: 5px 6px 5px 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(0, 217, 255, 0.26);
+  border-radius: 999px;
+  color: #dbeafe;
+  background:
+    linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(168, 85, 247, 0.14)),
+    rgba(8, 13, 24, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+.languageControl span {
+  color: #9eeeff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.languageSelector {
+  min-height: 36px;
+  min-width: 112px;
+  padding: 8px 34px 8px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg, rgba(0, 217, 255, 0.18), rgba(124, 58, 237, 0.2)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2300d9ff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 10px center / 16px no-repeat,
+    #0a1020;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 850;
+  line-height: 1.2;
+  cursor: pointer;
+  appearance: none;
+}
+
+.languageSelector:hover {
+  border-color: rgba(0, 217, 255, 0.52);
+  background-color: #10192e;
+}
+
+.languageSelector:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.languageSelector option {
+  color: #ffffff;
+  background: #0a1020;
+}
+
 .navList {
   margin: 0;
   padding: 0;
@@ -296,9 +356,27 @@
 
 :global(html[data-contrast='highContrast']) .navLink,
 :global(html[data-contrast='highContrast']) .authLink,
-:global(html[data-contrast='highContrast']) .profileButton {
+:global(html[data-contrast='highContrast']) .profileButton,
+:global(html[data-contrast='highContrast']) .languageControl,
+:global(html[data-contrast='highContrast']) .languageSelector {
   color: #000000;
   border-color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .languageControl {
+  background: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .languageControl span {
+  color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .languageSelector {
+  color: #ffffff;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 10px center / 16px no-repeat,
+    #003d33;
 }
 
 :global(html[data-contrast='highContrast']) .navLink:hover,
@@ -490,6 +568,15 @@
     white-space: nowrap;
   }
 
+  .languageControl {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .languageSelector {
+    flex: 0 0 min(190px, 58%);
+  }
+
   .authActions {
     width: 100%;
     flex-wrap: wrap;
@@ -516,5 +603,16 @@
 
   .brandName {
     white-space: normal;
+  }
+
+  .languageControl {
+    align-items: stretch;
+    flex-direction: column;
+    border-radius: 18px;
+  }
+
+  .languageSelector {
+    width: 100%;
+    flex-basis: auto;
   }
 }

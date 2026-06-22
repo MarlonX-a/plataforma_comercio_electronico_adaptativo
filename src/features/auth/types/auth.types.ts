@@ -2,7 +2,7 @@ import type { Tables } from '../../../types/database.types';
 
 export type UserProfileRow = Tables<'profiles'>;
 
-export type UserRole = 'customer' | 'admin';
+export type UserRole = 'customer' | 'worker' | 'admin';
 
 export type UserProfile = {
   id: string;

@@ -6,7 +6,7 @@ import type {
   ProductServiceResult,
 } from '../types/product.types';
 
-const mapProduct = (productRow: ProductRow): Product => ({
+export const mapProduct = (productRow: ProductRow): Product => ({
   id: productRow.id,
   name: productRow.name,
   description: productRow.description,

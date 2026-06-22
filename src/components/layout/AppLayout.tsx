@@ -31,6 +31,7 @@ const getPageTitle = (pathname: string, t: ReturnType<typeof useI18n>['t']): str
     '/register': t('layout.page.register'),
     '/complete-profile': t('layout.page.completeProfile'),
     '/profile': t('layout.page.profile'),
+    '/worker/products': t('layout.page.workerProducts'),
     '/help': t('layout.page.help'),
     '/site-map': t('layout.page.siteMap'),
   };

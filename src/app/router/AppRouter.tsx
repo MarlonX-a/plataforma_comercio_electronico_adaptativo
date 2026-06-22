@@ -10,6 +10,7 @@ import HelpPage from '../../features/help/pages/HelpPage';
 import ProductComparePage from '../../features/products/pages/ProductComparePage';
 import ProductDetailPage from '../../features/products/pages/ProductDetailPage';
 import ProductsPage from '../../features/products/pages/ProductsPage';
+import WorkerProductsPage from '../../features/products/pages/WorkerProductsPage';
 import HomePage from '../../pages/HomePage';
 import SiteMapPage from '../../pages/SiteMapPage';
 
@@ -25,6 +26,7 @@ export default function AppRouter() {
           <Route path="/profile" element={<CompleteProfilePage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
+          <Route path="/worker/products" element={<WorkerProductsPage />} />
           <Route path="/compare" element={<ProductComparePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

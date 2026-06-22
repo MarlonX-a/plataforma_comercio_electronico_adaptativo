@@ -1,0 +1,362 @@
+.page {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: clamp(36px, 6vw, 72px) 0;
+}
+
+.hero,
+.formCard,
+.inventoryCard,
+.accessCard,
+.statsGrid article {
+  border: 1px solid rgba(0, 217, 255, 0.18);
+  border-radius: var(--ui-radius-card);
+  background:
+    linear-gradient(145deg, rgba(0, 217, 255, 0.06), rgba(124, 58, 237, 0.08)),
+    rgba(8, 13, 24, 0.92);
+  box-shadow: var(--ui-shadow-card);
+}
+
+.hero {
+  padding: clamp(26px, 4vw, 40px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.formHeader h2,
+.inventoryHeader h2,
+.accessCard h1 {
+  margin: 0;
+  color: var(--text-h);
+  line-height: 1.1;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+}
+
+.hero p:last-child,
+.formHeader p {
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.statsGrid {
+  margin: 24px 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.statsGrid article {
+  padding: 20px;
+}
+
+.statsGrid span {
+  display: block;
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.statsGrid p {
+  margin: 8px 0 0;
+  color: var(--text);
+  font-weight: 750;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 430px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.formCard,
+.inventoryCard {
+  padding: clamp(22px, 3vw, 30px);
+}
+
+.formCard {
+  display: grid;
+  gap: 18px;
+}
+
+.formHeader {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.formHeader > svg {
+  margin-top: 4px;
+  color: var(--accent);
+  font-size: 1.6rem;
+  flex: 0 0 auto;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  color: var(--text-h);
+  font-size: 0.95rem;
+  font-weight: 780;
+}
+
+.field textarea {
+  width: 100%;
+  min-height: 128px;
+  padding: 13px 16px;
+  resize: vertical;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius-control);
+  color: var(--text-h);
+  background: rgba(3, 8, 18, 0.8);
+  font: inherit;
+  line-height: 1.5;
+}
+
+.field textarea:hover {
+  border-color: var(--accent-border);
+}
+
+.field textarea:focus {
+  border-color: var(--accent);
+  outline: 0;
+  box-shadow: 0 0 0 4px var(--accent-bg);
+}
+
+.twoColumns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.formActions,
+.inventoryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.formActions {
+  justify-content: flex-start;
+}
+
+.inventoryCard {
+  min-width: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.tableWrapper {
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+}
+
+.tableWrapper:focus-visible {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.tableWrapper table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+}
+
+.tableWrapper caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.tableWrapper th,
+.tableWrapper td {
+  padding: 15px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tableWrapper thead th {
+  color: var(--text-h);
+  background: rgba(0, 217, 255, 0.08);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.tableWrapper tbody th {
+  display: grid;
+  gap: 4px;
+  color: var(--text-h);
+}
+
+.tableWrapper small {
+  color: var(--text);
+  font-weight: 650;
+}
+
+.tableWrapper tr:last-child th,
+.tableWrapper tr:last-child td {
+  border-bottom: 0;
+}
+
+.emptyInventory,
+.accessCard {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.emptyInventory {
+  min-height: 220px;
+  align-content: center;
+}
+
+.emptyInventory svg,
+.accessCard svg {
+  color: var(--accent);
+  font-size: 3rem;
+}
+
+.accessCard {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 42px);
+}
+
+.accessCard p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.accessCard a {
+  min-height: 48px;
+  padding: 12px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ui-radius-control);
+  color: var(--button-text);
+  background: linear-gradient(135deg, var(--accent), #8cecff);
+  font-weight: 850;
+  text-decoration: none;
+}
+
+:global(html[data-contrast='highContrast']) .hero,
+:global(html[data-contrast='highContrast']) .formCard,
+:global(html[data-contrast='highContrast']) .inventoryCard,
+:global(html[data-contrast='highContrast']) .accessCard,
+:global(html[data-contrast='highContrast']) .statsGrid article,
+:global(html[data-contrast='highContrast']) .tableWrapper {
+  border: 2px solid #000000;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .hero h1,
+:global(html[data-contrast='highContrast']) .hero p,
+:global(html[data-contrast='highContrast']) .formHeader h2,
+:global(html[data-contrast='highContrast']) .formHeader p,
+:global(html[data-contrast='highContrast']) .inventoryHeader h2,
+:global(html[data-contrast='highContrast']) .statsGrid p,
+:global(html[data-contrast='highContrast']) .tableWrapper th,
+:global(html[data-contrast='highContrast']) .tableWrapper td,
+:global(html[data-contrast='highContrast']) .tableWrapper small,
+:global(html[data-contrast='highContrast']) .field label,
+:global(html[data-contrast='highContrast']) .accessCard h1,
+:global(html[data-contrast='highContrast']) .accessCard p {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .kicker,
+:global(html[data-contrast='highContrast']) .statsGrid span,
+:global(html[data-contrast='highContrast']) .formHeader > svg,
+:global(html[data-contrast='highContrast']) .emptyInventory svg,
+:global(html[data-contrast='highContrast']) .accessCard svg {
+  color: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .field textarea {
+  color: #000000;
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .tableWrapper thead th {
+  background: #f0f0f0;
+}
+
+:global(html[data-contrast='highContrast']) .accessCard a {
+  color: #ffffff;
+  border: 2px solid #000000;
+  background: #003d33;
+}
+
+@media (max-width: 980px) {
+  .layout,
+  .statsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .formCard,
+  .inventoryCard {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    flex-direction: column;
+  }
+
+  .statsGrid,
+  .layout,
+  .twoColumns {
+    grid-template-columns: 1fr;
+  }
+
+  .formActions,
+  .formActions > * {
+    width: 100%;
+  }
+
+  .inventoryHeader {
+    align-items: stretch;
+  }
+
+  .inventoryHeader > * {
+    width: 100%;
+  }
+}
