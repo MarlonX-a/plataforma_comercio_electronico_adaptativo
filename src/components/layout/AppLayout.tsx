@@ -6,6 +6,7 @@ import {
   loadAccessibilitySettings,
 } from '../../features/accessibility/services/accessibilitySettingsService';
 import FloatingAccessibilityMenu from '../../features/accessibility/components/FloatingAccessibilityMenu';
+import StoreAssistantChat from '../../features/assistant/components/StoreAssistantChat';
 import { useI18n } from '../../features/i18n/I18nProvider';
 import Footer from './Footer';
 import Navbar from './Navbar';
@@ -83,6 +84,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {children}
       </main>
       <Footer />
+      <StoreAssistantChat />
       <FloatingAccessibilityMenu />
     </div>
   );
