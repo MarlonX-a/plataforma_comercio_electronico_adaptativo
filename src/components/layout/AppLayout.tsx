@@ -8,6 +8,7 @@ import {
 import FloatingAccessibilityMenu from '../../features/accessibility/components/FloatingAccessibilityMenu';
 import StoreAssistantChat from '../../features/assistant/components/StoreAssistantChat';
 import { useI18n } from '../../features/i18n/I18nProvider';
+import KeyboardShortcutsHelp from '../../features/keyboard-shortcuts/components/KeyboardShortcutsHelp';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import styles from './AppLayout.module.css';
@@ -84,6 +85,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
         {children}
       </main>
       <Footer />
+      <KeyboardShortcutsHelp />
       <StoreAssistantChat />
       <FloatingAccessibilityMenu />
     </div>

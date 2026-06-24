@@ -45,7 +45,24 @@ export default function StoreAssistantChat() {
   const [isLoading, setIsLoading] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const messageInputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const openAssistant = () => {
+      setIsOpen(true);
+
+      window.requestAnimationFrame(() => {
+        messageInputRef.current?.focus();
+      });
+    };
+
+    window.addEventListener('open-store-assistant-chat', openAssistant);
+
+    return () => {
+      window.removeEventListener('open-store-assistant-chat', openAssistant);
+    };
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -218,6 +235,7 @@ export default function StoreAssistantChat() {
             <label htmlFor="store-assistant-message">Escribe tu pregunta</label>
             <div className={styles.composerControl}>
               <textarea
+                ref={messageInputRef}
                 id="store-assistant-message"
                 name="assistantMessage"
                 rows={2}

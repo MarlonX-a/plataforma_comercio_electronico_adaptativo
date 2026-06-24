@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+# Supabase local/temp
+supabase/.temp/
+supabase/.branches/
