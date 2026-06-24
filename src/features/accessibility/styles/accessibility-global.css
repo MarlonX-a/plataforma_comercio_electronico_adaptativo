@@ -1,0 +1,159 @@
+body.high-contrast {
+  color: #ffffff;
+  background: #000000 !important;
+}
+
+body.high-contrast a {
+  color: #00d9ff;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+body.high-contrast button,
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+  border-color: #ffffff !important;
+}
+
+body.high-contrast input,
+body.high-contrast select,
+body.high-contrast textarea {
+  color: #ffffff !important;
+  background: #050505 !important;
+}
+
+body.no-color-reliance [aria-invalid='true'],
+body.visible-validation [aria-invalid='true'] {
+  border-style: dashed !important;
+  border-width: 2px !important;
+}
+
+body.no-color-reliance [aria-current='page'],
+body.no-color-reliance [aria-pressed='true'],
+body.no-color-reliance .active,
+body.no-color-reliance [data-state='active'] {
+  text-decoration: underline;
+  text-decoration-thickness: 0.14em;
+  text-underline-offset: 0.22em;
+}
+
+body.no-color-reliance [role='alert']::before,
+body.visible-validation [role='alert']::before {
+  content: 'Importante: ';
+  font-weight: 900;
+}
+
+body.text-spacing {
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+  word-spacing: 0.14em;
+}
+
+body.text-spacing p {
+  margin-bottom: 0.85em;
+}
+
+body.enhanced-focus a:focus-visible,
+body.enhanced-focus button:focus-visible,
+body.enhanced-focus input:focus-visible,
+body.enhanced-focus select:focus-visible,
+body.enhanced-focus textarea:focus-visible,
+body.enhanced-focus summary:focus-visible,
+body.enhanced-focus [tabindex]:focus-visible {
+  outline: 4px solid #00d9ff !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 8px rgba(124, 58, 237, 0.28) !important;
+}
+
+body.large-targets button,
+body.large-targets a,
+body.large-targets input,
+body.large-targets select,
+body.large-targets textarea,
+body.large-targets summary,
+body.large-targets [role='button'] {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+body.large-targets button,
+body.large-targets a,
+body.large-targets summary {
+  padding: max(0.72rem, 8px) max(0.9rem, 10px);
+}
+
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+  scroll-behavior: auto !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.field-hint {
+  display: none;
+}
+
+body.show-hints .field-hint {
+  display: block;
+}
+
+body.visible-validation [aria-invalid='true'] {
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 25%, transparent 25%);
+  background-size: 12px 12px;
+}
+
+body.visible-validation [aria-invalid='true'] + .field-hint::before,
+body.visible-validation [aria-invalid='true'] ~ .field-hint::before {
+  content: 'Revisar: ';
+  font-weight: 900;
+}
+
+body.dyslexia-friendly {
+  font-family: 'Atkinson Hyperlegible', Arial, Verdana, Tahoma, sans-serif;
+}
+
+body.reading-guide-enabled::after {
+  content: '';
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: var(--reading-guide-y, 42vh);
+  z-index: 1200;
+  height: 0.75rem;
+  border-block: 1px solid rgba(0, 217, 255, 0.65);
+  background: rgba(0, 217, 255, 0.16);
+  box-shadow: 0 0 18px rgba(0, 217, 255, 0.22);
+  pointer-events: none;
+}
+
+body.hide-decorative-images img[aria-hidden='true'],
+body.hide-decorative-images img[data-decorative='true'],
+body.hide-decorative-images svg[aria-hidden='true'][data-decorative='true'] {
+  visibility: hidden !important;
+}
+
+.transcripcion[hidden],
+.transcript[hidden],
+[data-transcript][hidden] {
+  display: none !important;
+}
+
+body.show-transcripts .transcripcion,
+body.show-transcripts .transcript,
+body.show-transcripts [data-transcript] {
+  display: block;
+}

@@ -1,0 +1,98 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.dialog {
+  width: min(460px, 100%);
+  padding: 22px;
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(0, 217, 255, 0.42);
+  border-radius: 22px;
+  color: var(--text);
+  background:
+    linear-gradient(145deg, rgba(0, 217, 255, 0.06), rgba(124, 58, 237, 0.08)),
+    #080d18;
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.62),
+    0 0 34px rgba(0, 217, 255, 0.12);
+}
+
+.dialog h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.dialog p {
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.actions {
+  margin-top: 6px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cancelButton,
+.confirmButton {
+  min-height: 48px;
+  padding: 10px 16px;
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.045);
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.confirmButton {
+  color: #fff5f5;
+  border-color: rgba(248, 113, 113, 0.58);
+  background: rgba(185, 28, 28, 0.76);
+}
+
+.cancelButton:hover,
+.confirmButton:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.confirmButton:hover {
+  background: #b91c1c;
+}
+
+:global(html[data-contrast='highContrast']) .dialog,
+:global(html[data-contrast='highContrast']) .cancelButton,
+:global(html[data-contrast='highContrast']) .confirmButton {
+  color: #000000;
+  border: 2px solid #000000;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .confirmButton {
+  color: #ffffff;
+  background: #cc0000;
+}
+
+@media (max-width: 520px) {
+  .overlay {
+    padding: 12px;
+  }
+
+  .actions,
+  .actions > * {
+    width: 100%;
+  }
+}

@@ -1,87 +1,10 @@
-import { useState } from 'react';
 import uiStyles from '../../../components/ui/UiPrimitives.module.css';
-import {
-  defaultAccessibilitySettings,
-  loadAccessibilitySettings,
-  saveAccessibilitySettings,
-} from '../services/accessibilitySettingsService';
-import type {
-  AccessibilitySettings,
-  ColorContrastMode,
-  FontSizePreference,
-  MotionPreference,
-  TextSpacingPreference,
-} from '../types/accessibility.types';
+import { useAccessibilityPreferences } from '../hooks/useAccessibilityPreferences';
 import styles from './AccessibilityPage.module.css';
 
-type SettingsOption<Value extends string> = {
-  label: string;
-  value: Value;
-};
-
-const fontSizeOptions: SettingsOption<FontSizePreference>[] = [
-  { label: 'Normal', value: 'default' },
-  { label: 'Grande', value: 'large' },
-  { label: 'Muy grande', value: 'extraLarge' },
-];
-
-const contrastOptions: SettingsOption<ColorContrastMode>[] = [
-  { label: 'Predeterminado', value: 'default' },
-  { label: 'Alto contraste', value: 'highContrast' },
-];
-
-const spacingOptions: SettingsOption<TextSpacingPreference>[] = [
-  { label: 'Normal', value: 'default' },
-  { label: 'Ampliado', value: 'increased' },
-];
-
-const motionOptions: SettingsOption<MotionPreference>[] = [
-  { label: 'Normal', value: 'default' },
-  { label: 'Reducido', value: 'reduced' },
-];
-
 export default function AccessibilityPage() {
-  const [settings, setSettings] = useState<AccessibilitySettings>(() =>
-    loadAccessibilitySettings(),
-  );
-  const [statusMessage, setStatusMessage] = useState('');
-
-  const updateSettings = (updatedSettings: AccessibilitySettings) => {
-    setSettings(updatedSettings);
-    saveAccessibilitySettings(updatedSettings);
-    setStatusMessage('Preferencias aplicadas.');
-  };
-
-  const resetSettings = () => {
-    setSettings(defaultAccessibilitySettings);
-    saveAccessibilitySettings(defaultAccessibilitySettings);
-    setStatusMessage('Preferencias restablecidas.');
-  };
-
-  const renderOptions = <Value extends string>(
-    groupLabel: string,
-    options: SettingsOption<Value>[],
-    selectedValue: Value,
-    onChange: (value: Value) => void,
-  ) => (
-    <div className={styles.segmentedControl} role="group" aria-label={groupLabel}>
-      {options.map((option) => (
-        <button
-          key={option.value}
-          type="button"
-          className={
-            selectedValue === option.value
-              ? `${styles.segmentButton} ${styles.segmentButtonActive}`
-              : styles.segmentButton
-          }
-          aria-pressed={selectedValue === option.value}
-          onClick={() => onChange(option.value)}
-        >
-          {option.label}
-        </button>
-      ))}
-    </div>
-  );
+  const { preferences, updatePreference, increaseFont, decreaseFont, resetPreferences } =
+    useAccessibilityPreferences();
 
   return (
     <section className={styles.page} aria-labelledby="accessibility-title">
@@ -98,62 +21,112 @@ export default function AccessibilityPage() {
         >
           <div>
             <h2 id="font-size-title">Tamaño del texto</h2>
-            <p>Aumenta el texto sin perder contenido ni funcionalidad.</p>
+            <p>Escala actual: {preferences.fontScale}%</p>
           </div>
-          {renderOptions(
-            'Tamaño del texto',
-            fontSizeOptions,
-            settings.fontSizePreference,
-            (fontSizePreference) => updateSettings({ ...settings, fontSizePreference }),
-          )}
+          <div className={styles.segmentedControl} role="group" aria-label="Tamaño del texto">
+            <button className={styles.segmentButton} type="button" onClick={decreaseFont}>
+              Reducir
+            </button>
+            <button className={styles.segmentButton} type="button" onClick={increaseFont}>
+              Aumentar
+            </button>
+          </div>
         </section>
 
         <section
           className={`${styles.settingRow} ${uiStyles.sectionCard}`}
-          aria-labelledby="contrast-title"
+          aria-labelledby="visual-options-title"
         >
           <div>
-            <h2 id="contrast-title">Contraste</h2>
-            <p>Refuerza la diferencia entre texto, controles y fondo.</p>
+            <h2 id="visual-options-title">Opciones visuales</h2>
+            <p>Contraste, espaciado, foco y lectura visual.</p>
           </div>
-          {renderOptions(
-            'Contraste de la interfaz',
-            contrastOptions,
-            settings.colorContrastMode,
-            (colorContrastMode) => updateSettings({ ...settings, colorContrastMode }),
-          )}
+          <div className={styles.segmentedControl} role="group" aria-label="Opciones visuales">
+            <button
+              className={
+                preferences.highContrast
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.highContrast}
+              onClick={() => updatePreference('highContrast', !preferences.highContrast)}
+            >
+              Alto contraste
+            </button>
+            <button
+              className={
+                preferences.textSpacing
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.textSpacing}
+              onClick={() => updatePreference('textSpacing', !preferences.textSpacing)}
+            >
+              Espaciado
+            </button>
+            <button
+              className={
+                preferences.enhancedFocus
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.enhancedFocus}
+              onClick={() => updatePreference('enhancedFocus', !preferences.enhancedFocus)}
+            >
+              Foco visible
+            </button>
+          </div>
         </section>
 
         <section
           className={`${styles.settingRow} ${uiStyles.sectionCard}`}
-          aria-labelledby="spacing-title"
+          aria-labelledby="cognitive-options-title"
         >
           <div>
-            <h2 id="spacing-title">Espaciado del texto</h2>
-            <p>Amplía el espacio entre letras, palabras y líneas.</p>
+            <h2 id="cognitive-options-title">Opciones cognitivas y motrices</h2>
+            <p>Reduce movimiento, aumenta controles y muestra guías.</p>
           </div>
-          {renderOptions(
-            'Espaciado del texto',
-            spacingOptions,
-            settings.textSpacingPreference,
-            (textSpacingPreference) => updateSettings({ ...settings, textSpacingPreference }),
-          )}
-        </section>
-
-        <section
-          className={`${styles.settingRow} ${uiStyles.sectionCard}`}
-          aria-labelledby="motion-title"
-        >
-          <div>
-            <h2 id="motion-title">Movimiento</h2>
-            <p>Reduce transiciones y animaciones no esenciales.</p>
+          <div className={styles.segmentedControl} role="group" aria-label="Opciones cognitivas">
+            <button
+              className={
+                preferences.reduceMotion
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.reduceMotion}
+              onClick={() => updatePreference('reduceMotion', !preferences.reduceMotion)}
+            >
+              Pausar animaciones
+            </button>
+            <button
+              className={
+                preferences.largeTargets
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.largeTargets}
+              onClick={() => updatePreference('largeTargets', !preferences.largeTargets)}
+            >
+              Controles grandes
+            </button>
+            <button
+              className={
+                preferences.readingGuide
+                  ? `${styles.segmentButton} ${styles.segmentButtonActive}`
+                  : styles.segmentButton
+              }
+              type="button"
+              aria-pressed={preferences.readingGuide}
+              onClick={() => updatePreference('readingGuide', !preferences.readingGuide)}
+            >
+              Guía de lectura
+            </button>
           </div>
-          {renderOptions(
-            'Movimiento de la interfaz',
-            motionOptions,
-            settings.motionPreference,
-            (motionPreference) => updateSettings({ ...settings, motionPreference }),
-          )}
         </section>
       </div>
 
@@ -161,12 +134,12 @@ export default function AccessibilityPage() {
         <button
           className={`${styles.resetButton} ${uiStyles.secondaryButton}`}
           type="button"
-          onClick={resetSettings}
+          onClick={resetPreferences}
         >
           Restablecer preferencias
         </button>
         <p className={styles.statusMessage} role="status" aria-live="polite">
-          {statusMessage}
+          Las preferencias se guardan automáticamente en este navegador.
         </p>
       </div>
     </section>

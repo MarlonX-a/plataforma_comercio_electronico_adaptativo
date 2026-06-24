@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaMinus, FaPlus, FaShoppingCart, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import AccessibleConfirmDialog from '../../../components/ui/AccessibleConfirmDialog';
 import uiStyles from '../../../components/ui/UiPrimitives.module.css';
+import { useAccessibilityPreferences } from '../../accessibility/hooks/useAccessibilityPreferences';
 import {
   cartUpdatedEventName,
   createCartSummary,
@@ -25,8 +27,10 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [pendingRemovalProductId, setPendingRemovalProductId] = useState<number | null>(null);
   const statusMessageRef = useRef<HTMLParagraphElement>(null);
   const shouldFocusStatusRef = useRef(false);
+  const { preferences } = useAccessibilityPreferences();
 
   const loadCart = useCallback(async () => {
     const storedItems = loadStoredCartItems();
@@ -74,7 +78,7 @@ export default function CartPage() {
     setStatusMessage(result.message);
   };
 
-  const removeProduct = (productId: number) => {
+  const removeProductImmediately = (productId: number) => {
     const cartItem = cartSummary.items.find((item) => item.product.id === productId);
 
     if (!cartItem) {
@@ -85,6 +89,19 @@ export default function CartPage() {
     shouldFocusStatusRef.current = true;
     setStatusMessage(result.message);
   };
+
+  const removeProduct = (productId: number) => {
+    if (preferences.confirmationMode) {
+      setPendingRemovalProductId(productId);
+      return;
+    }
+
+    removeProductImmediately(productId);
+  };
+
+  const pendingRemovalItem = pendingRemovalProductId
+    ? cartSummary.items.find((item) => item.product.id === pendingRemovalProductId)
+    : null;
 
   if (isLoading) {
     return (
@@ -217,6 +234,26 @@ export default function CartPage() {
           </aside>
         </div>
       ) : null}
+
+      <AccessibleConfirmDialog
+        isOpen={pendingRemovalItem !== null}
+        title="Confirmar eliminación"
+        description={
+          pendingRemovalItem
+            ? `¿Deseas eliminar ${pendingRemovalItem.product.name} del carrito? Esta acción actualizará tu selección.`
+            : '¿Deseas eliminar este producto del carrito?'
+        }
+        confirmLabel="Eliminar producto"
+        cancelLabel="Cancelar"
+        onCancel={() => setPendingRemovalProductId(null)}
+        onConfirm={() => {
+          if (pendingRemovalProductId !== null) {
+            removeProductImmediately(pendingRemovalProductId);
+          }
+
+          setPendingRemovalProductId(null);
+        }}
+      />
     </section>
   );
 }

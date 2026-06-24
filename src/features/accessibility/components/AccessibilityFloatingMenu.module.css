@@ -1,0 +1,397 @@
+.floatingWrapper {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 85;
+  display: grid;
+  justify-items: end;
+  gap: 12px;
+}
+
+.floatingButton {
+  width: 64px;
+  height: 64px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--accent-strong);
+  border-radius: 999px;
+  color: var(--accent-strong);
+  background:
+    radial-gradient(circle at 28% 20%, rgba(0, 217, 255, 0.2), transparent 56%),
+    linear-gradient(160deg, rgba(17, 24, 39, 0.98), rgba(8, 14, 27, 0.98));
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(0, 217, 255, 0.12) inset;
+  font-size: 34px;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.floatingButton:hover {
+  background:
+    radial-gradient(circle at 20% 16%, rgba(0, 217, 255, 0.3), transparent 58%),
+    linear-gradient(160deg, rgba(17, 24, 39, 1), rgba(25, 18, 42, 0.98));
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.38),
+    0 0 0 1px rgba(139, 92, 246, 0.28) inset;
+  transform: translateY(-2px);
+}
+
+.panel {
+  width: min(760px, calc(100vw - 24px));
+  max-height: min(82svh, 760px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(0, 217, 255, 0.34);
+  border-radius: 24px;
+  color: var(--text);
+  background:
+    linear-gradient(145deg, rgba(0, 217, 255, 0.055), rgba(124, 58, 237, 0.075)),
+    #080d18;
+  box-shadow:
+    0 32px 86px rgba(0, 0, 0, 0.58),
+    0 0 42px rgba(0, 217, 255, 0.12);
+}
+
+.panelHeader {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid rgba(148, 196, 222, 0.22);
+  background: rgba(8, 13, 24, 0.96);
+  backdrop-filter: blur(10px);
+}
+
+.eyebrow {
+  margin-bottom: 5px;
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.55rem);
+}
+
+.panelHeader p:last-child {
+  margin-top: 5px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.closeButton {
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--ui-border);
+  border-radius: 14px;
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.045);
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.actionButton:hover,
+.resetButton:hover,
+.helpLink:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.settingsContent {
+  padding: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.category {
+  min-width: 0;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  border: 1px solid rgba(148, 196, 222, 0.24);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.category h3 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+  font-size: 1rem;
+}
+
+.switchRow {
+  min-height: 58px;
+  padding: 10px 10px 10px 12px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgba(148, 196, 222, 0.2);
+  border-radius: 15px;
+  background: rgba(3, 8, 18, 0.5);
+  cursor: pointer;
+}
+
+.switchRow:hover {
+  border-color: var(--accent-border);
+  background: rgba(0, 217, 255, 0.06);
+}
+
+.switchIcon {
+  display: inline-flex;
+  color: var(--accent-strong);
+  font-size: 1.02rem;
+}
+
+.switchText {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.switchText strong {
+  color: var(--text-h);
+  font-size: 0.9rem;
+  line-height: 1.25;
+}
+
+.switchText span {
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.switchRow input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.switchTrack {
+  width: 52px;
+  height: 30px;
+  padding: 3px;
+  display: block;
+  border: 1px solid var(--ui-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.switchTrack span {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: 50%;
+  background: var(--text);
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+}
+
+.switchRow input:checked + .switchTrack {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
+}
+
+.switchRow input:checked + .switchTrack span {
+  background: #050505;
+  transform: translateX(22px);
+}
+
+.switchRow input:focus-visible + .switchTrack {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.fontControls {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  border: 1px solid rgba(148, 196, 222, 0.2);
+  border-radius: 15px;
+  background: rgba(3, 8, 18, 0.5);
+}
+
+.fontControls button,
+.actionButton,
+.resetButton,
+.helpLink {
+  min-height: 44px;
+  padding: 9px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--ui-border);
+  border-radius: 13px;
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.045);
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.fontControls strong {
+  color: var(--accent-strong);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.mediaStatus,
+.emptyMedia,
+.keyboardNotice {
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 217, 255, 0.24);
+  border-radius: 14px;
+  color: var(--text);
+  background: rgba(0, 217, 255, 0.06);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.panelFooter {
+  padding: 16px 18px 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 12px;
+  align-items: center;
+  border-top: 1px solid rgba(148, 196, 222, 0.22);
+}
+
+.resetButton {
+  color: #ffe0e0;
+  border-color: rgba(248, 113, 113, 0.46);
+}
+
+.statusMessage {
+  min-height: 1.2rem;
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+:global(html[data-contrast='highContrast']) .floatingButton,
+:global(html[data-contrast='highContrast']) .panel,
+:global(html[data-contrast='highContrast']) .panelHeader,
+:global(html[data-contrast='highContrast']) .category,
+:global(html[data-contrast='highContrast']) .switchRow,
+:global(html[data-contrast='highContrast']) .fontControls,
+:global(html[data-contrast='highContrast']) .mediaStatus,
+:global(html[data-contrast='highContrast']) .emptyMedia,
+:global(html[data-contrast='highContrast']) .keyboardNotice,
+:global(html[data-contrast='highContrast']) .closeButton,
+:global(html[data-contrast='highContrast']) .actionButton,
+:global(html[data-contrast='highContrast']) .resetButton,
+:global(html[data-contrast='highContrast']) .helpLink {
+  color: #000000;
+  border: 2px solid #000000;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+:global(html[data-contrast='highContrast']) .floatingButton,
+:global(html[data-contrast='highContrast']) .switchRow input:checked + .switchTrack {
+  color: #ffffff;
+  background: #003d33;
+}
+
+:global(html[data-contrast='highContrast']) .switchText strong,
+:global(html[data-contrast='highContrast']) .switchText span,
+:global(html[data-contrast='highContrast']) .panelHeader h2,
+:global(html[data-contrast='highContrast']) .panelHeader p,
+:global(html[data-contrast='highContrast']) .category h3,
+:global(html[data-contrast='highContrast']) .statusMessage {
+  color: #000000;
+}
+
+:global(html[data-buttons='large']) .floatingButton {
+  width: 72px;
+  height: 72px;
+}
+
+:global(html[data-buttons='large']) .switchRow,
+:global(html[data-buttons='large']) .fontControls button,
+:global(html[data-buttons='large']) .actionButton,
+:global(html[data-buttons='large']) .resetButton,
+:global(html[data-buttons='large']) .helpLink {
+  min-height: 58px;
+}
+
+:global(html[data-motion='reduced']) .floatingButton,
+:global(html[data-motion='reduced']) .switchTrack,
+:global(html[data-motion='reduced']) .switchTrack span {
+  transition: none;
+}
+
+@media (max-width: 820px) {
+  .floatingWrapper {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .floatingButton {
+    width: 60px;
+    height: 60px;
+    font-size: 31px;
+  }
+
+  .panel {
+    width: min(520px, calc(100vw - 16px));
+    max-height: min(76svh, 680px);
+  }
+
+  .settingsContent,
+  .panelFooter {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 460px) {
+  .panel {
+    border-radius: 18px;
+  }
+
+  .panelHeader,
+  .settingsContent,
+  .panelFooter {
+    padding-inline: 14px;
+  }
+
+  .switchRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .switchIcon {
+    display: none;
+  }
+
+  .fontControls {
+    grid-template-columns: 1fr;
+  }
+}

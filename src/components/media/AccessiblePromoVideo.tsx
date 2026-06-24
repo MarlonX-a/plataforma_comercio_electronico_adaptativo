@@ -67,7 +67,7 @@ export default function AccessiblePromoVideo() {
           </ul>
         </div>
 
-        <details className={styles.transcript}>
+        <details className={`${styles.transcript} transcripcion`} data-transcript>
           <summary>Leer transcripción del video</summary>
           <div className={styles.transcriptContent}>
             <h3>Transcripción</h3>
