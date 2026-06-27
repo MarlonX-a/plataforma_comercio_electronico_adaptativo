@@ -1,17 +1,33 @@
 import {
   ACCESSIBILITY_STORAGE_KEY,
+  cursorColorValues,
+  cursorModeValues,
   fontScaleValues,
+  themeModeValues,
 } from '../types/accessibility.types';
 import type {
   AccessibilityPreferenceKey,
   AccessibilityPreferences,
+  CursorColor,
+  CursorMode,
   FontScaleValue,
+  ThemeMode,
 } from '../types/accessibility.types';
 
 const bodyPreferenceClasses: Record<
-  Exclude<AccessibilityPreferenceKey, 'fontScale' | 'captionsEnabled' | 'audioDescriptionsEnabled' | 'muteAllMedia'>,
+  Exclude<
+    AccessibilityPreferenceKey,
+    | 'fontScale'
+    | 'themeMode'
+    | 'cursorMode'
+    | 'cursorColor'
+    | 'captionsEnabled'
+    | 'audioDescriptionsEnabled'
+    | 'muteAllMedia'
+  >,
   string
 > = {
+  darkMode: 'dark-mode',
   noColorReliance: 'no-color-reliance',
   highContrast: 'high-contrast',
   textSpacing: 'text-spacing',
@@ -27,7 +43,11 @@ const bodyPreferenceClasses: Record<
   hideDecorativeImages: 'hide-decorative-images',
 };
 
+export const ACCESSIBILITY_SETTINGS_CHANGED_EVENT = 'accessibility-settings-changed';
+
 export const defaultAccessibilitySettings: AccessibilityPreferences = {
+  darkMode: true,
+  themeMode: 'system',
   noColorReliance: false,
   highContrast: false,
   fontScale: 100,
@@ -38,6 +58,8 @@ export const defaultAccessibilitySettings: AccessibilityPreferences = {
   muteAllMedia: false,
   enhancedFocus: true,
   largeTargets: false,
+  cursorMode: 'default',
+  cursorColor: 'default',
   reduceMotion: false,
   showHints: false,
   visibleValidation: false,
@@ -50,10 +72,50 @@ export const defaultAccessibilitySettings: AccessibilityPreferences = {
 const isFontScaleValue = (value: unknown): value is FontScaleValue =>
   typeof value === 'number' && fontScaleValues.includes(value as FontScaleValue);
 
+const isThemeMode = (value: unknown): value is ThemeMode =>
+  typeof value === 'string' && themeModeValues.includes(value as ThemeMode);
+
+const isCursorMode = (value: unknown): value is CursorMode =>
+  typeof value === 'string' && cursorModeValues.includes(value as CursorMode);
+
+const isCursorColor = (value: unknown): value is CursorColor =>
+  typeof value === 'string' && cursorColorValues.includes(value as CursorColor);
+
 const parseBoolean = (value: unknown, fallback: boolean): boolean =>
   typeof value === 'boolean' ? value : fallback;
 
-const migrateLegacySettings = (storedSettings: Record<string, unknown>): Partial<AccessibilityPreferences> => ({
+const getLegacyThemeMode = (storedSettings: Record<string, unknown>): ThemeMode => {
+  if (isThemeMode(storedSettings.themeMode)) {
+    return storedSettings.themeMode;
+  }
+
+  if (storedSettings.theme === 'dark' || storedSettings.darkMode === true) {
+    return 'dark';
+  }
+
+  if (storedSettings.theme === 'light' || storedSettings.darkMode === false) {
+    return 'light';
+  }
+
+  return defaultAccessibilitySettings.themeMode;
+};
+
+export const getSystemThemeMode = (): Exclude<ThemeMode, 'system'> => {
+  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+    return 'dark';
+  }
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+export const getResolvedThemeMode = (themeMode: ThemeMode): Exclude<ThemeMode, 'system'> =>
+  themeMode === 'system' ? getSystemThemeMode() : themeMode;
+
+const migrateLegacySettings = (
+  storedSettings: Record<string, unknown>,
+): Partial<AccessibilityPreferences> => ({
+  themeMode: getLegacyThemeMode(storedSettings),
+  darkMode: getResolvedThemeMode(getLegacyThemeMode(storedSettings)) === 'dark',
   highContrast:
     storedSettings.colorContrastMode === 'highContrast'
       ? true
@@ -78,6 +140,16 @@ const migrateLegacySettings = (storedSettings: Record<string, unknown>): Partial
     storedSettings.isKeyboardNavigationEnhanced,
     parseBoolean(storedSettings.enhancedFocus, defaultAccessibilitySettings.enhancedFocus),
   ),
+  cursorMode:
+    isCursorMode(storedSettings.cursorMode)
+      ? storedSettings.cursorMode
+      : parseBoolean(storedSettings.largeCursor, false)
+        ? 'large'
+        : defaultAccessibilitySettings.cursorMode,
+  cursorColor:
+    isCursorColor(storedSettings.cursorColor)
+      ? storedSettings.cursorColor
+      : defaultAccessibilitySettings.cursorColor,
 });
 
 export const parseAccessibilitySettings = (value: unknown): AccessibilityPreferences => {
@@ -89,6 +161,8 @@ export const parseAccessibilitySettings = (value: unknown): AccessibilityPrefere
   const migratedSettings = migrateLegacySettings(storedSettings);
 
   return {
+    darkMode: migratedSettings.darkMode ?? defaultAccessibilitySettings.darkMode,
+    themeMode: migratedSettings.themeMode ?? defaultAccessibilitySettings.themeMode,
     noColorReliance: parseBoolean(
       storedSettings.noColorReliance,
       defaultAccessibilitySettings.noColorReliance,
@@ -118,6 +192,8 @@ export const parseAccessibilitySettings = (value: unknown): AccessibilityPrefere
       storedSettings.largeTargets,
       defaultAccessibilitySettings.largeTargets,
     ),
+    cursorMode: migratedSettings.cursorMode ?? defaultAccessibilitySettings.cursorMode,
+    cursorColor: migratedSettings.cursorColor ?? defaultAccessibilitySettings.cursorColor,
     reduceMotion: migratedSettings.reduceMotion ?? defaultAccessibilitySettings.reduceMotion,
     showHints: parseBoolean(storedSettings.showHints, defaultAccessibilitySettings.showHints),
     visibleValidation: parseBoolean(
@@ -163,16 +239,25 @@ export const applyAccessibilitySettings = (settings: AccessibilityPreferences): 
     documentBody.classList.toggle(className, settings[typedPreferenceKey]);
   });
 
+  const resolvedThemeMode = getResolvedThemeMode(settings.themeMode);
+
   documentRoot.style.fontSize = settings.fontScale === 100 ? '' : `${settings.fontScale}%`;
+  documentRoot.dataset.theme = resolvedThemeMode;
+  documentRoot.dataset.themePreference = settings.themeMode;
+  documentBody.classList.toggle('dark-mode', resolvedThemeMode === 'dark');
   documentRoot.dataset.contrast = settings.highContrast ? 'highContrast' : 'default';
   documentRoot.dataset.fontSize =
     settings.fontScale >= 175 ? 'extraLarge' : settings.fontScale >= 125 ? 'large' : 'default';
   documentRoot.dataset.motion = settings.reduceMotion ? 'reduced' : 'default';
   documentRoot.dataset.textSpacing = settings.textSpacing ? 'increased' : 'default';
   documentRoot.dataset.buttons = settings.largeTargets ? 'large' : 'default';
+  documentRoot.dataset.cursor = settings.cursorMode;
+  documentRoot.dataset.cursorColor = settings.cursorColor;
+  documentRoot.removeAttribute('data-cursor-adaptive');
 };
 
 export const saveAccessibilitySettings = (settings: AccessibilityPreferences): void => {
   window.localStorage.setItem(ACCESSIBILITY_STORAGE_KEY, JSON.stringify(settings));
   applyAccessibilitySettings(settings);
+  window.dispatchEvent(new CustomEvent(ACCESSIBILITY_SETTINGS_CHANGED_EVENT));
 };

@@ -135,6 +135,52 @@
   text-align: center;
 }
 
+:global(html[data-theme='light']) .footer {
+  color: #5f5470;
+  background:
+    linear-gradient(135deg, rgba(237, 233, 254, 0.72), transparent 36%),
+    linear-gradient(225deg, rgba(196, 181, 253, 0.45), transparent 42%),
+    #ffffff;
+  border-top-color: rgba(139, 92, 246, 0.2);
+}
+
+:global(html[data-theme='light']) .footerTitle,
+:global(html[data-theme='light']) .sectionTitle {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .description,
+:global(html[data-theme='light']) .developerList,
+:global(html[data-theme='light']) .linkList a,
+:global(html[data-theme='light']) .legalBar p {
+  color: #6b5a7e;
+}
+
+:global(html[data-theme='light']) .linkList a:hover {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .footerLogo {
+  border-color: rgba(139, 92, 246, 0.28);
+  box-shadow: 0 0 0 4px rgba(237, 233, 254, 0.92), 0 18px 36px rgba(88, 28, 135, 0.14);
+}
+
+:global(html[data-theme='light']) .socialList a {
+  color: #6d28d9;
+  border-color: rgba(139, 92, 246, 0.24);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+:global(html[data-theme='light']) .socialList a:hover {
+  color: #ffffff;
+  border-color: #7c3aed;
+  background: #7c3aed;
+}
+
+:global(html[data-theme='light']) .legalBar {
+  border-top-color: rgba(139, 92, 246, 0.16);
+}
+
 :global(html[data-contrast='highContrast']) .footer {
   color: #000000;
   background: #ffffff;
