@@ -274,6 +274,42 @@
   text-decoration: none;
 }
 
+:global(html[data-theme='light']) .hero,
+:global(html[data-theme='light']) .formCard,
+:global(html[data-theme='light']) .inventoryCard,
+:global(html[data-theme='light']) .accessCard,
+:global(html[data-theme='light']) .statsGrid article {
+  border-color: rgba(139, 92, 246, 0.18);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 241, 255, 0.86)),
+    #ffffff;
+  box-shadow: 0 24px 56px rgba(88, 28, 135, 0.1);
+}
+
+:global(html[data-theme='light']) .field textarea {
+  color: #241733;
+  border-color: rgba(139, 92, 246, 0.22);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+:global(html[data-theme='light']) .tableWrapper {
+  border-color: rgba(139, 92, 246, 0.18);
+}
+
+:global(html[data-theme='light']) .tableWrapper th,
+:global(html[data-theme='light']) .tableWrapper td {
+  border-bottom-color: rgba(139, 92, 246, 0.14);
+}
+
+:global(html[data-theme='light']) .tableWrapper thead th {
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .accessCard a {
+  color: #ffffff;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
 :global(html[data-contrast='highContrast']) .hero,
 :global(html[data-contrast='highContrast']) .formCard,
 :global(html[data-contrast='highContrast']) .inventoryCard,

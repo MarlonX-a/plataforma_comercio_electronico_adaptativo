@@ -296,6 +296,71 @@
   white-space: nowrap;
 }
 
+:global(html[data-theme='light']) .trigger {
+  color: #ffffff;
+  border-color: rgba(109, 40, 217, 0.42);
+  background: linear-gradient(145deg, #6d28d9, #7c3aed);
+  box-shadow: 0 16px 34px rgba(88, 28, 135, 0.18);
+}
+
+:global(html[data-theme='light']) .panel {
+  color: #5f5470;
+  border-color: rgba(139, 92, 246, 0.22);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(247, 241, 255, 0.9)),
+    #ffffff;
+  box-shadow: 0 30px 80px rgba(88, 28, 135, 0.18);
+}
+
+:global(html[data-theme='light']) .header,
+:global(html[data-theme='light']) .composer {
+  border-color: rgba(139, 92, 246, 0.16);
+}
+
+:global(html[data-theme='light']) .avatar,
+:global(html[data-theme='light']) .sendButton {
+  color: #ffffff;
+  border-color: rgba(109, 40, 217, 0.42);
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
+:global(html[data-theme='light']) .headerActions button,
+:global(html[data-theme='light']) .suggestions button {
+  color: #4c1d95;
+  border-color: rgba(139, 92, 246, 0.22);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+:global(html[data-theme='light']) .assistantMessage,
+:global(html[data-theme='light']) .typingMessage {
+  border-color: rgba(139, 92, 246, 0.22);
+  background: rgba(237, 233, 254, 0.62);
+}
+
+:global(html[data-theme='light']) .userMessage {
+  border-color: rgba(124, 58, 237, 0.28);
+  background: rgba(247, 241, 255, 0.92);
+}
+
+:global(html[data-theme='light']) .userMessage .messageAuthor,
+:global(html[data-theme='light']) .messageAuthor,
+:global(html[data-theme='light']) .composerMeta a {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .assistantMessage p,
+:global(html[data-theme='light']) .userMessage p,
+:global(html[data-theme='light']) .identity h2,
+:global(html[data-theme='light']) .composer > label {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .composer textarea {
+  color: #241733;
+  border-color: rgba(139, 92, 246, 0.22);
+  background: rgba(255, 255, 255, 0.88);
+}
+
 :global(html[data-contrast='highContrast']) .panel,
 :global(html[data-contrast='highContrast']) .assistantMessage,
 :global(html[data-contrast='highContrast']) .userMessage,

@@ -141,6 +141,35 @@
   opacity: 0.58;
 }
 
+:global(html[data-theme='light']) .card {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: #ffffff;
+  box-shadow: 0 22px 48px rgba(88, 28, 135, 0.1);
+}
+
+:global(html[data-theme='light']) .imageLink {
+  background: linear-gradient(145deg, #ffffff, #f7f1ff);
+}
+
+:global(html[data-theme='light']) .category,
+:global(html[data-theme='light']) .name a,
+:global(html[data-theme='light']) .compareButtonActive {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .stockAvailable {
+  color: #047857;
+}
+
+:global(html[data-theme='light']) .stockUnavailable {
+  color: #b91c1c;
+}
+
+:global(html[data-theme='light']) .compareButtonActive {
+  border-color: rgba(109, 40, 217, 0.34);
+  background: rgba(237, 233, 254, 0.72);
+}
+
 @media (max-width: 380px) {
   .footer {
     align-items: stretch;

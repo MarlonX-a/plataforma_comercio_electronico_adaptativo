@@ -76,11 +76,20 @@ export const useAccessibilityPreferences = () => {
     updatePreferences(defaultAccessibilitySettings);
   }, [updatePreferences]);
 
+  const resetCursorPreferences = useCallback(() => {
+    updatePreferences({
+      ...preferences,
+      cursorMode: defaultAccessibilitySettings.cursorMode,
+      cursorColor: defaultAccessibilitySettings.cursorColor,
+    });
+  }, [preferences, updatePreferences]);
+
   return {
     preferences,
     updatePreference,
     increaseFont,
     decreaseFont,
     resetPreferences,
+    resetCursorPreferences,
   };
 };

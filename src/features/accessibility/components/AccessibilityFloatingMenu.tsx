@@ -1,21 +1,34 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import {
+  FaArrowPointer,
+  FaBullseye,
+  FaCat,
+  FaCode,
+  FaComputerMouse,
+  FaDisplay,
   FaClosedCaptioning,
   FaEye,
   FaFileLines,
   FaKeyboard,
+  FaLocationCrosshairs,
+  FaPalette,
+  FaRobot,
   FaMinus,
+  FaMoon,
   FaPause,
   FaPlus,
   FaRotateLeft,
+  FaSun,
   FaUniversalAccess,
   FaVolumeXmark,
   FaXmark,
 } from 'react-icons/fa6';
+import { GiPointySword } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { useAccessibilityPreferences } from '../hooks/useAccessibilityPreferences';
 import { detectMediaElements } from '../utils/mediaAccessibility';
 import type { MediaDetectionResult } from '../utils/mediaAccessibility';
+import type { CursorColor, CursorMode, ThemeMode } from '../types/accessibility.types';
 import styles from './AccessibilityFloatingMenu.module.css';
 
 const focusableSelector = [
@@ -76,11 +89,265 @@ function PreferenceSwitch({
   );
 }
 
+type ThemeModeOption = {
+  value: ThemeMode;
+  label: string;
+  description: string;
+  icon: React.ReactNode;
+};
+
+const themeModeOptions: ThemeModeOption[] = [
+  {
+    value: 'system',
+    label: 'Sistema',
+    description: 'Usa el modo claro u oscuro de tu dispositivo.',
+    icon: <FaDisplay />,
+  },
+  {
+    value: 'light',
+    label: 'Claro',
+    description: 'Activa la version clara con blancos y lilas suaves.',
+    icon: <FaSun />,
+  },
+  {
+    value: 'dark',
+    label: 'Oscuro',
+    description: 'Mantiene el estilo oscuro para reducir brillo.',
+    icon: <FaMoon />,
+  },
+];
+
+type ThemeModeSelectorProps = {
+  selectedThemeMode: ThemeMode;
+  onChange: (themeMode: ThemeMode) => void;
+};
+
+function ThemeModeSelector({ selectedThemeMode, onChange }: ThemeModeSelectorProps) {
+  const descriptionId = useId();
+
+  return (
+    <fieldset className={styles.themeFieldset} aria-describedby={descriptionId}>
+      <legend>
+        <FaMoon aria-hidden="true" />
+        Tema de color
+      </legend>
+      <p id={descriptionId}>Elige el tema de la tienda o deja que siga la configuracion del sistema.</p>
+      <div className={styles.themeOptions}>
+        {themeModeOptions.map((option) => {
+          const inputId = `theme-mode-${option.value}`;
+
+          return (
+            <label
+              key={option.value}
+              className={styles.themeOption}
+              data-selected={selectedThemeMode === option.value}
+              htmlFor={inputId}
+            >
+              <input
+                id={inputId}
+                type="radio"
+                name="theme-mode"
+                value={option.value}
+                checked={selectedThemeMode === option.value}
+                onChange={() => onChange(option.value)}
+              />
+              <span className={styles.themeOptionIcon} aria-hidden="true">
+                {option.icon}
+              </span>
+              <span className={styles.themeOptionText}>
+                <strong>{option.label}</strong>
+                <span>{option.description}</span>
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+type CursorOption = {
+  value: CursorMode;
+  label: string;
+  description: string;
+  icon: React.ReactNode;
+};
+
+const cursorOptions: CursorOption[] = [
+  {
+    value: 'default',
+    label: 'Normal',
+    description: 'Usa el puntero habitual del sistema.',
+    icon: <FaArrowPointer />,
+  },
+  {
+    value: 'large',
+    label: 'Grande',
+    description: 'Aumenta la flecha para encontrarla con menos esfuerzo.',
+    icon: <FaComputerMouse />,
+  },
+  {
+    value: 'contrast',
+    label: 'Alto contraste',
+    description: 'Usa un puntero amarillo con borde oscuro.',
+    icon: <FaBullseye />,
+  },
+  {
+    value: 'precision',
+    label: 'Precision',
+    description: 'Muestra una cruz fina para ubicar mejor el punto de clic.',
+    icon: <FaLocationCrosshairs />,
+  },
+  {
+    value: 'cat',
+    label: 'Gatito',
+    description: 'Un cursor jugueton con orejitas para hacerlo mas divertido.',
+    icon: <FaCat />,
+  },
+  {
+    value: 'sword',
+    label: 'Espada',
+    description: 'Una espada pixelada para navegar en modo aventura.',
+    icon: <GiPointySword />,
+  },
+  {
+    value: 'ai',
+    label: 'IA',
+    description: 'Un simbolo inspirado en asistentes inteligentes.',
+    icon: <FaRobot />,
+  },
+  {
+    value: 'editor',
+    label: 'Cursor editor',
+    description: 'Un puntero futurista inspirado en editores de codigo.',
+    icon: <FaCode />,
+  },
+];
+
+type CursorModeSelectorProps = {
+  selectedCursorMode: CursorMode;
+  onChange: (cursorMode: CursorMode) => void;
+};
+
+function CursorModeSelector({ selectedCursorMode, onChange }: CursorModeSelectorProps) {
+  const descriptionId = useId();
+
+  return (
+    <fieldset className={styles.cursorFieldset} aria-describedby={descriptionId}>
+      <legend>
+        <FaComputerMouse aria-hidden="true" />
+        Tipo de puntero
+      </legend>
+      <p id={descriptionId}>Elige un cursor util o divertido para seguirlo mejor en pantalla.</p>
+      <div className={styles.cursorOptions}>
+        {cursorOptions.map((option) => {
+          const inputId = `cursor-mode-${option.value}`;
+
+          return (
+            <label
+              key={option.value}
+              className={styles.cursorOption}
+              data-selected={selectedCursorMode === option.value}
+              htmlFor={inputId}
+            >
+              <input
+                id={inputId}
+                type="radio"
+                name="cursor-mode"
+                value={option.value}
+                checked={selectedCursorMode === option.value}
+                onChange={() => onChange(option.value)}
+              />
+              <span className={styles.cursorOptionIcon} aria-hidden="true">
+                {option.icon}
+              </span>
+              <span className={styles.cursorOptionText}>
+                <strong>{option.label}</strong>
+                <span>{option.description}</span>
+              </span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
+type CursorColorOption = {
+  value: CursorColor;
+  label: string;
+  swatch: string;
+};
+
+const cursorColorOptions: CursorColorOption[] = [
+  { value: 'default', label: 'Sistema', swatch: 'linear-gradient(135deg, #ffffff, #111827)' },
+  { value: 'cyan', label: 'Cian', swatch: '#00d9ff' },
+  { value: 'purple', label: 'Lila', swatch: '#a78bfa' },
+  { value: 'yellow', label: 'Amarillo', swatch: '#fde047' },
+  { value: 'green', label: 'Verde', swatch: '#34d399' },
+  { value: 'pink', label: 'Rosa', swatch: '#f472b6' },
+  { value: 'white', label: 'Blanco', swatch: '#ffffff' },
+];
+
+type CursorColorPaletteProps = {
+  selectedCursorColor: CursorColor;
+  onChange: (cursorColor: CursorColor) => void;
+};
+
+function CursorColorPalette({ selectedCursorColor, onChange }: CursorColorPaletteProps) {
+  const descriptionId = useId();
+
+  return (
+    <fieldset className={styles.cursorPaletteFieldset} aria-describedby={descriptionId}>
+      <legend>
+        <FaPalette aria-hidden="true" />
+        Paleta del puntero
+      </legend>
+      <p id={descriptionId}>Cambia solo el color. El tamano y la forma se ajustan en Tipo de puntero.</p>
+      <div className={styles.cursorPalette}>
+        {cursorColorOptions.map((option) => {
+          const inputId = `cursor-color-${option.value}`;
+
+          return (
+            <label
+              key={option.value}
+              className={styles.cursorColorOption}
+              data-selected={selectedCursorColor === option.value}
+              htmlFor={inputId}
+              title={option.label}
+            >
+              <input
+                id={inputId}
+                type="radio"
+                name="cursor-color"
+                value={option.value}
+                checked={selectedCursorColor === option.value}
+                onChange={() => onChange(option.value)}
+              />
+              <span
+                className={styles.cursorColorSwatch}
+                style={{ background: option.swatch }}
+                aria-hidden="true"
+              />
+              <span>{option.label}</span>
+            </label>
+          );
+        })}
+      </div>
+    </fieldset>
+  );
+}
+
 export default function AccessibilityFloatingMenu() {
   const titleId = useId();
   const descriptionId = useId();
-  const { preferences, updatePreference, increaseFont, decreaseFont, resetPreferences } =
-    useAccessibilityPreferences();
+  const {
+    preferences,
+    updatePreference,
+    increaseFont,
+    decreaseFont,
+    resetPreferences,
+    resetCursorPreferences,
+  } = useAccessibilityPreferences();
   const [isOpen, setIsOpen] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
   const [mediaDetection, setMediaDetection] =
@@ -187,6 +454,7 @@ export default function AccessibilityFloatingMenu() {
     };
   }, [preferences.readingGuide]);
 
+
   const closeMenu = () => {
     setIsOpen(false);
     triggerRef.current?.focus();
@@ -195,6 +463,11 @@ export default function AccessibilityFloatingMenu() {
   const resetAllPreferences = () => {
     resetPreferences();
     setStatusMessage('Preferencias de accesibilidad restablecidas.');
+  };
+
+  const resetCursorSettings = () => {
+    resetCursorPreferences();
+    setStatusMessage('Opciones del cursor restablecidas.');
   };
 
   const skipToContent = () => {
@@ -261,6 +534,10 @@ export default function AccessibilityFloatingMenu() {
           <div className={styles.settingsContent}>
             <section className={styles.category} aria-labelledby="visual-accessibility-title">
               <h3 id="visual-accessibility-title">Accesibilidad visual</h3>
+              <ThemeModeSelector
+                selectedThemeMode={preferences.themeMode}
+                onChange={(themeMode) => updatePreference('themeMode', themeMode)}
+              />
               <PreferenceSwitch
                 id="no-color-reliance"
                 label="Modo sin dependencia de color"
@@ -378,6 +655,18 @@ export default function AccessibilityFloatingMenu() {
                 checked={preferences.largeTargets}
                 onChange={(checked) => updatePreference('largeTargets', checked)}
               />
+              <CursorModeSelector
+                selectedCursorMode={preferences.cursorMode}
+                onChange={(cursorMode) => updatePreference('cursorMode', cursorMode)}
+              />
+              <CursorColorPalette
+                selectedCursorColor={preferences.cursorColor}
+                onChange={(cursorColor) => updatePreference('cursorColor', cursorColor)}
+              />
+              <button type="button" className={styles.actionButton} onClick={resetCursorSettings}>
+                <FaRotateLeft aria-hidden="true" />
+                Restablecer puntero
+              </button>
               <button type="button" className={styles.actionButton} onClick={openKeyboardShortcuts}>
                 <FaKeyboard aria-hidden="true" />
                 Guía de atajos de teclado

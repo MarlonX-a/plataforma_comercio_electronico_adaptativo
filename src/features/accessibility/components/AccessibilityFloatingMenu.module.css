@@ -227,6 +227,277 @@
   outline-offset: 3px;
 }
 
+.themeFieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(148, 196, 222, 0.2);
+  border-radius: 15px;
+  background: rgba(3, 8, 18, 0.5);
+}
+
+.themeFieldset legend {
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.themeFieldset > p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.themeOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.themeOption {
+  min-height: 92px;
+  padding: 10px;
+  display: grid;
+  gap: 7px;
+  justify-items: start;
+  border: 1px solid rgba(148, 196, 222, 0.18);
+  border-radius: 13px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+}
+
+.themeOption:hover,
+.themeOption[data-selected='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.themeOption input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.themeOption:has(input:focus-visible) {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.themeOptionIcon {
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--accent-strong);
+  background: rgba(0, 217, 255, 0.08);
+}
+
+.themeOptionText {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.themeOptionText strong {
+  color: var(--text-h);
+  font-size: 0.84rem;
+  line-height: 1.2;
+}
+
+.themeOptionText span {
+  color: var(--text);
+  font-size: 0.74rem;
+  line-height: 1.28;
+}
+.cursorFieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(148, 196, 222, 0.2);
+  border-radius: 15px;
+  background: rgba(3, 8, 18, 0.5);
+}
+
+.cursorFieldset legend {
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.cursorFieldset > p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.cursorOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.cursorOption {
+  min-height: 82px;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  border: 1px solid rgba(148, 196, 222, 0.18);
+  border-radius: 13px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.035);
+  cursor: pointer;
+}
+
+.cursorOption:hover,
+.cursorOption[data-selected='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.cursorOption input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cursorOption:has(input:focus-visible) {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.cursorOptionIcon {
+  width: 30px;
+  height: 30px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 9px;
+  color: var(--accent-strong);
+  background: rgba(0, 217, 255, 0.08);
+}
+
+.cursorOptionText {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.cursorOptionText strong {
+  color: var(--text-h);
+  font-size: 0.84rem;
+  line-height: 1.2;
+}
+
+.cursorOptionText span {
+  color: var(--text);
+  font-size: 0.74rem;
+  line-height: 1.28;
+}
+
+.cursorPaletteFieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid rgba(148, 196, 222, 0.2);
+  border-radius: 15px;
+  background: rgba(3, 8, 18, 0.5);
+}
+
+.cursorPaletteFieldset legend {
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-h);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.cursorPaletteFieldset > p {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.cursorPalette {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.cursorColorOption {
+  min-height: 50px;
+  padding: 8px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(148, 196, 222, 0.18);
+  border-radius: 13px;
+  color: var(--text-h);
+  background: rgba(255, 255, 255, 0.035);
+  font-size: 0.82rem;
+  font-weight: 780;
+  cursor: pointer;
+}
+
+.cursorColorOption:hover,
+.cursorColorOption[data-selected='true'] {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.cursorColorOption input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.cursorColorOption:has(input:focus-visible) {
+  outline: 3px solid var(--accent-warm);
+  outline-offset: 3px;
+}
+
+.cursorColorSwatch {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  border: 2px solid rgba(255, 255, 255, 0.64);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.32);
+}
+
 .fontControls {
   padding: 10px;
   display: grid;
@@ -296,12 +567,204 @@
   font-weight: 800;
 }
 
+:global(html[data-theme='light']) .themeFieldset,
+:global(html[data-theme='light']) .themeOption {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:global(html[data-theme='light']) .themeFieldset legend,
+:global(html[data-theme='light']) .themeOptionText strong {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .themeFieldset > p,
+:global(html[data-theme='light']) .themeOptionText span {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .themeOptionIcon {
+  color: #6d28d9;
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .themeOption:hover,
+:global(html[data-theme='light']) .themeOption[data-selected='true'] {
+  border-color: rgba(124, 58, 237, 0.34);
+  background: rgba(237, 233, 254, 0.72);
+}
+:global(html[data-theme='light']) .cursorFieldset,
+:global(html[data-theme='light']) .cursorOption {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:global(html[data-theme='light']) .cursorFieldset legend,
+:global(html[data-theme='light']) .cursorOptionText strong {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .cursorFieldset > p,
+:global(html[data-theme='light']) .cursorOptionText span {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .cursorOptionIcon {
+  color: #6d28d9;
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .cursorOption:hover,
+:global(html[data-theme='light']) .cursorOption[data-selected='true'] {
+  border-color: rgba(124, 58, 237, 0.34);
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .cursorPaletteFieldset,
+:global(html[data-theme='light']) .cursorColorOption {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:global(html[data-theme='light']) .cursorPaletteFieldset legend,
+:global(html[data-theme='light']) .cursorColorOption {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .cursorPaletteFieldset > p {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .cursorColorOption:hover,
+:global(html[data-theme='light']) .cursorColorOption[data-selected='true'] {
+  border-color: rgba(124, 58, 237, 0.34);
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .cursorColorSwatch {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.22);
+}
+
+:global(html[data-theme='light']) .floatingButton {
+  color: #6d28d9;
+  border-color: rgba(124, 58, 237, 0.48);
+  background:
+    radial-gradient(circle at 28% 20%, rgba(237, 233, 254, 0.82), transparent 56%),
+    linear-gradient(160deg, #ffffff, #f7f1ff);
+  box-shadow: 0 14px 30px rgba(88, 28, 135, 0.14), 0 0 0 1px rgba(139, 92, 246, 0.14) inset;
+}
+
+:global(html[data-theme='light']) .floatingButton:hover {
+  background:
+    radial-gradient(circle at 20% 16%, rgba(221, 214, 254, 0.9), transparent 58%),
+    linear-gradient(160deg, #ffffff, #f3e8ff);
+  box-shadow: 0 18px 36px rgba(88, 28, 135, 0.18), 0 0 0 1px rgba(124, 58, 237, 0.2) inset;
+}
+
+:global(html[data-theme='light']) .panel {
+  color: #5f5470;
+  border-color: rgba(139, 92, 246, 0.24);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(247, 241, 255, 0.9)),
+    #ffffff;
+  box-shadow: 0 32px 76px rgba(88, 28, 135, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.82) inset;
+}
+
+:global(html[data-theme='light']) .panelHeader {
+  border-bottom-color: rgba(139, 92, 246, 0.16);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+:global(html[data-theme='light']) .eyebrow,
+:global(html[data-theme='light']) .switchIcon,
+:global(html[data-theme='light']) .fontControls strong,
+:global(html[data-theme='light']) .statusMessage {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .panelHeader h2,
+:global(html[data-theme='light']) .category h3,
+:global(html[data-theme='light']) .switchText strong {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .panelHeader p,
+:global(html[data-theme='light']) .switchText span,
+:global(html[data-theme='light']) .mediaStatus,
+:global(html[data-theme='light']) .emptyMedia,
+:global(html[data-theme='light']) .keyboardNotice {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .category,
+:global(html[data-theme='light']) .switchRow,
+:global(html[data-theme='light']) .fontControls {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:global(html[data-theme='light']) .switchRow:hover,
+:global(html[data-theme='light']) .closeButton:hover,
+:global(html[data-theme='light']) .actionButton:hover,
+:global(html[data-theme='light']) .resetButton:hover,
+:global(html[data-theme='light']) .helpLink:hover {
+  border-color: rgba(124, 58, 237, 0.34);
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .switchTrack {
+  border-color: rgba(139, 92, 246, 0.24);
+  background: #ede9fe;
+}
+
+:global(html[data-theme='light']) .switchTrack span {
+  background: #ffffff;
+  box-shadow: 0 3px 8px rgba(88, 28, 135, 0.16);
+}
+
+:global(html[data-theme='light']) .switchRow input:checked + .switchTrack {
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+}
+
+:global(html[data-theme='light']) .closeButton,
+:global(html[data-theme='light']) .fontControls button,
+:global(html[data-theme='light']) .actionButton,
+:global(html[data-theme='light']) .resetButton,
+:global(html[data-theme='light']) .helpLink {
+  color: #4c1d95;
+  border-color: rgba(139, 92, 246, 0.22);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+:global(html[data-theme='light']) .mediaStatus,
+:global(html[data-theme='light']) .emptyMedia,
+:global(html[data-theme='light']) .keyboardNotice {
+  border-color: rgba(139, 92, 246, 0.18);
+  background: rgba(237, 233, 254, 0.54);
+}
+
+:global(html[data-theme='light']) .panelFooter {
+  border-top-color: rgba(139, 92, 246, 0.16);
+}
+
+:global(html[data-theme='light']) .resetButton {
+  color: #9f1239;
+  border-color: rgba(244, 114, 182, 0.34);
+}
+
 :global(html[data-contrast='highContrast']) .floatingButton,
 :global(html[data-contrast='highContrast']) .panel,
 :global(html[data-contrast='highContrast']) .panelHeader,
 :global(html[data-contrast='highContrast']) .category,
 :global(html[data-contrast='highContrast']) .switchRow,
 :global(html[data-contrast='highContrast']) .fontControls,
+:global(html[data-contrast='highContrast']) .themeFieldset,
+:global(html[data-contrast='highContrast']) .themeOption,
+:global(html[data-contrast='highContrast']) .cursorFieldset,
+:global(html[data-contrast='highContrast']) .cursorOption,
+:global(html[data-contrast='highContrast']) .cursorPaletteFieldset,
+:global(html[data-contrast='highContrast']) .cursorColorOption,
 :global(html[data-contrast='highContrast']) .mediaStatus,
 :global(html[data-contrast='highContrast']) .emptyMedia,
 :global(html[data-contrast='highContrast']) .keyboardNotice,
@@ -326,7 +789,18 @@
 :global(html[data-contrast='highContrast']) .panelHeader h2,
 :global(html[data-contrast='highContrast']) .panelHeader p,
 :global(html[data-contrast='highContrast']) .category h3,
-:global(html[data-contrast='highContrast']) .statusMessage {
+:global(html[data-contrast='highContrast']) .statusMessage,
+:global(html[data-contrast='highContrast']) .themeFieldset legend,
+:global(html[data-contrast='highContrast']) .themeFieldset > p,
+:global(html[data-contrast='highContrast']) .themeOptionText strong,
+:global(html[data-contrast='highContrast']) .themeOptionText span,
+:global(html[data-contrast='highContrast']) .cursorFieldset legend,
+:global(html[data-contrast='highContrast']) .cursorFieldset > p,
+:global(html[data-contrast='highContrast']) .cursorOptionText strong,
+:global(html[data-contrast='highContrast']) .cursorOptionText span,
+:global(html[data-contrast='highContrast']) .cursorPaletteFieldset legend,
+:global(html[data-contrast='highContrast']) .cursorPaletteFieldset > p,
+:global(html[data-contrast='highContrast']) .cursorColorOption {
   color: #000000;
 }
 
@@ -337,6 +811,9 @@
 
 :global(html[data-buttons='large']) .switchRow,
 :global(html[data-buttons='large']) .fontControls button,
+:global(html[data-buttons='large']) .themeOption,
+:global(html[data-buttons='large']) .cursorOption,
+:global(html[data-buttons='large']) .cursorColorOption,
 :global(html[data-buttons='large']) .actionButton,
 :global(html[data-buttons='large']) .resetButton,
 :global(html[data-buttons='large']) .helpLink {
@@ -391,7 +868,10 @@
     display: none;
   }
 
-  .fontControls {
+  .fontControls,
+  .themeOptions,
+  .cursorOptions,
+  .cursorPalette {
     grid-template-columns: 1fr;
   }
 }

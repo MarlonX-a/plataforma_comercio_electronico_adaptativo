@@ -348,6 +348,102 @@
   background: rgba(0, 217, 255, 0.12);
 }
 
+:global(html[data-theme='light']) .header {
+  background:
+    linear-gradient(90deg, rgba(237, 233, 254, 0.86), rgba(255, 255, 255, 0.92)),
+    rgba(255, 255, 255, 0.88);
+  border-bottom-color: rgba(139, 92, 246, 0.22);
+  box-shadow: 0 16px 38px rgba(88, 28, 135, 0.1);
+}
+
+:global(html[data-theme='light']) .brand,
+:global(html[data-theme='light']) .brandName,
+:global(html[data-theme='light']) .navLink,
+:global(html[data-theme='light']) .authLink,
+:global(html[data-theme='light']) .profileButton,
+:global(html[data-theme='light']) .profileName {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .brandSubtitle,
+:global(html[data-theme='light']) .languageControl span {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .languageControl,
+:global(html[data-theme='light']) .profileButton {
+  color: #4c3b63;
+  border-color: rgba(139, 92, 246, 0.26);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86), 0 12px 26px rgba(88, 28, 135, 0.08);
+}
+
+:global(html[data-theme='light']) .languageSelector {
+  color: #241733;
+  border-color: rgba(139, 92, 246, 0.24);
+  background:
+    linear-gradient(135deg, rgba(237, 233, 254, 0.72), rgba(255, 255, 255, 0.9)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236d28d9' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 10px center / 16px no-repeat,
+    #ffffff;
+}
+
+:global(html[data-theme='light']) .languageSelector option {
+  color: #241733;
+  background: #ffffff;
+}
+
+:global(html[data-theme='light']) .navLink:hover,
+:global(html[data-theme='light']) .navLinkActive,
+:global(html[data-theme='light']) .authLink:hover,
+:global(html[data-theme='light']) .authLinkActive,
+:global(html[data-theme='light']) .profileButton:hover {
+  color: #4c1d95;
+  border-color: rgba(124, 58, 237, 0.28);
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .authLinkPrimary,
+:global(html[data-theme='light']) .authLinkPrimary:hover,
+:global(html[data-theme='light']) .authLinkPrimary.authLinkActive {
+  color: #ffffff;
+  border-color: rgba(124, 58, 237, 0.56);
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
+:global(html[data-theme='light']) .cartCount,
+:global(html[data-theme='light']) .profileAvatar {
+  color: #ffffff;
+  border-color: rgba(124, 58, 237, 0.28);
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
+:global(html[data-theme='light']) .profileGreeting,
+:global(html[data-theme='light']) .profileHeader span {
+  color: #6b5a7e;
+}
+
+:global(html[data-theme='light']) .profileDropdown {
+  border-color: rgba(139, 92, 246, 0.22);
+  background: #ffffff;
+  box-shadow: 0 24px 54px rgba(88, 28, 135, 0.14);
+}
+
+:global(html[data-theme='light']) .profileHeader {
+  border-bottom-color: rgba(139, 92, 246, 0.14);
+}
+
+:global(html[data-theme='light']) .profileHeader strong,
+:global(html[data-theme='light']) .profileDropdown a,
+:global(html[data-theme='light']) .profileDropdown button {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .profileDropdown a:hover,
+:global(html[data-theme='light']) .profileDropdown button:hover {
+  color: #4c1d95;
+  background: rgba(237, 233, 254, 0.72);
+}
+
 :global(html[data-contrast='highContrast']) .header {
   background: #e8e8e8;
   border-bottom-color: #000000;
