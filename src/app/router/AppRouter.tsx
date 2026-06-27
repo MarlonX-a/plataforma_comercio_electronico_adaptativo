@@ -27,6 +27,8 @@ export default function AppRouter() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:productId" element={<ProductDetailPage />} />
           <Route path="/worker/products" element={<WorkerProductsPage />} />
+          <Route path="/seller/products" element={<WorkerProductsPage />} />
+          <Route path="/seller/products/new" element={<WorkerProductsPage />} />
           <Route path="/compare" element={<ProductComparePage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

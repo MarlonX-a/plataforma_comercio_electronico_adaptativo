@@ -21,7 +21,7 @@ export const emptyProductManagementFormValues: ProductManagementFormValues = {
 };
 
 export const canManageProducts = (role: UserRole | null | undefined): boolean =>
-  role === 'worker' || role === 'admin';
+  role === 'worker' || role === 'seller' || role === 'admin';
 
 const normalizeOptionalText = (value: string): string | null => {
   const trimmedValue = value.trim();

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FaBoxOpen,
   FaChevronDown,
+  FaPlusCircle,
   FaSignOutAlt,
   FaSlidersH,
   FaStore,
@@ -21,6 +22,7 @@ import {
   logout,
 } from '../../features/auth/services/authService';
 import type { AuthSession, UserProfile } from '../../features/auth/types/auth.types';
+import { canManageProducts } from '../../features/products/services/productManagementService';
 import {
   cartUpdatedEventName,
   getCartItemCount,
@@ -57,7 +59,7 @@ export default function Navbar() {
     return t('navbar.myAccount');
   }, [authSession, userProfile, t]);
 
-  const canAccessWorkerPanel = userProfile?.role === 'worker' || userProfile?.role === 'admin';
+  const canAccessSellerTools = canManageProducts(userProfile?.role);
 
   useEffect(() => {
     let isMounted = true;
@@ -231,6 +233,19 @@ export default function Navbar() {
                 </NavLink>
               </li>
             ))}
+            {canAccessSellerTools ? (
+              <li>
+                <NavLink
+                  to="/seller/products/new"
+                  onClick={() => setIsProfileMenuOpen(false)}
+                  className={({ isActive }) =>
+                    isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink
+                  }
+                >
+                  {t('navbar.nav.addProduct')}
+                </NavLink>
+              </li>
+            ) : null}
           </ul>
 
           {authSession ? (
@@ -268,11 +283,17 @@ export default function Navbar() {
                     <FaBoxOpen aria-hidden="true" />
                     {t('navbar.myOrders')}
                   </NavLink>
-                  {canAccessWorkerPanel ? (
-                    <NavLink to="/worker/products" onClick={() => setIsProfileMenuOpen(false)}>
-                      <FaStore aria-hidden="true" />
-                      {t('navbar.workerPanel')}
-                    </NavLink>
+                  {canAccessSellerTools ? (
+                    <>
+                      <NavLink to="/seller/products/new" onClick={() => setIsProfileMenuOpen(false)}>
+                        <FaPlusCircle aria-hidden="true" />
+                        {t('navbar.addProduct')}
+                      </NavLink>
+                      <NavLink to="/seller/products" onClick={() => setIsProfileMenuOpen(false)}>
+                        <FaStore aria-hidden="true" />
+                        {t('navbar.workerPanel')}
+                      </NavLink>
+                    </>
                   ) : null}
                   <button type="button" onClick={openAccessibilityMenu}>
                     <FaSlidersH aria-hidden="true" />

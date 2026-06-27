@@ -22,6 +22,13 @@ const siteSections = [
     ],
   },
   {
+    title: 'Vendedores',
+    links: [
+      { label: 'Agregar producto', path: '/seller/products/new' },
+      { label: 'Panel de vendedor', path: '/seller/products' },
+    ],
+  },
+  {
     title: 'Ayuda y preferencias',
     links: [
       { label: 'Centro de ayuda', path: '/help' },

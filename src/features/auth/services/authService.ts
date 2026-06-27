@@ -28,6 +28,17 @@ const getAuthErrorMessage = (message: string): string => {
   return message;
 };
 
+const mapUserRole = (role: string | null): UserProfile['role'] => {
+  if (role === 'admin') {
+    return 'admin';
+  }
+
+  if (role === 'worker' || role === 'seller' || role === 'vendedor') {
+    return 'seller';
+  }
+
+  return 'customer';
+};
 const mapUserProfile = (profileRow: UserProfileRow | null): UserProfile | null => {
   if (!profileRow) {
     return null;
@@ -36,7 +47,7 @@ const mapUserProfile = (profileRow: UserProfileRow | null): UserProfile | null =
   return {
     id: profileRow.id,
     fullName: profileRow.full_name,
-    role: profileRow.role === 'admin' || profileRow.role === 'worker' ? profileRow.role : 'customer',
+    role: mapUserRole(profileRow.role),
     createdAt: profileRow.create_at,
   };
 };

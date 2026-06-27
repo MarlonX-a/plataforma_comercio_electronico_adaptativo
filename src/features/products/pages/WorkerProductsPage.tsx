@@ -100,7 +100,7 @@ export default function WorkerProductsPage() {
       setAuthSession(session);
 
       if (!session) {
-        setAccessMessage('Inicia sesión con una cuenta de trabajador para administrar productos.');
+        setAccessMessage('Inicia sesion con una cuenta de vendedor para agregar y administrar productos.');
         setIsCheckingAccess(false);
         return;
       }
@@ -114,7 +114,7 @@ export default function WorkerProductsPage() {
       setUserProfile(profile);
 
       if (!canManageProducts(profile?.role)) {
-        setAccessMessage('Tu cuenta no tiene permisos de trabajador para gestionar productos.');
+        setAccessMessage('Tu cuenta no tiene permisos de vendedor para agregar o gestionar productos.');
         setIsCheckingAccess(false);
         return;
       }
@@ -199,7 +199,7 @@ export default function WorkerProductsPage() {
   if (isCheckingAccess) {
     return (
       <section className={styles.page} aria-labelledby="worker-products-title">
-        <LoadingSpinner label="Verificando permisos del trabajador" />
+        <LoadingSpinner label="Verificando permisos de vendedor" />
       </section>
     );
   }
@@ -209,7 +209,7 @@ export default function WorkerProductsPage() {
       <section className={styles.page} aria-labelledby="worker-products-title">
         <div className={styles.accessCard}>
           <FaStore aria-hidden="true" />
-          <h1 id="worker-products-title">Panel de trabajador</h1>
+          <h1 id="worker-products-title">Panel de vendedor</h1>
           <p>{accessMessage}</p>
           <Link to={authSession ? '/' : '/login'}>
             {authSession ? 'Volver al inicio' : 'Iniciar sesión'}
@@ -219,20 +219,20 @@ export default function WorkerProductsPage() {
     );
   }
 
-  const workerRole = userProfile?.role === 'admin' ? 'admin' : 'worker';
+  const sellerRole = userProfile?.role === 'admin' ? 'admin' : 'seller';
 
   return (
     <section className={styles.page} aria-labelledby="worker-products-title">
       <header className={styles.hero}>
         <div>
-          <p className={styles.kicker}>Gestión de tienda</p>
-          <h1 id="worker-products-title">Panel de productos</h1>
+          <p className={styles.kicker}>Gestion de tienda</p>
+          <h1 id="worker-products-title">Panel de vendedor</h1>
           <p>
-            Crea productos, actualiza inventario y decide qué artículos se muestran en la tienda.
+            Agrega productos, actualiza inventario y decide que articulos se muestran en la tienda.
           </p>
         </div>
-        <Badge variant={workerRole === 'admin' ? 'primary' : 'success'}>
-          {workerRole === 'admin' ? 'Administrador' : 'Trabajador'}
+        <Badge variant={sellerRole === 'admin' ? 'primary' : 'success'}>
+          {sellerRole === 'admin' ? 'Administrador' : 'Vendedor'}
         </Badge>
       </header>
 
@@ -261,7 +261,7 @@ export default function WorkerProductsPage() {
             <FaCirclePlus aria-hidden="true" />
             <div>
               <h2 id="product-form-title">
-                {editingProductId === null ? 'Registrar producto' : 'Editar producto'}
+                {editingProductId === null ? 'Agregar producto' : 'Editar producto'}
               </h2>
               <p>Los campos con nombre, precio y stock son obligatorios.</p>
             </div>
@@ -367,7 +367,7 @@ export default function WorkerProductsPage() {
               loadingLabel="Guardando producto"
               leadingIcon={editingProductId === null ? <FaCirclePlus /> : <FaPenToSquare />}
             >
-              {editingProductId === null ? 'Crear producto' : 'Guardar cambios'}
+              {editingProductId === null ? 'Agregar producto' : 'Guardar cambios'}
             </Button>
             <Button
               type="button"
