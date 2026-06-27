@@ -236,6 +236,90 @@
   background: linear-gradient(135deg, var(--color-primary), #ffffff);
 }
 
+:global(html[data-theme='light']) .hero {
+  color: #4c3b63;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(196, 181, 253, 0.46), transparent 22rem),
+    radial-gradient(circle at 82% 22%, rgba(237, 233, 254, 0.72), transparent 28rem),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(247, 241, 255, 0.88));
+}
+
+:global(html[data-theme='light']) .hero h1,
+:global(html[data-theme='light']) .closing h2 {
+  color: #241733;
+  text-shadow: none;
+}
+
+:global(html[data-theme='light']) .kicker,
+:global(html[data-theme='light']) .sectionHeading > p,
+:global(html[data-theme='light']) .closing p {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .summary {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .heroLogo {
+  border-color: rgba(139, 92, 246, 0.34);
+  box-shadow: 0 0 0 8px rgba(237, 233, 254, 0.72), 0 22px 52px rgba(88, 28, 135, 0.16);
+}
+
+:global(html[data-theme='light']) .primaryAction,
+:global(html[data-theme='light']) .closing a {
+  color: #ffffff;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  box-shadow: 0 16px 34px rgba(124, 58, 237, 0.18);
+}
+
+:global(html[data-theme='light']) .primaryAction:hover,
+:global(html[data-theme='light']) .closing a:hover {
+  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+}
+
+:global(html[data-theme='light']) .secondaryAction {
+  color: #5b21b6;
+  border-color: rgba(124, 58, 237, 0.28);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+:global(html[data-theme='light']) .secondaryAction:hover {
+  border-color: rgba(124, 58, 237, 0.42);
+  background: rgba(237, 233, 254, 0.82);
+}
+
+:global(html[data-theme='light']) .actionCard {
+  border-color: rgba(139, 92, 246, 0.18);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(247, 241, 255, 0.82)),
+    #ffffff;
+  box-shadow: 0 22px 48px rgba(88, 28, 135, 0.1);
+}
+
+:global(html[data-theme='light']) .actionCard:hover {
+  border-color: rgba(124, 58, 237, 0.32);
+  box-shadow: 0 26px 54px rgba(88, 28, 135, 0.15);
+}
+
+:global(html[data-theme='light']) .actionIcon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
+:global(html[data-theme='light']) .actionCard > a {
+  color: #6d28d9;
+}
+
+:global(html[data-theme='light']) .closing {
+  color: #5f5470;
+  border-color: rgba(139, 92, 246, 0.2);
+  border-left-color: #a78bfa;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(247, 241, 255, 0.88)),
+    #ffffff;
+  box-shadow: 0 22px 48px rgba(88, 28, 135, 0.1);
+}
+
 :global(html[data-contrast='highContrast']) .hero,
 :global(html[data-contrast='highContrast']) .closing {
   color: #000000;

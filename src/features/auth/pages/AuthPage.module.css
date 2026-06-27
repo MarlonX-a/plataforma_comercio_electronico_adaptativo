@@ -223,6 +223,32 @@
   text-decoration: underline;
 }
 
+:global(html[data-theme='light']) .passwordStrengthTrack {
+  background: #ede9fe;
+}
+
+:global(html[data-theme='light']) .passwordStrength[data-strength='low'] .helpText,
+:global(html[data-theme='light']) .mismatchMessage {
+  color: #b91c1c;
+}
+
+:global(html[data-theme='light']) .passwordStrength[data-strength='medium'] .helpText {
+  color: #92400e;
+}
+
+:global(html[data-theme='light']) .passwordStrength[data-strength='high'] .helpText,
+:global(html[data-theme='light']) .matchMessage {
+  color: #047857;
+}
+
+:global(html[data-theme='light']) .submitButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #5b21b6, #6d28d9);
+}
+
+:global(html[data-theme='light']) .successAction:hover {
+  background: #f7f1ff;
+}
+
 :global(html[data-contrast='highContrast']) .errorMessage,
 :global(html[data-contrast='highContrast']) .successMessage {
   color: #000000;

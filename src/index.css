@@ -61,6 +61,39 @@
   font-size: 22px;
 }
 
+:root[data-theme='light'] {
+  --color-bg: #fffafe;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f7f1ff;
+  --color-primary: #7c3aed;
+  --color-secondary: #c4b5fd;
+  --color-accent: #a78bfa;
+  --color-text: #211827;
+  --color-text-muted: #5f5470;
+  --color-border: rgba(109, 40, 217, 0.18);
+  --text: var(--color-text-muted);
+  --text-h: var(--color-text);
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --surface-strong: var(--color-surface-soft);
+  --border: var(--color-border);
+  --code-bg: rgba(124, 58, 237, 0.08);
+  --accent: var(--color-primary);
+  --accent-strong: #6d28d9;
+  --accent-warm: #9333ea;
+  --button-text: #ffffff;
+  --accent-bg: rgba(124, 58, 237, 0.1);
+  --accent-border: rgba(124, 58, 237, 0.34);
+  --ui-border: rgba(139, 92, 246, 0.24);
+  --ui-shadow-card:
+    0 24px 60px rgba(88, 28, 135, 0.1),
+    0 0 0 1px rgba(167, 139, 250, 0.12);
+  --shadow:
+    rgba(88, 28, 135, 0.1) 0 18px 40px -18px,
+    rgba(124, 58, 237, 0.12) 0 8px 18px -12px;
+  color-scheme: light;
+}
+
 :root[data-contrast='highContrast'] {
   --text: #000000;
   --text-h: #000000;
@@ -116,6 +149,14 @@ body {
     radial-gradient(circle at 12% 0%, rgba(0, 217, 255, 0.18), transparent 30rem),
     radial-gradient(circle at 88% 8%, rgba(168, 85, 247, 0.2), transparent 28rem),
     linear-gradient(180deg, #050505, #0a0f1d 48%, #050505);
+  background-attachment: fixed;
+}
+
+:root[data-theme='light'] body {
+  background:
+    radial-gradient(circle at 14% 4%, rgba(196, 181, 253, 0.34), transparent 26rem),
+    radial-gradient(circle at 86% 10%, rgba(221, 214, 254, 0.42), transparent 30rem),
+    linear-gradient(180deg, #ffffff 0%, #fffafe 42%, #f7f1ff 100%);
   background-attachment: fixed;
 }
 
