@@ -781,7 +781,8 @@
 :global(html[data-contrast='highContrast']) .floatingButton,
 :global(html[data-contrast='highContrast']) .switchRow input:checked + .switchTrack {
   color: #ffffff;
-  background: #003d33;
+  background: #0066cc;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.25);
 }
 
 :global(html[data-contrast='highContrast']) .switchText strong,

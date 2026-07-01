@@ -1,0 +1,11 @@
+Transcripcion del video explicativo del chatbox
+
+Hola y bienvenido a nuestro sistema de comercio electronico adaptativo. En esta seccion les vamos a explicar como funciona el chat box, es decir, el asistente virtual que nos va a ayudar con lo que viene siendo los productos y entre otras dudas que tenga el usuario en si sobre la pagina.
+
+Bueno, vamos a seleccionar primero en la parte derecha, en la parte inferior derecha, el asistente de la tienda. Este asistente es bastante simple: lo que va a hacer es ayudarte a resolver tus dudas sobre, por ejemplo, como buscar un producto, como usar las opciones de acervidad o donde revisar los pedidos.
+
+Te vamos a hacer aqui, en este caso, te vamos a mostrar tres opciones de preguntas en las que puedas tener dudas. En si, tambien tienes la opcion de poder grabar tu voz y poder anadir la transcripcion de nuestra voz en el chat para poder asi preguntarle al asistente lo que queremos saber.
+
+En este caso, por ejemplo, vamos a preguntarle como puedo buscar productos. Y en si, aqui lo que va a ser la inteligencia artificial sera respondernos a nuestra pregunta: para buscar productos en nuestra plataforma vamos a utilizar la barra de busqueda que esta en la parte superior a la pagina principal, escribiendo el nombre o clave del producto.
+
+Eso en si se hace desde esta seccion y poner buscar productos. En si, esta parte te permite una mayor comprension de lo que viene siendo el sistema, ya que esta parte lo que te va a hacer es ayudarte a comprender como funcionan ciertas secciones de nuestra aplicacion.

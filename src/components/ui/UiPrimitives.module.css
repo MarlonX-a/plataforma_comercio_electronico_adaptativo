@@ -92,8 +92,8 @@
   border: 1px solid var(--ui-border);
   border-radius: var(--ui-radius-control);
   color: var(--text-h);
-  background: rgba(3, 8, 18, 0.76);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  background: rgba(15, 20, 35, 0.94);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition:
     border-color 160ms ease,
     background-color 160ms ease,
@@ -106,10 +106,10 @@
 
 .formInput:focus {
   border-color: var(--accent);
-  background: rgba(5, 13, 27, 0.96);
+  background: rgba(20, 28, 45, 0.98);
   box-shadow:
     0 0 0 4px var(--accent-bg),
-    0 12px 28px rgba(0, 0, 0, 0.18);
+    0 12px 28px rgba(0, 0, 0, 0.24);
 }
 
 .primaryButton,
@@ -173,13 +173,6 @@
   background: var(--accent);
 }
 
-:global(html[data-contrast='highContrast']) .formCard,
-:global(html[data-contrast='highContrast']) .sectionCard {
-  border: 3px solid #000000;
-  box-shadow: none;
-  background: #ffffff;
-}
-
 :global(html[data-contrast='highContrast']) .formInput {
   border: 2px solid #000000;
   box-shadow: none;
@@ -193,21 +186,22 @@
 }
 
 :global(html[data-contrast='highContrast']) .formInput:focus {
-  border-color: #003d33;
+  border-color: #0066cc;
+  border-width: 2px;
   background: #ffffff;
-  box-shadow: 0 0 0 3px rgba(0, 61, 51, 0.2);
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
 }
 
 :global(html[data-contrast='highContrast']) .primaryButton {
   border: 2px solid #000000;
-  background: #003d33;
+  background: #0066cc;
   color: #ffffff;
-  box-shadow: none;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.25);
 }
 
 :global(html[data-contrast='highContrast']) .primaryButton:hover:not(:disabled) {
-  background: #001f4d;
-  box-shadow: none;
+  background: #003399;
+  box-shadow: 0 4px 6px rgba(0, 51, 153, 0.3);
   transform: translateY(-2px);
   border-color: #000000;
 }
@@ -220,7 +214,8 @@
 }
 
 :global(html[data-contrast='highContrast']) .secondaryButton:hover:not(:disabled) {
-  border-color: #003d33;
+  border-color: #0066cc;
+  border-width: 2px;
   background: #ffffff;
 }
 
@@ -234,7 +229,8 @@
 :global(html[data-contrast='highContrast']) .socialButton:hover {
   color: #ffffff;
   border-color: #000000;
-  background: #003d33;
+  border-width: 2px;
+  background: #0066cc;
 }
 
 @media (max-width: 620px) {

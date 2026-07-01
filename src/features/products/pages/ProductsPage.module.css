@@ -61,16 +61,21 @@
 
 .searchInput input {
   padding-right: 14px;
+  background: rgba(15, 20, 35, 0.94);
+  color: var(--text-h);
 }
 
 .categoryField select {
   padding: 11px 38px 11px 14px;
+  background: rgba(15, 20, 35, 0.94);
+  color: var(--text-h);
 }
 
 .searchInput input:focus,
 .categoryField select:focus {
   border-color: var(--accent);
   outline: 3px solid var(--accent-bg);
+  background: rgba(20, 28, 45, 0.96);
 }
 
 .clearButton,
@@ -213,4 +218,29 @@
   .compareBar span {
     width: 100%;
   }
+}
+
+:global(html[data-theme='light']) .searchInput input,
+:global(html[data-theme='light']) .categoryField select {
+  background: rgba(255, 255, 255, 0.88);
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .searchInput input:focus,
+:global(html[data-theme='light']) .categoryField select:focus {
+  background: rgba(247, 241, 255, 0.94);
+}
+
+:global(html[data-contrast='highContrast']) .searchInput input,
+:global(html[data-contrast='highContrast']) .categoryField select {
+  background: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+:global(html[data-contrast='highContrast']) .searchInput input:focus,
+:global(html[data-contrast='highContrast']) .categoryField select:focus {
+  background: #ffffff;
+  border-color: #0066cc;
+  border-width: 2px;
 }

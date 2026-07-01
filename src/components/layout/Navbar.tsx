@@ -123,10 +123,10 @@ export default function Navbar() {
       setCartItemCount(getCartItemCount());
     };
 
-    window.addEventListener(cartUpdatedEventName, refreshCartCount);
+    globalThis.addEventListener(cartUpdatedEventName, refreshCartCount);
 
     return () => {
-      window.removeEventListener(cartUpdatedEventName, refreshCartCount);
+      globalThis.removeEventListener(cartUpdatedEventName, refreshCartCount);
     };
   }, []);
 
@@ -170,7 +170,7 @@ export default function Navbar() {
   };
 
   const openAccessibilityMenu = () => {
-    window.dispatchEvent(new CustomEvent('open-accessibility-menu'));
+    globalThis.dispatchEvent(new CustomEvent('open-accessibility-menu'));
     setIsProfileMenuOpen(false);
   };
 

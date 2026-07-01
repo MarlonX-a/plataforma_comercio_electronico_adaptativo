@@ -253,6 +253,316 @@
   color: var(--text);
 }
 
+/* Chatbox ayuda */
+.chatboxSection {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--surface-soft) 0%, var(--surface) 100%);
+}
+
+.chatboxSection h2 {
+  margin: 0 0 0.45rem;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.chatboxSection > p {
+  margin: 0 0 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.chatboxSteps {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--text);
+}
+
+.chatboxSteps li {
+  line-height: 1.55;
+}
+
+.chatboxTips {
+  margin-top: 0.9rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--accent-border);
+  border-radius: 0.65rem;
+  background: var(--accent-bg);
+}
+
+.chatboxTips p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+:global(html[data-theme='light']) .chatboxSection {
+  border-color: rgba(124, 58, 237, 0.22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 241, 255, 0.92) 100%);
+}
+
+:global(html[data-theme='light']) .chatboxSection h2 {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .chatboxSection > p {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .chatboxSteps {
+  color: #3d2f55;
+}
+
+:global(html[data-theme='light']) .chatboxTips {
+  border-color: rgba(124, 58, 237, 0.28);
+  background: rgba(237, 233, 254, 0.72);
+}
+
+:global(html[data-theme='light']) .chatboxTips p {
+  color: #3d2f55;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxSection {
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxSection h2,
+:global(html[data-contrast='highContrast']) .chatboxSection > p,
+:global(html[data-contrast='highContrast']) .chatboxSteps,
+:global(html[data-contrast='highContrast']) .chatboxTips p {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxTips {
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
+/* Video explicativo chatbox */
+.chatboxVideoSection {
+  margin-top: 1.2rem;
+  padding: 1.2rem;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--surface-soft) 0%, var(--surface) 100%);
+}
+
+.chatboxVideoSection h2 {
+  margin: 0 0 0.45rem;
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.chatboxVideoSection > p {
+  margin: 0 0 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.chatboxVideoLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.75fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+:global(body:not(.show-transcripts)) .chatboxVideoLayout {
+  grid-template-columns: 1fr;
+}
+
+.chatboxVideoFrame {
+  border: 2px solid var(--border);
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #000000;
+}
+
+.chatboxVideo {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+}
+
+.videoResources {
+  margin: 0.8rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.videoResources li {
+  min-height: 38px;
+  padding: 0.42rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--surface-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.videoResources li svg {
+  flex: 0 0 auto;
+  color: var(--accent-strong);
+}
+
+.chatboxTranscript {
+  overflow: hidden;
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.chatboxTranscript summary {
+  min-height: 50px;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  font-size: 1.05rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.chatboxTranscript summary:hover {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+.chatboxTranscript[open] summary {
+  border-bottom: 2px solid var(--border);
+}
+
+.chatboxTranscriptContent {
+  max-height: min(46vh, 420px);
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.chatboxTranscriptContent h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.chatboxTranscriptContent p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+.chatboxTranscriptContent a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+  font-weight: 800;
+  text-underline-offset: 4px;
+}
+
+:global(html[data-theme='light']) .chatboxVideoSection {
+  border-color: rgba(124, 58, 237, 0.22);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 241, 255, 0.92) 100%);
+}
+
+:global(html[data-theme='light']) .chatboxVideoSection h2 {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .chatboxVideoSection > p {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .chatboxVideoFrame {
+  border-color: rgba(124, 58, 237, 0.28);
+  background: #0f1220;
+}
+
+:global(html[data-theme='light']) .videoResources li {
+  border-color: rgba(124, 58, 237, 0.22);
+  color: #241733;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+:global(html[data-theme='light']) .chatboxTranscript {
+  border-color: rgba(124, 58, 237, 0.22);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+:global(html[data-theme='light']) .chatboxTranscript summary {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .chatboxTranscript summary:hover {
+  color: #5b21b6;
+  background: rgba(237, 233, 254, 0.78);
+}
+
+:global(html[data-theme='light']) .chatboxTranscript[open] summary {
+  border-bottom-color: rgba(124, 58, 237, 0.22);
+}
+
+:global(html[data-theme='light']) .chatboxTranscriptContent h3 {
+  color: #241733;
+}
+
+:global(html[data-theme='light']) .chatboxTranscriptContent p {
+  color: #5f5470;
+}
+
+:global(html[data-theme='light']) .chatboxTranscriptContent a {
+  color: #6d28d9;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxVideoSection {
+  border: 2px solid #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxVideoSection h2,
+:global(html[data-contrast='highContrast']) .chatboxVideoSection > p {
+  color: #000000;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxVideoFrame {
+  border: 2px solid #000000;
+}
+
+:global(html[data-contrast='highContrast']) .videoResources li,
+:global(html[data-contrast='highContrast']) .chatboxTranscript,
+:global(html[data-contrast='highContrast']) .chatboxTranscript[open] summary {
+  border: 2px solid #000000;
+}
+
+:global(html[data-contrast='highContrast']) .videoResources li,
+:global(html[data-contrast='highContrast']) .chatboxTranscript,
+:global(html[data-contrast='highContrast']) .chatboxTranscript summary {
+  color: #000000;
+  background: #ffffff;
+}
+
+:global(html[data-contrast='highContrast']) .chatboxTranscriptContent h3,
+:global(html[data-contrast='highContrast']) .chatboxTranscriptContent p,
+:global(html[data-contrast='highContrast']) .chatboxTranscriptContent a {
+  color: #000000;
+}
+
 /* Contacto */
 .contactSection {
   margin-top: 1.5rem;
@@ -358,6 +668,30 @@
 
   .faqTitle {
     font-size: 1.2rem;
+  }
+
+  .chatboxSection {
+    padding: 1rem;
+  }
+
+  .chatboxSection h2 {
+    font-size: 1.15rem;
+  }
+
+  .chatboxVideoSection {
+    padding: 1rem;
+  }
+
+  .chatboxVideoSection h2 {
+    font-size: 1.1rem;
+  }
+
+  .chatboxVideoLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .chatboxTranscript summary {
+    font-size: 1rem;
   }
 
   .categoryTitle {

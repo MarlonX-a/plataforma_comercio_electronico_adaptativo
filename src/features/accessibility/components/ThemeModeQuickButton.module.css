@@ -1,7 +1,7 @@
 .themeButton {
   position: fixed;
   left: 20px;
-  bottom: 20px;
+  bottom: 90px;
   z-index: 84;
   min-height: 52px;
   padding: 10px 14px;
@@ -54,11 +54,11 @@
 
 :global(html[data-theme='light']) .themeButton {
   color: #4c1d95;
-  border-color: rgba(124, 58, 237, 0.34);
+  border-color: rgba(124, 58, 237, 0.5);
   background:
-    radial-gradient(circle at 20% 12%, rgba(237, 233, 254, 0.92), transparent 58%),
-    rgba(255, 255, 255, 0.92);
-  box-shadow: 0 16px 32px rgba(88, 28, 135, 0.14), 0 0 0 1px rgba(139, 92, 246, 0.14) inset;
+    radial-gradient(circle at 20% 12%, rgba(237, 233, 254, 0.85), transparent 58%),
+    rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 32px rgba(88, 28, 135, 0.12), 0 0 0 1px rgba(124, 58, 237, 0.18) inset;
 }
 
 :global(html[data-theme='light']) .themeButton:hover {
@@ -69,6 +69,27 @@
 :global(html[data-theme='light']) .icon {
   color: #6d28d9;
   background: rgba(237, 233, 254, 0.78);
+}
+
+:global(html[data-contrast='highContrast']) .themeButton {
+  color: #000000;
+  border-color: #000000;
+  border-width: 3px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+:global(html[data-contrast='highContrast']) .themeButton:hover {
+  background: #f8f8f8;
+  border-color: #0066cc;
+  border-width: 3px;
+  box-shadow: 0 6px 12px rgba(0, 102, 204, 0.3);
+}
+
+:global(html[data-contrast='highContrast']) .icon {
+  color: #000000;
+  background: #f0f0f0;
+  border: 2px solid #000000;
 }
 
 @media (max-width: 560px) {

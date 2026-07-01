@@ -35,6 +35,23 @@ const applyMediaPreferences = (preferences: AccessibilityPreferences): void => {
   muteAllMedia(preferences.muteAllMedia);
 };
 
+const mediaSelector = 'video, audio, track, .transcripcion, .transcript, [data-transcript]';
+
+const hasRelevantMediaNode = (addedNode: Node): boolean => {
+  if (addedNode instanceof HTMLVideoElement || addedNode instanceof HTMLAudioElement) {
+    return true;
+  }
+
+  if (!(addedNode instanceof HTMLElement)) {
+    return false;
+  }
+
+  return addedNode.matches(mediaSelector) || addedNode.querySelector(mediaSelector) !== null;
+};
+
+const mutationAddsMediaNodes = (mutations: MutationRecord[]): boolean =>
+  mutations.some((mutation) => Array.from(mutation.addedNodes).some(hasRelevantMediaNode));
+
 export const useAccessibilityPreferences = () => {
   const [preferences, setPreferences] = useState<AccessibilityPreferences>(() =>
     loadAccessibilitySettings(),
@@ -43,6 +60,40 @@ export const useAccessibilityPreferences = () => {
   useEffect(() => {
     applyAccessibilitySettings(preferences);
     applyMediaPreferences(preferences);
+  }, [preferences]);
+
+  useEffect(() => {
+    const scheduleMediaPreferencesApply = () => {
+      globalThis.requestAnimationFrame(() => {
+        applyMediaPreferences(preferences);
+      });
+    };
+
+    const handleMediaMetadataLoaded = (event: Event) => {
+      if (
+        event.target instanceof HTMLVideoElement ||
+        event.target instanceof HTMLAudioElement ||
+        event.target instanceof HTMLTrackElement
+      ) {
+        scheduleMediaPreferencesApply();
+      }
+    };
+
+    const observer = new MutationObserver((mutations) => {
+      if (mutationAddsMediaNodes(mutations)) {
+        scheduleMediaPreferencesApply();
+      }
+    });
+
+    document.addEventListener('loadedmetadata', handleMediaMetadataLoaded, true);
+    document.addEventListener('load', handleMediaMetadataLoaded, true);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      document.removeEventListener('loadedmetadata', handleMediaMetadataLoaded, true);
+      document.removeEventListener('load', handleMediaMetadataLoaded, true);
+      observer.disconnect();
+    };
   }, [preferences]);
 
   const updatePreferences = useCallback((updatedPreferences: AccessibilityPreferences) => {

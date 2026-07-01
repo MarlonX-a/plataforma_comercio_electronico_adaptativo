@@ -6,10 +6,16 @@ import {
   MdSecurity,
   MdPersonAdd,
 } from 'react-icons/md';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoImage from '../assets/images/LogoPro.png';
 import AccessiblePromoVideo from '../components/media/AccessiblePromoVideo';
 import FeatureStackAnimation from '../components/ui/FeatureStackAnimation/FeatureStackAnimation';
+import {
+  getCurrentAuthSession,
+  listenToAuthSession,
+} from '../features/auth/services/authService';
+import type { AuthSession } from '../features/auth/types/auth.types';
 import styles from './HomePage.module.css';
 
 const quickActions = [
@@ -61,6 +67,27 @@ const experienceBenefits = [
 ] as const;
 
 export default function HomePage() {
+  const [authSession, setAuthSession] = useState<AuthSession | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getCurrentAuthSession().then((session) => {
+      if (isMounted) {
+        setAuthSession(session);
+      }
+    });
+
+    const unsubscribe = listenToAuthSession((session) => {
+      setAuthSession(session);
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <div className={styles.page}>
       <section className={styles.hero} aria-labelledby="home-title">
@@ -82,9 +109,11 @@ export default function HomePage() {
               Ver productos
               <MdArrowForward aria-hidden="true" />
             </Link>
-            <Link className={styles.secondaryAction} to="/login">
-              Iniciar sesión
-            </Link>
+            {authSession === null ? (
+              <Link className={styles.secondaryAction} to="/login">
+                Iniciar sesión
+              </Link>
+            ) : null}
           </div>
         </div>
       </section>

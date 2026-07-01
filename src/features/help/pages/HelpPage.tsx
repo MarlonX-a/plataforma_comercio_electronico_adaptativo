@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import {
   MdEmail,
   MdHeadset,
@@ -13,6 +14,7 @@ import {
   MdUndo,
   MdAccessibility,
 } from 'react-icons/md';
+import { FaClosedCaptioning, FaFileLines, FaUniversalAccess } from 'react-icons/fa6';
 import type { FAQ, ContactMethod } from '../types/help.types';
 import styles from './HelpPage.module.css';
 
@@ -85,7 +87,7 @@ const contactMethods: ContactMethod[] = [
 ];
 
 const getContactIcon = (iconType: string) => {
-  const icons: { [key: string]: React.ReactNode } = {
+  const icons: { [key: string]: ReactNode } = {
     email: <MdEmail />,
     headset: <MdHeadset />,
   };
@@ -93,7 +95,7 @@ const getContactIcon = (iconType: string) => {
 };
 
 const getCategoryIcon = (categoryId: string) => {
-  const icons: { [key: string]: React.ReactNode } = {
+  const icons: { [key: string]: ReactNode } = {
     'getting-started': <MdPlayArrow />,
     'shopping': <MdShoppingCart />,
     'account': <MdPerson />,
@@ -128,11 +130,94 @@ const categoryLabels: Record<string, string> = {
   'accessibility': 'Accesibilidad',
 };
 
+type TranscriptPayload = {
+  title: string;
+  paragraphs: string[];
+};
+
+const parseTranscriptPayload = (content: string): TranscriptPayload => {
+  const normalizedContent = content.replaceAll('\r', '').trim();
+  if (!normalizedContent) {
+    return { title: 'Transcripción', paragraphs: [] };
+  }
+
+  const rawBlocks = normalizedContent.split(/\n\s*\n/);
+  const blocks: string[] = [];
+
+  for (const rawBlock of rawBlocks) {
+    const lineParts: string[] = [];
+    for (const rawLine of rawBlock.split('\n')) {
+      const cleanedLine = rawLine.trim();
+      if (cleanedLine) {
+        lineParts.push(cleanedLine);
+      }
+    }
+
+    const joinedBlock = lineParts.join(' ').trim();
+    if (joinedBlock) {
+      blocks.push(joinedBlock);
+    }
+  }
+
+  if (blocks.length === 0) {
+    return { title: 'Transcripción', paragraphs: [] };
+  }
+
+  const firstBlock = blocks[0];
+  if (firstBlock.toLowerCase().includes('transcripcion')) {
+    return {
+      title: firstBlock,
+      paragraphs: blocks.slice(1),
+    };
+  }
+
+  return {
+    title: 'Transcripción',
+    paragraphs: blocks,
+  };
+};
+
 export default function HelpPage() {
   const [expandedFAQ, setExpandedFAQ] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [chatboxTranscriptTitle, setChatboxTranscriptTitle] = useState('Transcripción');
+  const [chatboxTranscriptParagraphs, setChatboxTranscriptParagraphs] = useState<string[]>([]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  useEffect(() => {
+    let isActive = true;
+
+    const loadChatboxTranscript = async () => {
+      try {
+        const response = await fetch('/media/chatbox-cliente-transcripcion.txt', {
+          cache: 'no-store',
+        });
+
+        if (!response.ok) {
+          return;
+        }
+
+        const content = await response.text();
+        const parsedTranscript = parseTranscriptPayload(content);
+
+        if (!isActive) {
+          return;
+        }
+
+        setChatboxTranscriptTitle(parsedTranscript.title);
+        setChatboxTranscriptParagraphs(parsedTranscript.paragraphs);
+      } catch {
+        // Si falla la carga, se mantiene el contenido por defecto.
+      }
+    };
+
+    void loadChatboxTranscript();
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
+  const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
   };
 
@@ -237,6 +322,106 @@ export default function HelpPage() {
             )}
           </div>
         )}
+      </section>
+
+      <section className={styles.chatboxSection} aria-labelledby="chatbox-help-title">
+        <h2 id="chatbox-help-title">Funcionamiento del Asistente Virtual</h2>
+        <p>
+          El asistente de la tienda te guía durante tu compra con respuestas rápidas sobre productos, carrito,
+          pagos, pedidos y accesibilidad.
+        </p>
+
+        <ol className={styles.chatboxSteps}>
+          <li>
+            <strong>Abre el chat:</strong> pulsa el botón flotante de chat en la esquina inferior
+            derecha.
+          </li>
+          <li>
+            <strong>Escribe tu duda:</strong> puedes preguntar, por ejemplo, cómo filtrar productos,
+            agregar al carrito o rastrear un pedido.
+          </li>
+          <li>
+            <strong>Recibe orientación:</strong> el asistente responde en lenguaje simple y te
+            sugiere la ruta dentro de la plataforma.
+          </li>
+          <li>
+            <strong>Si necesitas más ayuda:</strong> usa las opciones de contacto para hablar con
+            soporte humano.
+          </li>
+        </ol>
+
+        <div className={styles.chatboxTips} role="note" aria-label="Recomendaciones de uso del chatbox">
+          <p>
+            <strong>Recomendación:</strong> no compartas contraseñas, códigos de verificación ni datos
+            completos de tarjetas en el chat.
+          </p>
+        </div>
+      </section>
+
+      <section className={styles.chatboxVideoSection} aria-labelledby="chatbox-video-title">
+        <h2 id="chatbox-video-title">Video explicativo</h2>
+
+        <div className={styles.chatboxVideoLayout}>
+          <div>
+            <div className={styles.chatboxVideoFrame}>
+              <video
+                className={styles.chatboxVideo}
+                controls
+                preload="metadata"
+                aria-label="Video explicativo"
+              >
+                <source src="/media/chatbox-cliente-explicativo.mp4" type="video/mp4" />
+                <track
+                  default
+                  kind="captions"
+                  src="/media/chatbox-cliente-explicativo.vtt"
+                  srcLang="es"
+                  label="Español (CC)"
+                />
+                <track
+                  kind="descriptions"
+                  src="/media/chatbox-cliente-audiodescripcion.vtt"
+                  srcLang="es"
+                  label="Audiodescripción"
+                />
+                Tu navegador no soporta video HTML5. Puedes descargar el archivo directamente desde la carpeta media.
+              </video>
+            </div>
+
+            <ul className={styles.videoResources} aria-label="Recursos del video del chatbox">
+              <li>
+                <FaClosedCaptioning aria-hidden="true" />
+                Subtítulos en español
+              </li>
+              <li>
+                <FaUniversalAccess aria-hidden="true" />
+                Audiodescripción
+              </li>
+              <li>
+                <FaFileLines aria-hidden="true" />
+                Transcripción completa
+              </li>
+            </ul>
+          </div>
+
+          <details className={`${styles.chatboxTranscript} transcripcion`} data-transcript>
+            <summary>Leer transcripción del video</summary>
+            <div className={styles.chatboxTranscriptContent}>
+              <h3>{chatboxTranscriptTitle}</h3>
+              {chatboxTranscriptParagraphs.length > 0 ? (
+                chatboxTranscriptParagraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)
+              ) : (
+                <p>
+                  Aún no hay contenido en la transcripción. Puedes actualizar
+                  /media/chatbox-cliente-transcripcion.txt para mostrar el texto completo del video.
+                </p>
+              )}
+              <a href="/media/chatbox-cliente-transcripcion.txt" download>
+                Descargar transcripción en formato TXT
+              </a>
+            </div>
+          </details>
+        </div>
       </section>
 
       <section className={styles.contactSection}>

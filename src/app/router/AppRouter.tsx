@@ -3,6 +3,7 @@ import AppLayout from '../../components/layout/AppLayout';
 import CompleteProfilePage from '../../features/auth/pages/CompleteProfilePage';
 import LoginPage from '../../features/auth/pages/LoginPage';
 import RegisterPage from '../../features/auth/pages/RegisterPage';
+import ResetPasswordPage from '../../features/auth/pages/ResetPasswordPage';
 import CartPage from '../../features/cart/pages/CartPage';
 import CheckoutPage from '../../features/checkout/pages/CheckoutPage';
 import OrdersPage from '../../features/checkout/pages/OrdersPage';
@@ -22,6 +23,7 @@ export default function AppRouter() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/complete-profile" element={<CompleteProfilePage />} />
           <Route path="/profile" element={<CompleteProfilePage />} />
           <Route path="/products" element={<ProductsPage />} />

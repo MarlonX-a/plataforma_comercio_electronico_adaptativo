@@ -165,6 +165,59 @@ export async function registerWithEmail(values: RegisterFormValues): Promise<Aut
   };
 }
 
+export async function requestPasswordReset(email: string): Promise<AuthOperationResult> {
+  const trimmedEmail = email.trim();
+  if (!trimmedEmail) {
+    return {
+      isSuccess: false,
+      message: 'Ingresa tu correo electrónico para recuperar la contraseña.',
+    };
+  }
+
+  const redirectTo = `${globalThis.location.origin}/reset-password`;
+
+  const { error } = await supabase.auth.resetPasswordForEmail(trimmedEmail, {
+    redirectTo,
+  });
+
+  if (error) {
+    return {
+      isSuccess: false,
+      message: getAuthErrorMessage(error.message),
+    };
+  }
+
+  return {
+    isSuccess: true,
+    message:
+      'Te enviamos un correo con instrucciones para recuperar tu contraseña. Revisa tu bandeja de entrada.',
+  };
+}
+
+export async function updateCurrentUserPassword(password: string): Promise<AuthOperationResult> {
+  const trimmedPassword = password.trim();
+  if (!trimmedPassword) {
+    return {
+      isSuccess: false,
+      message: 'Ingresa una nueva contraseña.',
+    };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: trimmedPassword });
+
+  if (error) {
+    return {
+      isSuccess: false,
+      message: getAuthErrorMessage(error.message),
+    };
+  }
+
+  return {
+    isSuccess: true,
+    message: 'Tu contraseña fue actualizada correctamente. Ya puedes iniciar sesión.',
+  };
+}
+
 export async function logout(): Promise<AuthOperationResult> {
   const { error } = await supabase.auth.signOut();
 

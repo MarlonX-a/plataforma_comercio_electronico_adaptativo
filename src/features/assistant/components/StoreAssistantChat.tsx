@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import type { FormEvent, KeyboardEvent } from 'react';
+import type { Dispatch, KeyboardEvent, SetStateAction, SyntheticEvent } from 'react';
 import {
   FaArrowUp,
   FaComments,
   FaRobot,
+  FaMicrophone,
+  FaMicrophoneSlash,
   FaRotateLeft,
   FaXmark,
 } from 'react-icons/fa6';
@@ -11,6 +13,48 @@ import { Link, useLocation } from 'react-router-dom';
 import { askStoreAssistant, assistantMessageMaxLength } from '../services/assistantService';
 import type { AssistantMessage } from '../types/assistant.types';
 import styles from './StoreAssistantChat.module.css';
+
+type SpeechRecognitionAlternativeLike = {
+  transcript: string;
+};
+
+type SpeechRecognitionResultLike = {
+  isFinal: boolean;
+  length: number;
+  [index: number]: SpeechRecognitionAlternativeLike;
+};
+
+type SpeechRecognitionResultEventLike = {
+  results: ArrayLike<SpeechRecognitionResultLike>;
+};
+
+type SpeechRecognitionErrorEventLike = {
+  error: string;
+};
+
+type SpeechRecognitionController = {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  start: () => void;
+  stop: () => void;
+  abort: () => void;
+  onresult: ((event: SpeechRecognitionResultEventLike) => void) | null;
+  onerror: ((event: SpeechRecognitionErrorEventLike) => void) | null;
+  onend: (() => void) | null;
+};
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionController;
+
+type SpeechRecognitionWindow = Window & {
+  SpeechRecognition?: SpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+};
+
+type SpeechRecognitionGlobal = typeof globalThis & {
+  SpeechRecognition?: SpeechRecognitionConstructor;
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+};
 
 const initialMessages: AssistantMessage[] = [
   {
@@ -36,6 +80,197 @@ const createMessage = (
   content,
 });
 
+const useSpeechDictation = (
+  setMessageDraft: Dispatch<SetStateAction<string>>,
+  setStatusMessage: Dispatch<SetStateAction<string>>,
+) => {
+  const [isDictating, setIsDictating] = useState(false);
+  const [speechRecognitionSupported, setSpeechRecognitionSupported] = useState(false);
+  const speechRecognitionRef = useRef<SpeechRecognitionController | null>(null);
+
+  useEffect(() => {
+    const speechGlobal = globalThis as SpeechRecognitionGlobal;
+    const SpeechRecognition = speechGlobal.SpeechRecognition ?? speechGlobal.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      setSpeechRecognitionSupported(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'es-ES';
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0]?.transcript ?? '')
+        .join('')
+        .trim();
+
+      if (transcript) {
+        setMessageDraft(transcript);
+      }
+
+      const lastResult = event.results[event.results.length - 1];
+      setStatusMessage(
+        lastResult?.isFinal
+          ? 'Dictado transcrito. Revisa el texto antes de enviarlo.'
+          : 'Escuchando...',
+      );
+    };
+    recognition.onerror = (event) => {
+      setIsDictating(false);
+
+      if (event.error === 'not-allowed' || event.error === 'service-not-allowed') {
+        setStatusMessage('Permite el acceso al micrófono para dictar tu pregunta.');
+        return;
+      }
+
+      if (event.error === 'no-speech') {
+        setStatusMessage('No se detectó voz. Intenta de nuevo.');
+        return;
+      }
+
+      setStatusMessage('No se pudo iniciar el dictado por voz.');
+    };
+    recognition.onend = () => {
+      setIsDictating(false);
+    };
+
+    speechRecognitionRef.current = recognition;
+    setSpeechRecognitionSupported(true);
+
+    return () => {
+      recognition.abort();
+      speechRecognitionRef.current = null;
+    };
+  }, [setMessageDraft, setStatusMessage]);
+
+  const stopDictation = () => {
+    speechRecognitionRef.current?.stop();
+  };
+
+  const toggleDictation = (isLoading: boolean) => {
+    if (!speechRecognitionSupported || !speechRecognitionRef.current || isLoading) {
+      return;
+    }
+
+    if (isDictating) {
+      stopDictation();
+      setStatusMessage('Dictado detenido.');
+      return;
+    }
+
+    try {
+      speechRecognitionRef.current.start();
+      setIsDictating(true);
+      setStatusMessage('Escuchando...');
+    } catch {
+      setIsDictating(false);
+      setStatusMessage('No se pudo activar el micrófono.');
+    }
+  };
+
+  return {
+    isDictating,
+    speechRecognitionSupported,
+    stopDictation,
+    toggleDictation,
+  };
+};
+
+type SendAssistantMessageParams = {
+  content: string;
+  currentPath: string;
+  currentMessages: AssistantMessage[];
+  isLoading: boolean;
+  stopDictation: () => void;
+  setMessages: Dispatch<SetStateAction<AssistantMessage[]>>;
+  setMessageDraft: Dispatch<SetStateAction<string>>;
+  setStatusMessage: Dispatch<SetStateAction<string>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
+};
+
+const sendAssistantMessage = async ({
+  content,
+  currentPath,
+  currentMessages,
+  isLoading,
+  stopDictation,
+  setMessages,
+  setMessageDraft,
+  setStatusMessage,
+  setIsLoading,
+}: SendAssistantMessageParams): Promise<void> => {
+  const trimmedContent = content.trim();
+
+  if (!trimmedContent || isLoading) {
+    return;
+  }
+
+  stopDictation();
+
+  const userMessage = createMessage('user', trimmedContent);
+  const conversationHistory = currentMessages.map(({ role, content: messageContent }) => ({
+    role,
+    content: messageContent,
+  }));
+
+  setMessages((currentConversation) => [...currentConversation, userMessage]);
+  setMessageDraft('');
+  setStatusMessage('El asistente está preparando una respuesta.');
+  setIsLoading(true);
+
+  const result = await askStoreAssistant({
+    message: trimmedContent,
+    currentPath,
+    history: conversationHistory,
+  });
+
+  setIsLoading(false);
+
+  if (!result.isSuccess) {
+    setStatusMessage(result.message);
+    return;
+  }
+
+  setMessages((currentConversation) => [
+    ...currentConversation,
+    createMessage('assistant', result.answer),
+  ]);
+  setStatusMessage(
+    result.isFallback
+      ? 'Respuesta de ayuda local. La conexión con la IA no está disponible.'
+      : 'Respuesta recibida.',
+  );
+};
+
+const handleAssistantDraftKeyDown = (
+  event: KeyboardEvent<HTMLTextAreaElement>,
+  sendMessage: () => void,
+): void => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+};
+
+const getMicButtonLabel = (supported: boolean, isDictating: boolean): string => {
+  if (!supported) {
+    return 'Dictado por voz no disponible en este navegador';
+  }
+
+  return isDictating ? 'Detener dictado por voz' : 'Dictar pregunta por voz';
+};
+
+const getMicButtonTitle = (supported: boolean, isDictating: boolean): string => {
+  if (!supported) {
+    return 'Dictado no disponible en este navegador';
+  }
+
+  return isDictating ? 'Detener dictado' : 'Dictar pregunta';
+};
+
 export default function StoreAssistantChat() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,20 +282,44 @@ export default function StoreAssistantChat() {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const messageInputRef = useRef<HTMLTextAreaElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { isDictating, speechRecognitionSupported, stopDictation, toggleDictation } =
+    useSpeechDictation(setMessageDraft, setStatusMessage);
+
+  const closeAssistant = () => {
+    stopDictation();
+    setIsOpen(false);
+  };
+
+  const sendMessage = (content: string) => {
+    sendAssistantMessage({
+      content,
+      currentPath: location.pathname,
+      currentMessages: messages,
+      isLoading,
+      stopDictation,
+      setMessages,
+      setMessageDraft,
+      setStatusMessage,
+      setIsLoading,
+    });
+  };
+
+  const micButtonAriaLabel = getMicButtonLabel(speechRecognitionSupported, isDictating);
+  const micButtonTitle = getMicButtonTitle(speechRecognitionSupported, isDictating);
 
   useEffect(() => {
     const openAssistant = () => {
       setIsOpen(true);
 
-      window.requestAnimationFrame(() => {
+      globalThis.requestAnimationFrame(() => {
         messageInputRef.current?.focus();
       });
     };
 
-    window.addEventListener('open-store-assistant-chat', openAssistant);
+    globalThis.addEventListener('open-store-assistant-chat', openAssistant);
 
     return () => {
-      window.removeEventListener('open-store-assistant-chat', openAssistant);
+      globalThis.removeEventListener('open-store-assistant-chat', openAssistant);
     };
   }, []);
 
@@ -74,13 +333,13 @@ export default function StoreAssistantChat() {
         return;
       }
 
-      setIsOpen(false);
+      closeAssistant();
       triggerRef.current?.focus();
     };
 
     const handleOutsideClick = (event: MouseEvent) => {
       if (event.target instanceof Node && !wrapperRef.current?.contains(event.target)) {
-        setIsOpen(false);
+        closeAssistant();
       }
     };
 
@@ -98,63 +357,19 @@ export default function StoreAssistantChat() {
   }, [messages, isLoading]);
 
   const resetConversation = () => {
+    stopDictation();
     setMessages(initialMessages);
     setMessageDraft('');
     setStatusMessage('Conversación reiniciada.');
   };
 
-  const sendMessage = async (content: string) => {
-    const trimmedContent = content.trim();
-
-    if (!trimmedContent || isLoading) {
-      return;
-    }
-
-    const userMessage = createMessage('user', trimmedContent);
-    const conversationHistory = messages.map(({ role, content: messageContent }) => ({
-      role,
-      content: messageContent,
-    }));
-
-    setMessages((currentMessages) => [...currentMessages, userMessage]);
-    setMessageDraft('');
-    setStatusMessage('El asistente está preparando una respuesta.');
-    setIsLoading(true);
-
-    const result = await askStoreAssistant({
-      message: trimmedContent,
-      currentPath: location.pathname,
-      history: conversationHistory,
-    });
-
-    setIsLoading(false);
-
-    if (!result.isSuccess) {
-      setStatusMessage(result.message);
-      return;
-    }
-
-    setMessages((currentMessages) => [
-      ...currentMessages,
-      createMessage('assistant', result.answer),
-    ]);
-    setStatusMessage(
-      result.isFallback
-        ? 'Respuesta de ayuda local. La conexión con la IA no está disponible.'
-        : 'Respuesta recibida.',
-    );
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
-    void sendMessage(messageDraft);
+    sendMessage(messageDraft);
   };
 
   const handleDraftKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      void sendMessage(messageDraft);
-    }
+    handleAssistantDraftKeyDown(event, () => sendMessage(messageDraft));
   };
 
   return (
@@ -211,12 +426,12 @@ export default function StoreAssistantChat() {
               </article>
             ))}
             {isLoading ? (
-              <div className={styles.typingMessage} role="status">
+              <output className={styles.typingMessage} aria-live="polite" aria-label="El asistente está escribiendo">
                 <span />
                 <span />
                 <span />
                 <span className={styles.srOnly}>El asistente está escribiendo</span>
-              </div>
+              </output>
             ) : null}
             <div ref={messagesEndRef} />
           </div>
@@ -224,7 +439,7 @@ export default function StoreAssistantChat() {
           {messages.length === 1 ? (
             <div className={styles.suggestions} aria-label="Preguntas sugeridas">
               {suggestedQuestions.map((question) => (
-                <button key={question} type="button" onClick={() => void sendMessage(question)}>
+                <button key={question} type="button" onClick={() => sendMessage(question)}>
                   {question}
                 </button>
               ))}
@@ -232,7 +447,7 @@ export default function StoreAssistantChat() {
           ) : null}
 
           <form className={styles.composer} onSubmit={handleSubmit}>
-            <label htmlFor="store-assistant-message">Escribe tu pregunta</label>
+            <label htmlFor="store-assistant-message">Escribe o dicta tu pregunta</label>
             <div className={styles.composerControl}>
               <textarea
                 ref={messageInputRef}
@@ -246,6 +461,21 @@ export default function StoreAssistantChat() {
                 onChange={(event) => setMessageDraft(event.target.value)}
                 onKeyDown={handleDraftKeyDown}
               />
+              <button
+                type="button"
+                className={`${styles.micButton} ${isDictating ? styles.micButtonActive : ''}`}
+                onClick={() => toggleDictation(isLoading)}
+                disabled={isLoading || !speechRecognitionSupported}
+                aria-pressed={isDictating}
+                aria-label={micButtonAriaLabel}
+                title={micButtonTitle}
+              >
+                {isDictating ? (
+                  <FaMicrophoneSlash aria-hidden="true" />
+                ) : (
+                  <FaMicrophone aria-hidden="true" />
+                )}
+              </button>
               <button
                 type="submit"
                 className={styles.sendButton}
@@ -276,7 +506,7 @@ export default function StoreAssistantChat() {
         aria-label={isOpen ? 'Cerrar asistente de la tienda' : 'Abrir asistente de la tienda'}
         aria-controls="store-assistant-panel"
         aria-expanded={isOpen}
-        onClick={() => setIsOpen((currentValue) => !currentValue)}
+        onClick={() => (isOpen ? closeAssistant() : setIsOpen(true))}
       >
         <FaComments aria-hidden="true" />
       </button>

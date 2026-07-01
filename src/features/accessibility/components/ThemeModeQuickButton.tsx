@@ -1,4 +1,5 @@
 import { FaDisplay, FaMoon, FaSun } from 'react-icons/fa6';
+import type { ReactNode } from 'react';
 import { useAccessibilityPreferences } from '../hooks/useAccessibilityPreferences';
 import type { ThemeMode } from '../types/accessibility.types';
 import styles from './ThemeModeQuickButton.module.css';
@@ -6,7 +7,7 @@ import styles from './ThemeModeQuickButton.module.css';
 type ThemeModeButtonOption = {
   value: ThemeMode;
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
 };
 
 const themeModeButtonOptions: ThemeModeButtonOption[] = [

@@ -324,7 +324,7 @@
 :global(html[data-contrast='highContrast']) .closing {
   color: #000000;
   border-color: #000000;
-  background: #f0f0f0;
+  background: #f8f8f8;
 }
 
 :global(html[data-contrast='highContrast']) .hero h1 {
@@ -334,7 +334,7 @@
 
 :global(html[data-contrast='highContrast']) .hero .kicker,
 :global(html[data-contrast='highContrast']) .hero p {
-  color: #003d33;
+  color: #0066cc;
 }
 
 :global(html[data-contrast='highContrast']) .summary {
@@ -344,51 +344,56 @@
 :global(html[data-contrast='highContrast']) .primaryAction,
 :global(html[data-contrast='highContrast']) .closing a {
   color: #ffffff;
-  border-color: #003d33;
-  background: #003d33;
+  border-color: #0066cc;
+  background: #0066cc;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.25);
 }
 
 :global(html[data-contrast='highContrast']) .primaryAction:hover,
 :global(html[data-contrast='highContrast']) .closing a:hover {
-  background: #001f4d;
-  border-color: #001f4d;
+  background: #003399;
+  border-color: #003399;
+  box-shadow: 0 4px 6px rgba(0, 51, 153, 0.3);
 }
 
 :global(html[data-contrast='highContrast']) .secondaryAction {
   color: #000000;
   border-color: #000000;
   background: #ffffff;
+  border-width: 2px;
 }
 
 :global(html[data-contrast='highContrast']) .secondaryAction:hover {
-  border-color: #003d33;
-  background: #f0f0f0;
+  border-color: #0066cc;
+  background: #f8f8f8;
+  border-width: 2px;
 }
 
 :global(html[data-contrast='highContrast']) .actionCard {
   border: 2px solid #000000;
-  box-shadow: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background: #ffffff;
   color: #000000;
 }
 
 :global(html[data-contrast='highContrast']) .actionCard:hover {
-  border-color: #003d33;
-  box-shadow: none;
-  background: #f0f0f0;
+  border-color: #0066cc;
+  border-width: 2px;
+  box-shadow: 0 4px 8px rgba(0, 102, 204, 0.2);
+  background: #f8f8f8;
 }
 
 :global(html[data-contrast='highContrast']) .actionIcon {
   color: #ffffff;
-  background: #003d33;
+  background: #0066cc;
 }
 
 :global(html[data-contrast='highContrast']) .actionCard > a {
-  color: #003d33;
+  color: #0066cc;
 }
 
 :global(html[data-contrast='highContrast']) .closing {
-  border-left: 5px solid #003d33;
+  border-left: 5px solid #0066cc;
 }
 
 :global(html[data-contrast='highContrast']) .closing h2 {

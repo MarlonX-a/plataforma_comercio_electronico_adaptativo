@@ -199,13 +199,15 @@
 :global(html[data-contrast='highContrast']) .socialList a {
   color: #ffffff;
   border-color: #000000;
-  background: #003d33;
+  background: #0066cc;
+  box-shadow: 0 2px 4px rgba(0, 102, 204, 0.25);
 }
 
 :global(html[data-contrast='highContrast']) .socialList a:hover {
   color: #ffffff;
-  background: #001f4d;
-  border-color: #000000;
+  background: #003399;
+  border-color: #0066cc;
+  box-shadow: 0 4px 6px rgba(0, 51, 153, 0.3);
 }
 
 @media (max-width: 920px) {

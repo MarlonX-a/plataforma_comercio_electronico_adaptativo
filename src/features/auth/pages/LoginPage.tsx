@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FormEvent } from 'react';
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import uiStyles from '../../../components/ui/UiPrimitives.module.css';
 import { getCurrentAuthSession, isUserProfileComplete, loginWithEmail } from '../services/authService';
+import {
+  clearRememberedLoginCredentials,
+  loadRememberedLoginCredentials,
+  saveRememberedLoginCredentials,
+} from '../services/rememberedCredentialsService';
 import type { LoginFormValues } from '../types/auth.types';
 import styles from './AuthPage.module.css';
 
@@ -19,6 +24,20 @@ export default function LoginPage() {
   const [isError, setIsError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [rememberPassword, setRememberPassword] = useState(false);
+
+  useEffect(() => {
+    const rememberedCredentials = loadRememberedLoginCredentials();
+    if (!rememberedCredentials) {
+      return;
+    }
+
+    setFormValues({
+      email: rememberedCredentials.email,
+      password: rememberedCredentials.password,
+    });
+    setRememberPassword(true);
+  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,6 +51,15 @@ export default function LoginPage() {
     setIsSubmitting(false);
 
     if (result.isSuccess) {
+      if (rememberPassword) {
+        saveRememberedLoginCredentials({
+          email: formValues.email,
+          password: formValues.password,
+        });
+      } else {
+        clearRememberedLoginCredentials();
+      }
+
       const session = await getCurrentAuthSession();
       const isProfileComplete = session ? await isUserProfileComplete(session.userId) : false;
       navigate(isProfileComplete ? '/' : '/complete-profile');
@@ -105,6 +133,21 @@ export default function LoginPage() {
               </button>
             </div>
           </div>
+
+          <label className={styles.rememberPasswordOption} htmlFor="remember-password">
+            <input
+              id="remember-password"
+              name="remember-password"
+              type="checkbox"
+              checked={rememberPassword}
+              onChange={(event) => setRememberPassword(event.target.checked)}
+            />
+            <span>Recordar contraseña en este dispositivo</span>
+          </label>
+
+          <p className={styles.forgotPasswordText}>
+            <Link to="/reset-password">He olvidado mi contraseña</Link>
+          </p>
 
           {statusMessage ? (
             <p
